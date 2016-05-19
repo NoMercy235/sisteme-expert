@@ -21,11 +21,11 @@ import java.nio.file.Paths;
  */
 public class ConexiuneProlog {
 //    File f = new File("C:/Users/Program%20Files/SICStus Prolog VC12 4.3.2/bin/sicstus.exe");
-    String caleExecutabilSicstus = "C:\\Program Files\\SICStus Prolog VC12 4.3.2\\bin\\sicstus.exe";
+    String caleExecutabilSicstus = "C:\\Program Files\\SICStus Prolog VC12 4.3.2\\bin\\spwin.exe";
 //    String caleExecutabilSicstus = "C://Users/'Program Files'/'SICStus Prolog VC12 4.3.2'/bin/sicstus-4.3.2.exe";
 //    Path path = Paths.get("C:\\Program Files\\SICStus Prolog VC12 4.3.2\\bin\\sicstus-4.3.2.exe");
 //    final String caleExecutabilSicstus = path.toString();
-    final String nume_fisier="exemplu_prolog.pl";
+    final String nume_fisier="my_project/sist.pl";
     //final String nume_fisier="ceva_simplu.pl";    
     final String scop="inceput.";    
     //final String scop="main.";

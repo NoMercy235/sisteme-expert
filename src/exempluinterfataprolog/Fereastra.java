@@ -44,6 +44,8 @@ public class Fereastra extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaDebug = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        tfInput = new javax.swing.JTextField();
+        btIncarca = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +73,13 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
+        btIncarca.setLabel("Incarca");
+        btIncarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIncarcaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -85,7 +94,11 @@ public class Fereastra extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btIncarca, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                    .addComponent(tfInput))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,11 +107,17 @@ public class Fereastra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfParametru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(okButton)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                    .addComponent(jButton1)
+                    .addComponent(tfInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btIncarca)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
         );
+
+        tfInput.getAccessibleContext().setAccessibleName("");
+        btIncarca.getAccessibleContext().setAccessibleName("btIncarca");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,6 +151,22 @@ public class Fereastra extends javax.swing.JFrame {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncarcaActionPerformed
+        // TODO add your handling code here: String valoareParametru=tfParametru.getText();
+        String input = tfInput.getText();
+        tfInput.setText("");
+        try {
+            // se transmite mesaj cu ce am citit noiq
+            // String comanda = "comanda(incarca(\'F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/reguli.txt\'))." ;
+            // String comanda = "comanda(incarca('F:\\NgenH\\Projects\\Prolog\\ExempluInterfataProlog\\my_project\\reguli.txt')\')." ;
+            String comanda = "'comanda(incarca(reguli.txt))'." ;
+            // String comanda = TODO get dynamic input
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btIncarcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,11 +216,13 @@ public class Fereastra extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btIncarca;
     private javax.swing.ButtonGroup grupBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton okButton;
     private javax.swing.JTextArea textAreaDebug;
+    private javax.swing.JTextField tfInput;
     private javax.swing.JTextField tfParametru;
     // End of variables declaration//GEN-END:variables
 }

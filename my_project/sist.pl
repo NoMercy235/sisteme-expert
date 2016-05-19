@@ -10,6 +10,87 @@
 :-dynamic regula/3.
 :-discontiguous citeste_cuvant/3.
 
+%  #############################################    COMMUNICATION    ################################################3
+
+:-use_module(library(sockets)).
+
+% flash output curata buffer-ul. trebuie apelat imediat dupa un write.
+inceput:-format('Salutare\n',[]),	flush_output,
+				prolog_flag(argv, [PortSocket|_]), %preiau numarul portului, dat ca argument cu -a
+				% portul este atom, nu constanta numerica, asa ca trebuie sa il convertim la numar
+				% trebuie transformat portul din string in int
+				atom_chars(PortSocket,LCifre),
+				number_chars(Port,LCifre),%transforma lista de cifre in numarul din 
+				
+				% aici se deschiide conexiunea spre interfata pe localhost si portul obtinut
+				% se scrie si se citeste pe acelasi stream si se trimite text
+				socket_client_open(localhost: Port, Stream, [type(text)]),
+				
+				% asta citeste si procezeaza cate o comanda
+				proceseaza_text_primit(Stream,0).
+				
+				
+proceseaza_text_primit(Stream,C):-
+				% citim de pe stream (trebuie sa pui punct dupa fiecare comanda)
+				read(Stream,CevaCitit),
+				proceseaza_termen_citit(Stream,CevaCitit,C).
+				
+% C numara numarul de comenzi date(incepe de la 0 mai sus)			
+
+proceseaza_termen_citit(Stream,salut,C):-
+				% daca am citit salut, se intra pe ramura asta si raspunde cu salut bre
+				write(Stream,'salut, bre!\n'),
+				flush_output(Stream),
+				C1 is C+1,
+				proceseaza_text_primit(Stream,C1).
+				
+proceseaza_termen_citit(Stream,'ce mai faci?',C):-
+				write(Stream,'ma plictisesc...\n'),
+				flush_output(Stream),
+				C1 is C+1,
+				proceseaza_text_primit(Stream,C1).
+				
+proceseaza_termen_citit(Stream, X + Y,C):-
+				Rez is X+Y,
+				write(Stream,Rez),nl(Stream),
+				flush_output(Stream),
+				C1 is C+1,
+				proceseaza_text_primit(Stream,C1).
+				
+oras(bucuresti, mare).				
+oras(pitesti, mic).				
+proceseaza_termen_citit(Stream, oras(X),C):-
+				oras(X,Tip),
+				format(Stream,'~p este un oras ~p\n',[X,Tip]),
+				flush_output(Stream),
+				C1 is C+1,
+				proceseaza_text_primit(Stream,C1).
+				
+proceseaza_termen_citit(Stream, X, _):-
+				(X == end_of_file ; X == exit),
+				close(Stream).
+				
+proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
+				nl, nl,
+				write(F), nl, nl, nl,
+				incarca(Stream, F),
+				flash_output(Stream),
+				C1 is C + 1,
+				proceseaza_text_primit(Stream, C1)
+				.
+	
+			
+proceseaza_termen_citit(Stream, Altceva,C):-
+				write(Stream,'nu inteleg ce vrei sa spui: '),write(Stream,Altceva),nl(Stream),
+				flush_output(Stream),
+				C1 is C+1,
+				proceseaza_text_primit(Stream,C1).
+
+
+
+%  #############################################    COMMUNICATION    ################################################3
+
+
 tab(N) :- N>0,N1 is N-1, write(' '), tab(N1).
 tab(0).
 
@@ -257,17 +338,22 @@ combina(FC1,FC2,FC) :-
 
 incarca :-
 	write('Introduceti numele fisierului care doriti sa fie incarcat: '),nl, write('|:'),read(F),
-	file_exists(F),!,incarca(F).  % daca exista fisierul si e totul okey, il incarca
-incarca:-write('Nume incorect de fisier! '),nl,fail.
+	file_exists(F), !, incarca(_, F).  % daca exista fisierul si e totul okey, il incarca
+incarca :-
+	write('Nume incorect de fisier! '),nl,fail.
 
 % interograt si fapt a explicat deja cica
 % scop memoreaza atributul scop
 % interogabil memoreaza intrebarile. primul parametru este atributul. al doilea e lista de optiuni. al treilea este intrebarea in sine
-incarca(F) :-
+incarca(Stream, F) :-
 	retractall(interogat(_)),retractall(fapt(_, _, _)),
 	retractall(scop(_)),retractall(interogabil(_, _, _)),
 	retractall(regula(_, _, _)),
-	see(F),incarca_reguli, seen, !. % see citeste din fisier. seen inchide fisierul
+	see(F),incarca_reguli, seen, !, write(Stream, 'ok\n'). % see citeste din fisier. seen inchide fisierul
+	
+incarca(Stream, _):-
+	write(Stream, 'eroare_incarcare\n')
+	.
 
 incarca_reguli :-
 	repeat, citeste_propozitie(L),		%citeste linie citea pana la \n. citeste propozitie citeste pana la .
