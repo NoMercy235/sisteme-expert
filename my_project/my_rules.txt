@@ -1,0 +1,15 @@
+scop%%personaj.
+
+regula nr %% 1
+personaj %% triss fact certitudine %% 90
+enum conditii
+	[par %% rosu],
+	[vrajitoare],
+	[not inamic]
+.
+
+
+
+intrebare [par ;
+text: 'Ce culoare are parul?' ;
+variante : [rosu] ].

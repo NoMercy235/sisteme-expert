@@ -58,7 +58,7 @@ proceseaza_termen_citit(Stream, X + Y,C):-
 				proceseaza_text_primit(Stream,C1).
 				
 oras(bucuresti, mare).				
-oras(pitesti, mic).				
+oras(pitesti, mic).
 proceseaza_termen_citit(Stream, oras(X),C):-
 				oras(X,Tip),
 				format(Stream,'~p este un oras ~p\n',[X,Tip]),
@@ -74,7 +74,7 @@ proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
 				nl, nl,
 				write(F), nl, nl, nl,
 				incarca(Stream, F),
-				flash_output(Stream),
+				flush_output(Stream),
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
 				.
@@ -338,9 +338,16 @@ combina(FC1,FC2,FC) :-
 
 incarca :-
 	write('Introduceti numele fisierului care doriti sa fie incarcat: '),nl, write('|:'),read(F),
-	file_exists(F), !, incarca(_, F).  % daca exista fisierul si e totul okey, il incarca
+	file_exists(F), !, incarca_prolog(F).  % daca exista fisierul si e totul okey, il incarca
 incarca :-
 	write('Nume incorect de fisier! '),nl,fail.
+	
+incarca_prolog( F) :-
+	retractall(interogat(_)),retractall(fapt(_, _, _)),
+	retractall(scop(_)),retractall(interogabil(_, _, _)),
+	retractall(regula(_, _, _)),
+	see(F),incarca_reguli, seen, !. % see citeste din fisier. seen inchide fisierul
+	
 
 % interograt si fapt a explicat deja cica
 % scop memoreaza atributul scop
@@ -356,7 +363,7 @@ incarca(Stream, _):-
 	.
 
 incarca_reguli :-
-	repeat, citeste_propozitie(L),		%citeste linie citea pana la \n. citeste propozitie citeste pana la .
+	repeat, citeste_propozitie(L),		% citeste linie citea pana la \n. citeste propozitie citeste pana la .
 	proceseaza(L), L == [end_of_file], nl.  % proceseaza e cel care interpreteaza informatia citita
 
 proceseaza([end_of_file]):-!.  % daca sunt la final, pa
@@ -364,50 +371,51 @@ proceseaza(L) :-
 	% fiecare propozitie se transforma intr-un fapt
 	% trad: in R pune faptul pe care trebuie sa il assertam 
 	% foloseste assertz pentru a le pune fix in ordinea in care sunt citite
-	trad(R,L,[]),assertz(R), !. 
+	trad(R,L,[]), write(R), nl, assertz(R), !. 
 	
 % reguli DCG  - reguli speciale de parsare
 % predicat care face propozitii de tip: subiect predicat complement
 % articol + subs = subiect; predicat = verb; complement = prepozitie + substantiv
 % deci trad asta stie ca daca ii vine o propozitie de genul scopul este [ceva], atunci [ceva] e returnat in X
 % scop(X) este R-ul de mai sus. Deci R este scop de X daca trad se descompune in 'scopul este ............'
-trad(scop(X)) --> [scopul, este, X].
-trad(scop(X)) --> [scopul,X].
+trad(scop(X)) --> [scop, '%', '%', X].
+trad(scop(X)) --> [scop,X].
 trad(interogabil(Atr, M, P)) --> 
 	% daca este intrebare:
 	% intreaba atributul cu o lista de optiuni si mesajul de afisare
-	[intreaba,Atr], lista_optiuni(M), afiseaza(Atr, P).
-%trad (ID, [per(atribut, val) ....], 'Atunci [concluzie] fc [F]')
+	[intrebare, '[', Atr, ';'], afiseaza(Atr, P), lista_optiuni(M).
+% trad (ID, [per(atribut, val) ....], 'Atunci [concluzie] fc [F]')
 trad(regula(N, premise(Daca), concluzie(Atunci, F))) --> 
-	identificator(N), daca(Daca), atunci(Atunci, F).
+	identificator(N), atunci(Atunci, F), daca(Daca).
 trad('Eroare la parsare' - L, L, _).
 
-%lista_optiuni de descompune in cuvantul optiuni si paranteza
+% lista_optiuni de descompune in cuvantul optiuni si paranteza
 % lista_de_optiuni itereaza prin optiuni
 % cat timp lista nu se unifica cu [element, ')'], se citeste
 % recursiv.
-lista_optiuni(M) --> [optiuni,'('],lista_de_optiuni(M).
-lista_de_optiuni([Element]) -->  [Element,')'].
-lista_de_optiuni([Element|T]) --> [Element],lista_de_optiuni(T).
+lista_optiuni(M) --> [variante,':'],lista_de_optiuni(M).
+lista_de_optiuni([Element]) -->  [Element,']', ']'].
+lista_de_optiuni([Element|T]) --> [Element, ';'], lista_de_optiuni(T).
 
-afiseaza(_, P) -->  [afiseaza, P].
+afiseaza(_, P) -->  [text, ':', P, ';'].
 afiseaza(P, P) -->  [].
 % asta ia ID-ul unei reguli
-identificator(N) --> [regula, N].
+identificator(N) --> [regula, nr, '%', '%', N].
 
 % asta ia partea ca daca din premise si ia toata premizele
-daca(Daca) --> [daca],lista_premise(Daca).
+daca(Daca) --> [enum, conditii],lista_premise(Daca).
+
+% pot pune premize cu si sau cu , intre ele
+% propz ia prima pereche de atribut valoare si ia lista premizelor
+% lista_premise([Prima|Celalalte]) --> propoz(Prima),[']', ',', '['],lista_premise(Celalalte).
+lista_premise([Prima|Celalalte]) --> propoz(Prima),[','],lista_premise(Celalalte).
 
 % se opreste cand intalnesti termenul atunci, altfel
 % ia premizele, le baga in lista si apeleaza recursiv
-lista_premise([Daca]) --> propoz(Daca),[atunci].
-% pot pune premize cu si sau cu , intre ele
-% propz ia prima pereche de atribut valoare si ia lista premizelor
-lista_premise([Prima|Celalalte]) --> propoz(Prima),[si],lista_premise(Celalalte).
-lista_premise([Prima|Celalalte]) --> propoz(Prima),[','],lista_premise(Celalalte).
+lista_premise([Daca]) --> propoz(Daca), ['.'].
 
 % atunci merge pana gaseste factorul de certitudine
-atunci(Atunci,FC) --> propoz(Atunci),[fc],[FC].
+atunci(Atunci,FC) --> propoz(Atunci),[fact, certitudine, '%', '%'],[FC].
 % daca lipsteste factorul de certitudine, il pune automat 100
 atunci(Atunci,100) --> propoz(Atunci).
 
@@ -416,8 +424,11 @@ atunci(Atunci,100) --> propoz(Atunci).
 % ceva este altceva
 % ceva
 propoz(not av(Atr,da)) --> [not, Atr].  % il memoreaza ca fiind not(Atr, da). Puteam sa il memoram si ca (Atr, nu).
-propoz(av(Atr,Val)) --> [Atr, este, Val].  % valori multiple ale atributului
+propoz(av(Atr,Val)) --> [Atr, '%', '%', Val].  % valori multiple ale atributului
 propoz(av(Atr,da)) --> [Atr].
+propoz(av(Atr,Val)) --> ['[', Atr, '%', '%', Val, ']'].
+propoz(not av(Atr,da)) --> ['[', not, Atr, ']'].  
+propoz(av(Atr,da)) --> ['[', Atr, ']'].
 
 citeste_linie([Cuv | Lista_cuv]) :-
 	get_code(Car),
@@ -475,7 +486,7 @@ lungime([_|T],L):-
 	lungime(T,L1),
 	L is L1+1.
 
-% 39 este codul ASCII pt '
+% 39 este codul ASCII pt ghilimea
 
 citeste_cuvant(Caracter, Cuvant, Caracter1):-
 	Caracter == 39, !,
@@ -515,7 +526,13 @@ citeste_cuvant(_, Cuvant, Caracter1):-
 	citeste_cuvant(Caracter, Cuvant, Caracter1). 
 
 % aici specificam ce alte caractere mai pot fi luate ca un cuvant intreg
-caracter_cuvant(C):-member(C, [44, 59, 58, 63, 33, 46, 41, 40]).
+% 91 = [   
+% 93 = ]
+% 37 = %
+% 44 = ,
+% 59 = ;
+% 46 = .
+caracter_cuvant(C):-member(C, [44, 59, 58, 63, 33, 46, 41, 40, 37, 91, 93]).
 
 % am specificat codurile ASCII pentru , ; : ? ! . ) (
 
