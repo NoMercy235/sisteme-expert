@@ -144,7 +144,7 @@ public class Fereastra extends javax.swing.JFrame {
             // TODO add your handling code here:
             // p-aici ar trebui sa ii trimitem noi domenzile
             PipedOutputStream pos= conexiune.expeditor.getPipedOutputStream();
-            PrintStream ps=new PrintStream(pos);
+            PrintStream ps = new PrintStream(pos);
             ps.println("salut.");
             ps.flush();
         } catch (InterruptedException ex) {
@@ -158,9 +158,7 @@ public class Fereastra extends javax.swing.JFrame {
         tfInput.setText("");
         try {
             // se transmite mesaj cu ce am citit noiq
-            // String comanda = "comanda(incarca(\'F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/reguli.txt\'))." ;
-            // String comanda = "comanda(incarca('F:\\NgenH\\Projects\\Prolog\\ExempluInterfataProlog\\my_project\\reguli.txt')\')." ;
-            String comanda = "'comanda(incarca(reguli.txt))'." ;
+            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/reguli.txt'))";
             // String comanda = TODO get dynamic input
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
