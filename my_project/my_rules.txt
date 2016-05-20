@@ -1,19 +1,85 @@
 scop%%personaj.
 
+
 regula nr %% 1
-personaj %% triss fact certitudine %% 90
+personaj %% triss fact certitudine %% 20
 enum conditii
+	[vrajitoare],
+	[not masculin].
+	
+regula nr %% 2
+personaj %% triss fact certitudine %% 50
+enum conditii
+	[vrajitoare],
+	[not masculin],
+	[afiliere %% 'Lodge of Sorceresses'].
+
+regula nr %% 3
+personaj %% triss fact certitudine %% 100
+enum conditii
+	[alias %% 'Merigold the Fearless'],
+	[rasa %% om],
 	[par %% rosu],
 	[vrajitoare],
-	[not inamic].
+	[nationalitate %% temeria],
+	[afiliere %% 'Lodge of Sorceresses'],
+	[not masculin].
 
+	
+	
+	
+	
+regula nr %% 4
+personaj %% yennifer fact certitudine %% 20
+enum conditii
+	[vrajitoare],
+	[not masculin].
+	
+regula nr %% 5
+personaj %% yennifer fact certitudine %% 50
+enum conditii
+	[vrajitoare],
+	[not masculin],
+	[afiliere %% 'Lodge of Sorceresses'].
 
-regula nr %% 2
+regula nr %% 6
 personaj %% yennifer fact certitudine %% 100
 enum conditii
+	[alias %% yen],
+	[rasa %% om],
 	[par %% negru],
 	[vrajitoare],
-	[not inamic].
+	[nationalitate %% aedirn],
+	[afiliere %% 'Lodge of Sorceresses'],
+	[not masculin].
+	
+	
+	
+	
+	
+	
+regula nr %% 7
+personaj %% geralt fact certitudine %% 13
+enum conditii
+	[nationalitate %% kaedwen],
+	[afiliere %% 'wolf school'],
+	[masculin].
+	
+regula nr %% 8
+personaj %% geralt fact certitudine %% 100
+enum conditii
+	[alias %% 'white wolf'].	
+	
+regula nr %% 9
+personaj %% geralt fact certitudine %% 100
+enum conditii
+	[alias %% 'white wolf'],
+	[rasa %% om],
+	[par %% alb],
+	[witcher],
+	[nationalitate %% kaedwen],
+	[afiliere %% 'wolf school'],
+	[masculin].
 
 
 intrebare [par ;
