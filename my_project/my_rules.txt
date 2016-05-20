@@ -5,9 +5,15 @@ personaj %% triss fact certitudine %% 90
 enum conditii
 	[par %% rosu],
 	[vrajitoare],
-	[not inamic]
-.
+	[not inamic].
 
+
+regula nr %% 2
+personaj %% yennifer fact certitudine %% 100
+enum conditii
+	[par %% negru],
+	[vrajitoare],
+	[not inamic].
 
 
 intrebare [par ;

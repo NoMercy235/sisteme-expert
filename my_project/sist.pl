@@ -35,7 +35,11 @@ proceseaza_text_primit(Stream,C):-
 				read(Stream,CevaCitit),
 				proceseaza_termen_citit(Stream,CevaCitit,C).
 				
-% C numara numarul de comenzi date(incepe de la 0 mai sus)			
+% C numara numarul de comenzi date(incepe de la 0 mai sus)		
+
+proceseaza_termen_citit(Stream, X, _):-
+				(X == end_of_file ; X == exit),
+				close(Stream).	
 
 proceseaza_termen_citit(Stream,salut,C):-
 				% daca am citit salut, se intra pe ramura asta si raspunde cu salut bre
@@ -65,10 +69,6 @@ proceseaza_termen_citit(Stream, oras(X),C):-
 				flush_output(Stream),
 				C1 is C+1,
 				proceseaza_text_primit(Stream,C1).
-				
-proceseaza_termen_citit(Stream, X, _):-
-				(X == end_of_file ; X == exit),
-				close(Stream).
 				
 proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
 				nl, nl,
@@ -363,7 +363,7 @@ incarca(Stream, _):-
 	.
 
 incarca_reguli :-
-	repeat, citeste_propozitie(L),		% citeste linie citea pana la \n. citeste propozitie citeste pana la .
+	repeat, citeste_propozitie(L),    % citeste linie citea pana la \n. citeste propozitie citeste pana la .
 	proceseaza(L), L == [end_of_file], nl.  % proceseaza e cel care interpreteaza informatia citita
 
 proceseaza([end_of_file]):-!.  % daca sunt la final, pa
@@ -379,7 +379,7 @@ proceseaza(L) :-
 % deci trad asta stie ca daca ii vine o propozitie de genul scopul este [ceva], atunci [ceva] e returnat in X
 % scop(X) este R-ul de mai sus. Deci R este scop de X daca trad se descompune in 'scopul este ............'
 trad(scop(X)) --> [scop, '%', '%', X].
-trad(scop(X)) --> [scop,X].
+trad(scop(X)) --> [scop, X].
 trad(interogabil(Atr, M, P)) --> 
 	% daca este intrebare:
 	% intreaba atributul cu o lista de optiuni si mesajul de afisare
@@ -393,7 +393,7 @@ trad('Eroare la parsare' - L, L, _).
 % lista_de_optiuni itereaza prin optiuni
 % cat timp lista nu se unifica cu [element, ')'], se citeste
 % recursiv.
-lista_optiuni(M) --> [variante,':'],lista_de_optiuni(M).
+lista_optiuni(M) --> [variante,':', '['],lista_de_optiuni(M).
 lista_de_optiuni([Element]) -->  [Element,']', ']'].
 lista_de_optiuni([Element|T]) --> [Element, ';'], lista_de_optiuni(T).
 
@@ -403,21 +403,21 @@ afiseaza(P, P) -->  [].
 identificator(N) --> [regula, nr, '%', '%', N].
 
 % asta ia partea ca daca din premise si ia toata premizele
-daca(Daca) --> [enum, conditii],lista_premise(Daca).
+daca(Daca) --> lista_premise(Daca).
+
+% se opreste cand intalnesti termenul atunci, altfel
+% ia premizele, le baga in lista si apeleaza recursiv
+lista_premise([Daca]) --> propoz(Daca).
 
 % pot pune premize cu si sau cu , intre ele
 % propz ia prima pereche de atribut valoare si ia lista premizelor
 % lista_premise([Prima|Celalalte]) --> propoz(Prima),[']', ',', '['],lista_premise(Celalalte).
 lista_premise([Prima|Celalalte]) --> propoz(Prima),[','],lista_premise(Celalalte).
 
-% se opreste cand intalnesti termenul atunci, altfel
-% ia premizele, le baga in lista si apeleaza recursiv
-lista_premise([Daca]) --> propoz(Daca), ['.'].
-
 % atunci merge pana gaseste factorul de certitudine
-atunci(Atunci,FC) --> propoz(Atunci),[fact, certitudine, '%', '%'],[FC].
+atunci(Atunci, FC) --> propoz(Atunci), [fact, certitudine, '%', '%'], [FC], [enum, conditii].
 % daca lipsteste factorul de certitudine, il pune automat 100
-atunci(Atunci,100) --> propoz(Atunci).
+atunci(Atunci, 100) --> propoz(Atunci), [enum, conditii].
 
 % asta ia bucatile din premize de tipul 
 % not ceva
@@ -525,6 +525,7 @@ citeste_cuvant(_, Cuvant, Caracter1):-
 	get_code(Caracter),       
 	citeste_cuvant(Caracter, Cuvant, Caracter1). 
 
+% am specificat codurile ASCII pentru , ; : ? ! . ) (
 % aici specificam ce alte caractere mai pot fi luate ca un cuvant intreg
 % 91 = [   
 % 93 = ]
@@ -534,9 +535,7 @@ citeste_cuvant(_, Cuvant, Caracter1):-
 % 46 = .
 caracter_cuvant(C):-member(C, [44, 59, 58, 63, 33, 46, 41, 40, 37, 91, 93]).
 
-% am specificat codurile ASCII pentru , ; : ? ! . ) (
-
 caractere_in_interiorul_unui_cuvant(C):-
 	C > 64, C < 91; C > 47, C < 58;
 	C == 45; C == 95; C > 96, C < 123.
-caracter_numar(C):-C < 58, C >= 48.
+caracter_numar(C):- C < 58, C >= 48.
