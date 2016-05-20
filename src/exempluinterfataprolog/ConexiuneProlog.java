@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package exempluinterfataprolog;
 
 import java.io.File;
@@ -15,16 +10,8 @@ import java.net.Socket;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- *
- * @author Irina
- */
 public class ConexiuneProlog {
-//    File f = new File("C:/Users/Program%20Files/SICStus Prolog VC12 4.3.2/bin/sicstus.exe");
     String caleExecutabilSicstus = "C:\\Program Files\\SICStus Prolog VC12 4.3.2\\bin\\spwin.exe";
-//    String caleExecutabilSicstus = "C://Users/'Program Files'/'SICStus Prolog VC12 4.3.2'/bin/sicstus-4.3.2.exe";
-//    Path path = Paths.get("C:\\Program Files\\SICStus Prolog VC12 4.3.2\\bin\\sicstus-4.3.2.exe");
-//    final String caleExecutabilSicstus = path.toString();
     final String nume_fisier="my_project/sist.pl";
     //final String nume_fisier="ceva_simplu.pl";    
     final String scop="inceput.";    
@@ -45,8 +32,6 @@ public class ConexiuneProlog {
         InputStream processIs, processStreamErr;
         port=_port;
         fereastra=_fereastra;
-        //obin cale executabil
-        //String caleExecutabilSicstus = System.getProperty("sicstusProgram", "C:\\Users\\Irina\\Desktop\\SICStus Prolog 4.0.2\\SICStus Prolog 4.0.2\\bin\\sicstus.exe");
         //acces la mediul curent de rulare
         ServerSocket servs=new ServerSocket(port);
         //Socket sock_s=servs.accept();
@@ -66,10 +51,6 @@ public class ConexiuneProlog {
         processIs=procesSicstus.getInputStream();
         //stream-ul de eroare
         processStreamErr=procesSicstus.getErrorStream();
-        
-        
-        
-
     }
     
     void opresteProlog() throws InterruptedException{
