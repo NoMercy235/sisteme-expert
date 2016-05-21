@@ -70,10 +70,23 @@ proceseaza_termen_citit(Stream, oras(X),C):-
 				C1 is C+1,
 				proceseaza_text_primit(Stream,C1).
 				
+				
+proceseaza_termen_citit(Stream, comanda(pornire), C):-
+				call(pornire),
+				flush_output(Stream),
+				C1 is C + 1,
+				proceseaza_text_primit(Stream, C1)
+				.
+				
 proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
-				nl, nl,
-				write(F), nl, nl, nl,
 				incarca(Stream, F),
+				flush_output(Stream),
+				C1 is C + 1,
+				proceseaza_text_primit(Stream, C1)
+				.
+
+proceseaza_termen_citit(Stream, comanda(consulta), C):-
+				call(consulta),
 				flush_output(Stream),
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
@@ -150,7 +163,7 @@ executa([_|_]) :-
 	write('Comanda incorecta! '),nl.
 
 scopuri_princ :-
-	scop(Atr),determina(Atr), afiseaza_scop(Atr),fail.
+	scop(Atr),determina(Atr),afiseaza_scop(Atr), fail.
 scopuri_princ.
 
 determina(Atr) :-
@@ -158,12 +171,13 @@ determina(Atr) :-
 determina(_).
 
 afiseaza_scop(Atr) :-
+	nl, write(Atr), flush_output, nl, write(av(Atr,Val)),
 	nl,fapt(av(Atr,Val),FC,_),
 	FC >= 20,scrie_scop(av(Atr,Val),FC),
 	nl,fail.
 afiseaza_scop(_):- nl,nl.
 
-scrie_scop(av(Atr,Val),FC) :-
+scrie_scop(av(Atr,Val),FC) :- 
 	transformare(av(Atr,Val), X),
 	scrie_lista(X),tab(2),
 	write(' '),
