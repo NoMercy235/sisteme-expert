@@ -4,6 +4,45 @@ Portul din ExempluInterfataProlog
 
 
 
+Atentie! cerinte valabile pentru toti:
+
+(1.0)Sistemele expert trebuie sa contina aproximativ 70-100 de reguli.
+ In aceasta categorie se va puncta si corectitudinea lor
+
+(0.5)Sa existe minim un caz de raspus al sistemului care sa aiba in istoric 
+minim 3 reguli (exemplu: regula r1 care calculeaza valoarea atributului scop 
+sa aiba printre premise un atribut a1 calculat cu ajutorul regulii r2 care sa 
+aiba de asemenea printre premise un atribut calculat cu ajutorul unei reguli r3).
+
+(0.5)Trebuie sa aveti si intrebari cu raspuns boolean (da/nu) si intrebari cu raspuns multiplu.
+
+(0.5)De asemenea sa existe un caz in care sistemul expert nu da solutii.
+
+(0.5)Daca sistemul nu da solutii, atunci se va afisa pe ecran un mesaj in care 
+se indica faptul ca nu exista solutii.
+
+(0.5)Sa existe macar o secventa de raspunsuri la intrebari, prin care se obtin
+ mai multe solutii posibile.
+
+(0.5)Solutiile (in Prolog) se vor afisa in ordinea descrescatoare a factorului de certitudine.
+
+(0.5)Raspunsurile la intrebari permit existenta unui factor de certitudine
+
+(0.5)Este obligatoriu sa puteti afisa demonstratia pentru raspunsurile date.
+
+
+
+
+
+Cerinte generale interfata grafica:
+
+Pentru interfata grafica: va exista un buton de reset, vizibil in orice stadiu
+ al aplicatiei, care, la click, va reseta aplicatia la primul ecran, si va
+ reseta si baza de cunostinte in Prolog, pentru a se permite o noua consultare.
+
+
+
+
 
 regulile vor avea formatul (ceea ce e scris cu gri e doar comentariu, nu face parte din format): 
 selecteaza textul
