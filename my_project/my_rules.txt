@@ -1,12 +1,12 @@
 scop%%personaj.
 
 regula nr %% 1
-vrajitoare %% fact certitudine %% 40
+vrajitoare %% da fact certitudine %% 40
 enum conditii
 	[face_vraji].
 	
 regula nr %% 2
-personaj %% yennifer fact certitudine %% 40
+personaj %% yennifer fact certitudine %% 80
 enum conditii
 	[vrajitoare].
 
@@ -15,15 +15,27 @@ personaj %% yennifer fact certitudine %% 20
 enum conditii
 	[vrajitoare],
 	[not masculin].
-
-intrebare [par ;
-text: 'Ce culoare are parul?' ;
-variante : [rosu ; alb ; negru] ].
-
-intrebare [vrajitoare ;
-text: 'Ce ocupatie are?' ;
-variante : [vrajitoare ; witcher] ].
+	
+intrebare [masculin ;
+text: 'Personajul este de sex masculin?' ;
+variante : [da ; nu] ].
 
 intrebare [face_vraji ;
 text: 'Personajul poate face vraji?' ;
 variante : [da ; nu] ].
+
+intrebare [par ;
+text: 'Ce culoare are parul?' ;
+variante : [rosu ; alb ; negru ; blond ; brunet] ].
+
+intrebare [ocupatie ;
+text: 'Ce ocupatie are?' ;
+variante : [vrajitoare ; witcher ; imparat ; conte ; trubadur ; regina] ].
+
+intrebare [alias ;
+text: 'Care este alias-ul personajului?' ;
+variante : [white_wolf ; yen ; merigold ; zireael ; savior_of_the_north ; morvudd ; phil ; sigi ; julian ; hammond ; calonetta ; anarietta ; sparrowhawk] ]. 
+
+intrebare [ afiliere ;
+text: 'De cine apartine personajul?' ;
+variante: [wolf_school ; lodge_of_sorceresses ; cintra ; viper_school ; nilfgaardian ; redania ; oxenfurt_university] ].
