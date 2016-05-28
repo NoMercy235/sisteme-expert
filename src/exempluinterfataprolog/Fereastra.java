@@ -28,6 +28,7 @@ public class Fereastra extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         tfInput = new javax.swing.JTextField();
         btIncarca = new javax.swing.JButton();
+        btPorneste = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +63,13 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
+        btPorneste.setText("Porneste");
+        btPorneste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPornesteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -77,9 +85,11 @@ public class Fereastra extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jButton1)
                 .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btIncarca, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addComponent(tfInput))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btIncarca, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                        .addComponent(tfInput))
+                    .addComponent(btPorneste, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,7 +103,9 @@ public class Fereastra extends javax.swing.JFrame {
                     .addComponent(tfInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btIncarca)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btPorneste)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
         );
@@ -135,7 +147,6 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncarcaActionPerformed
-        // TODO add your handling code here: String valoareParametru=tfParametru.getText();
         String input = tfInput.getText();
         tfInput.setText("");
         try {
@@ -147,6 +158,19 @@ public class Fereastra extends javax.swing.JFrame {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btIncarcaActionPerformed
+
+    private void btPornesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPornesteActionPerformed
+        String input = tfInput.getText();
+        tfInput.setText("");
+        try {
+            // se transmite mesaj cu ce am citit noiq
+            String comanda = "comanda(pornire)";
+            // String comanda = TODO get dynamic input
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btPornesteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,6 +221,7 @@ public class Fereastra extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIncarca;
+    private javax.swing.JButton btPorneste;
     private javax.swing.ButtonGroup grupBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

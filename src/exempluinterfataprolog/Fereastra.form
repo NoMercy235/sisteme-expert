@@ -40,9 +40,12 @@
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btIncarca" pref="257" max="32767" attributes="0"/>
-                  <Component id="tfInput" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btIncarca" pref="257" max="32767" attributes="0"/>
+                      <Component id="tfInput" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="btPorneste" min="-2" pref="125" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="61" max="32767" attributes="0"/>
           </Group>
@@ -60,7 +63,9 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btIncarca" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btPorneste" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
@@ -118,6 +123,14 @@
       </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btIncarcaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btPorneste">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Porneste"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btPornesteActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
