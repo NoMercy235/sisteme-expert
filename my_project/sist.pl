@@ -129,9 +129,12 @@ listeaza_fapte:-
 	nl,fail.
 	listeaza_fapte.
 
+% asta primeste istorictul cu indice de intrebari sau 'utiliz' daca a raspuns user-ul
 lista_float_int([],[]).
+% daca regula este diferita de 'utiliz' (adica daca e numar), converteste float to int (ca sa nu afiseze regula 2.0, ci regula 2)
+% daca este 'utiliz' atunci regula ramane neschimbata
 lista_float_int([Regula|Reguli],[Regula1|Reguli1]):-
-	(Regula \== utiliz,
+	(Regula \== utiliz,   
 	Regula1 is integer(Regula);
 	Regula ==utiliz, Regula1=Regula),
 	lista_float_int(Reguli,Reguli1).
@@ -152,27 +155,31 @@ executa([incarca]) :-
 	write('Fisierul dorit a fost incarcat'),nl.
 executa([consulta]) :- 
 	scopuri_princ,!.
+% asta face clear la tot ce am obtinut din sistemul expert (raspuns de la user sau fapte)
 executa([reinitiaza]) :- 
 	retractall(interogat(_)),
 	retractall(fapt(_,_,_)),!.
 executa([afisare_fapte]) :-
 	afiseaza_fapte,!.
 executa([cum|L]) :- cum(L),!.
-executa([iesire]):-!.
-executa([_|_]) :-
+executa([iesire]):-!.  % aici se termina programult
+executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 	write('Comanda incorecta! '),nl.
 
+% Apeleaza mai intai scop(Atr) - aici se salveaza scopul S expert 
+% dupa determina(Atr) - realizaeaza scopul
 scopuri_princ :-
 	scop(Atr),determina(Atr),afiseaza_scop(Atr), fail.
 scopuri_princ.
 
+
 determina(Atr) :-
 	realizare_scop(av(Atr,_),_,[scop(Atr)]),!.
+% aici trebuie sa facem un caz de nu are solutii
 determina(_).
 
 afiseaza_scop(Atr) :-
-	nl, write(Atr), flush_output, nl, write(av(Atr,Val)),
-	nl,fapt(av(Atr,Val),FC,_),
+	fapt(av(Atr,Val),FC,_),
 	FC >= 20,scrie_scop(av(Atr,Val),FC),
 	nl,fail.
 afiseaza_scop(_):- nl,nl.
@@ -184,42 +191,57 @@ scrie_scop(av(Atr,Val),FC) :-
 	write('factorul de certitudine este '),
 	FC1 is integer(FC),write(FC1).
 
+% primul parametru este de structura not av(atr, valoare)
+% apeleaza realizare_scop pentru a afla FC si ii pune un minus in fata :-?
 realizare_scop(not Scop,Not_FC,Istorie) :-
 	realizare_scop(Scop,FC,Istorie),
 	Not_FC is - FC, !.
+	
+% mai intai se uita daca scopul a fost deja obtinut
+% daca nu a fost, atunci incearca sa il obtina si cauta ceva interogabil
 realizare_scop(Scop,FC,_) :-
 	fapt(Scop,FC,_), !.
 realizare_scop(Scop,FC,Istorie) :-
 	pot_interoga(Scop,Istorie),
-	!,realizare_scop(Scop,FC,Istorie).
+	!,realizare_scop(Scop,FC,Istorie).  % dupa ce am itnerogat, incerc iar sa satisfac scopul
+
+% aici satisafem scopul. fg este pentru cazul in care avem deja reguli pentru a deduce valoarea atributului din regula
 realizare_scop(Scop,FC_curent,Istorie) :-
 	fg(Scop,FC_curent,Istorie).
 	
+% ne luam regula, premisele si concluzia. N = id-ul regulii
+% demonstreaza primeste toate datele din regula si calculeaza Istoria
 fg(Scop,FC_curent,Istorie) :-
 	regula(N, premise(Lista), concluzie(Scop,FC)),
 	demonstreaza(N,Lista,FC_premise,Istorie),
 	ajusteaza(FC,FC_premise,FC_nou),
-	actualizeaza(Scop,FC_nou,FC_curent,N),
+	actualizeaza(Scop,FC_nou,FC_curent,N),  % asta e pentru cazult in care avem mai multe reguli pentru acelasi atribut
 	FC_curent == 100,!.
 fg(Scop,FC,_) :- fapt(Scop,FC,_).
 
+% verifica daca nu s-a pus intrebare si daca nu s-a pus, atunci pot sa pun
+% dupa ce interogheazsa, face un assert ca sa stie ca a pus deja intrebarea
 pot_interoga(av(Atr,_),Istorie) :-
 	not interogat(av(Atr,_)),
 	interogabil(Atr,Optiuni,Mesaj),
 	interogheaza(Atr,Mesaj,Optiuni,Istorie),nl,
 	asserta( interogat(av(Atr,_)) ).
 
+
 cum([]) :- write('Scop? '),nl,
 	write('|:'),citeste_linie(Linie),nl,
 	transformare(Scop,Linie), cum(Scop).
+% asta face la fel ca mai sus, dar ii zice direct si scopul, nu mai asteapta sa fie intrebat
 cum(L) :- 
 	transformare(Scop,L),nl, cum(Scop).
+% asta verifica daca exista un fapt in baza de cunostine pentru Scop, si are si FC si istoric (tinut in Reguli)
 cum(not Scop) :- 
 	fapt(Scop,FC,Reguli),
 	lista_float_int(Reguli,Reguli1),
-	FC < -20,transformare(not Scop,PG),
-	append(PG,[a,fost,derivat,cu, ajutorul, 'regulilor: '|Reguli1],LL),
-	scrie_lista(LL),nl,afis_reguli(Reguli),fail.
+	FC < -20,transformare(not Scop,PG),  % daca FC este mai mare decat 20 (e cu -  pentru ca are not) apeleaza transformare
+	append(PG,[a,fost,derivat,cu, ajutorul, 'regulilor: '|Reguli1],LL),  % aici modificam partea din istorie a regulilor si obtine LL
+	scrie_lista(LL),nl,afis_reguli(Reguli),fail. 
+% asta e la fel ca mai sus, doar ca nu are not
 cum(Scop) :-
 	fapt(Scop,FC,Reguli),
 	lista_float_int(Reguli,Reguli1),
@@ -227,9 +249,13 @@ cum(Scop) :-
 	append(PG,[a,fost,derivat,cu, ajutorul, 'regulilor: '|Reguli1],LL),
 	scrie_lista(LL),nl,afis_reguli(Reguli),
 	fail.
+	% cum de orice ca sa se termine cu success
 cum(_).
 
+% pentru subpunctul f, aici trebuie modificat 
 afis_reguli([]).
+% aici primeste istoricul. ia indicele si apeleaza afis_regula(N) de unde ia regula, premisele si concluzia
+% si mai jos putem modifica formatul
 afis_reguli([N|X]) :-
 	afis_regula(N),
 	premisele(N),
@@ -238,14 +264,13 @@ afis_regula(N) :-
 	% primul parametru este ........
 	regula(	N, premise(Lista_premise),concluzie(Scop, FC)),
 	NN is integer(N),
-	scrie_lista(['regula  ',NN]),
-	scrie_lista(['  Daca']),
-	scrie_lista_premise(Lista_premise),
-	scrie_lista(['  Atunci']),
+	scrie_lista(['regula  %% ',NN]),
 	transformare(Scop,Scop_tr),
-	append(['   '],Scop_tr,L1),
-	FC1 is integer(FC),append(L1,[FC1],LL),
-	scrie_lista(LL),nl.
+	FC1 is integer(FC),
+	scrie_lista(['atribut_concluzie %% ', Scop_tr, ' factor certitudine %% ', FC1]),
+	scrie_lista(['enum conditii [']),
+	scrie_lista_premise(Lista_premise),
+	append([']']),nl.
 
 scrie_lista_premise([]).
 scrie_lista_premise([H|T]) :-
@@ -258,6 +283,7 @@ transformare(not av(A,da), [not,A]) :- !.
 transformare(av(A,nu),[not,A]) :- !.
 transformare(av(A,V),[A,este,V]).
 
+% aici face o afisare arborescenta
 premisele(N) :-
 	regula(N, premise(Lista_premise), _),
 	!, cum_premise(Lista_premise).
@@ -267,30 +293,42 @@ cum_premise([Scop|X]) :-
 	cum(Scop),
 	cum_premise(X).
 	
+% ne afiseaza mesajul, (aici trebuie sa trimitem pe Stream, ca sa ajunga in interfata grafica)
+% primul interogheaza este pentru da|nu
 interogheaza(Atr,Mesaj,[da,nu],Istorie) :-
 	!,write(Mesaj),nl,
 	de_la_utiliz(X,Istorie,[da,nu]),
 	det_val_fc(X,Val,FC),
-	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).
+	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).  % utiliz = istoric (asa a zis Iza)
+% asta e pentru valori multiple
 interogheaza(Atr,Mesaj,Optiuni,Istorie) :-
-	write(Mesaj),nl,
+	write(Mesaj),nl,   % afiseaza mesajul
 	citeste_opt(VLista,Optiuni,Istorie),
-	assert_fapt(Atr,VLista).
+	assert_fapt(Atr,VLista).  % asta adauga faptul
 
+% aici se afiseaza optiunile. ia o patanteza, face append la optiuni, si dupa inchid paranteza, dupa care ia input de la user
 citeste_opt(X,Optiuni,Istorie) :-
 	append(['('],Optiuni,Opt1),
 	append(Opt1,[')'],Opt),
 	scrie_lista(Opt),
 	de_la_utiliz(X,Istorie,Optiuni).
 
+% asta primeste raspunsul de la utilizator 
+% afiseaza un prompt si apeleaza citeste_linie
+% verificam daca user-ul a dat una din optiunile bune
 de_la_utiliz(X,Istorie,Lista_opt) :-
 	repeat,write(': '),citeste_linie(X),
 	proceseaza_raspuns(X,Istorie,Lista_opt).
 
+% prima clauza este [de_ce]. adica daca sunt intrebat o chestie, pot sa il intreb de ce ai nevoie de informatia aia
+% deci daca scriu [de_ce], imi afiseaza istoria pentru acest atribut
+% ca sa il oprim de tot putem adauga o noua clauza gen asta cu de_ce in care sa ii zicem opreste si sa dam doar fail
 proceseaza_raspuns([de_ce],Istorie,_) :- nl,afis_istorie(Istorie),!,fail.
 
+% daca ajungem aici, inseamna ca avem un raspuns de la user si verificam daca raspunsul se afla in lista optiunilor
 proceseaza_raspuns([X],_,Lista_opt):-
 	member(X,Lista_opt).
+% daca in raspuns user-ul da si FC, acesta este luat in considerare si suprascrie FC initial al atributului
 proceseaza_raspuns([X,fc,FC],_,Lista_opt):-
 	member(X,Lista_opt),float(FC).
 
@@ -299,6 +337,10 @@ assert_fapt(Atr,[Val,fc,FC]) :-
 assert_fapt(Atr,[Val]) :-
 	asserta( fapt(av(Atr,Val),100,[utiliz])).
 
+% daca nu are FC, ii pune -100 default (pentru ca e preactiv negativul (nu da) == (not))
+% daca l-a pus, il ia
+% sau intra pe aia cu valori multiple
+% la final pune default 100 pentru da
 det_val_fc([nu],da,-100).
 det_val_fc([nu,FC],da,NFC) :- NFC is -FC.
 det_val_fc([nu,fc,FC],da,NFC) :- NFC is -FC.
@@ -313,15 +355,19 @@ afis_istorie([scop(X)|T]) :-
 afis_istorie([N|T]) :-
 	afis_regula(N),!,afis_istorie(T).
 
+% o sa ia pe rand premisele si o sa le calculeze valoarea. Ori intreaba, ori deduce din alte reguli
 demonstreaza(N,ListaPremise,Val_finala,Istorie) :-
 	dem(ListaPremise,100,Val_finala,[N|Istorie]),!.
 
+% asta  e predicat recursiv pentru ca trebuie sa parcurga o lista de listeaza_fapte
+% avem pasul de oprire
+% in Val_finala se calculeaza factorul de certitudine final
 dem([],Val_finala,Val_finala,_).
 dem([H|T],Val_actuala,Val_finala,Istorie) :-
-	realizare_scop(H,FC,Istorie),
-	Val_interm is min(Val_actuala,FC),
+	realizare_scop(H,FC,Istorie),   % de aici se intoare cu un FC si un Istoric
+	Val_interm is min(Val_actuala,FC),  % face minimul dintre FC cu care a pornit si valoarea actolo
 	Val_interm >= 20,
-	dem(T,Val_interm,Val_finala,Istorie).
+	dem(T,Val_interm,Val_finala,Istorie).  % se apeleaza recursiv dem cu restul premiselor
  
 actualizeaza(Scop,FC_nou,FC,RegulaN) :-
 	fapt(Scop,FC_vechi,_),
@@ -331,6 +377,7 @@ actualizeaza(Scop,FC_nou,FC,RegulaN) :-
 actualizeaza(Scop,FC,FC,RegulaN) :-
 	asserta( fapt(Scop,FC,[RegulaN]) ).
 
+% aici se ajusteaza FC in functie de niste formule
 ajusteaza(FC1,FC2,FC) :-
 	X is FC1 * FC2 / 100,
 	FC is round(X).

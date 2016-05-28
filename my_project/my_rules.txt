@@ -1,41 +1,840 @@
 scop%%personaj.
 
+
 regula nr %% 1
-vrajitoare %% da fact certitudine %% 40
+istoric %% criminal fact certitudine %% 68
 enum conditii
-	[face_vraji].
-	
+ [nelegiuit],
+ [orfan],
+ [not sange_nobil].
+
 regula nr %% 2
-personaj %% yennifer fact certitudine %% 80
+istoric %% imparat fact certitudine %% 68
 enum conditii
-	[vrajitoare].
+ [not nelegiuit],
+ [not orfan],
+ [sange_nobil].
 
 regula nr %% 3
-personaj %% yennifer fact certitudine %% 20
+istoric %% conte fact certitudine %% 68
 enum conditii
-	[vrajitoare],
-	[not masculin].
-	
-intrebare [masculin ;
-text: 'Personajul este de sex masculin?' ;
-variante : [da ; nu] ].
+ [not nelegiuit],
+ [not orfan],
+ [sange_nobil]. 
 
-intrebare [face_vraji ;
-text: 'Personajul poate face vraji?' ;
+regula nr %% 4
+istoric %% printesa fact certitudine %% 68
+enum conditii
+ [not nelegiuit],
+ [not orfan],
+ [sange_nobil].
+ 
+regula nr %% 5
+istoric %% nespecificat fact certitudine %% 68
+enum conditii
+ [not nelegiuit],
+ [not sange_nobil],
+ [orfan].
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+regula nr %% 6
+locatie %% oxenfurt fact certitudine %% 70
+enum conditii
+ [venit %% mediu], 
+ [zona_preferata %% campie].
+ 
+regula nr %% 7
+locatie %% skellige fact certitudine %% 70
+enum conditii
+ [venit %% mic], 
+ [zona_preferata %% ocean].
+ 
+regula nr %% 8
+locatie %% novigrad fact certitudine %% 70
+enum conditii
+ [venit %% mare], 
+ [zona_preferata %% plaja].
+ 
+regula nr %% 9
+locatie %% croockbag_bog fact certitudine %% 70
+enum conditii
+ [venit %% nespecificat], 
+ [zona_preferata %% campie].
+ 
+regula nr %% 10
+locatie %% white_orchard fact certitudine %% 70
+enum conditii
+ [venit %% mic], 
+ [zona_preferata %% campie].
+ 
+regula nr %% 11
+locatie %% kaer_morhen fact certitudine %% 70
+enum conditii
+ [venit %% mare], 
+ [zona_preferata %% munte].
+ 
+regula nr %% 12
+locatie %% vizima fact certitudine %% 70
+enum conditii
+ [venit %% mare], 
+ [zona_preferata %% campie].
+ 
+regula nr %% 13
+locatie %% nespecificat fact certitudine %% 70
+enum conditii
+ [venit %% nespecificat], 
+ [zona_preferata %% nespecificat].
+ 
+ 
+ 
+ 
+ 
+regula nr %% 14
+afiliere %% lodge_of_sorceresses fact certitudine %% 77
+enum conditii
+ [locatie %% nespecificat], 
+ [studiaza],
+ [istoric %% nespecificat].
+ 
+regula nr %% 15
+afiliere %% cintra fact certitudine %% 77
+enum conditii
+ [locatie %% kaer_morhen],
+ [istoric %% printesa],
+ [studiaza].
+ 
+regula nr %% 16
+afiliere %% wolf_school fact certitudine %% 77
+enum conditii
+ [locatie %% kaer_morhen], 
+ [istoric %% nespecificat],
+ [studiaza].
+ 
+regula nr %% 17
+afiliere %% viper_scool fact certitudine %% 77
+enum conditii
+ [locatie %% nespecificat], 
+ [istoric %% criminal],
+ [not studiaza].
+ 
+regula nr %% 18
+afiliere %% nilfgaardian fact certitudine %% 77
+enum conditii
+ [locatie %% vizima], 
+ [istoric %% imparat],
+ [studiaza].
+ 
+regula nr %% 19
+afiliere %% redania fact certitudine %% 77
+enum conditii
+ [locatie %% novigrad], 
+ [istoric %% conte],
+ [studiaza].
+ 
+regula nr %% 20
+afiliere %% redania fact certitudine %% 77
+enum conditii
+ [locatie %% novigrad], 
+ [istoric %% imparat],
+ [studiaza].
+ 
+regula nr %% 21
+afiliere %% oxenfurt_university fact certitudine %% 77
+enum conditii
+ [locatie %% novigrad], 
+ [istoric %% nespecificat],
+ [studiaza].
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+regula nr %% 22
+ocupatie %% witcher fact certitudine %% 79
+enum conditii
+ [omoara %% monstri],
+ [studiaza].
+ 
+regula nr %% 23
+ocupatie %% vrajitoare fact certitudine %% 79
+enum conditii
+ [omoara %% nimic],
+ [studiaza].
+ 
+regula nr %% 24
+ocupatie %% bandit fact certitudine %% 79
+enum conditii
+ [omoara %% oameni],
+ [not studiaza].
+ 
+regula nr %% 25
+ocupatie %% nespecificat fact certitudine %% 79
+enum conditii
+ [omoara %% nimic],
+ [not studiaza].
+ 
+ 
+ 
+ 
+ 
+regula nr %% 26
+constitutie %% subnutrit fact certitudine %% 65
+enum conditii
+ [mananca %% ierbivor],
+ [not se_antreneaza].
+ 
+regula nr %% 27
+constitutie %% slab fact certitudine %% 65
+enum conditii
+ [mananca %% omnivor],
+ [not se_antreneaza].
+ 
+regula nr %% 28
+constitutie %% normal fact certitudine %% 65
+enum conditii
+ [mananca %% omnivor],
+ [se_antreneaza]. 
+ 
+regula nr %% 29
+constitutie %% supraponderal fact certitudine %% 65
+enum conditii
+ [mananca %% carnivor],
+ [not se_antreneaza]. 
+ 
+regula nr %% 30
+constitutie %% puternic fact certitudine %% 65
+enum conditii
+ [mananca %% omnivor],
+ [se_antreneaza].
+ 
+ 
+ 
+
+ 
+ 
+regula nr %% 31
+metoda_de_lupta %% asasin fact certitudine %% 77
+enum conditii
+ [istoric %% criminal],
+ [constitutie %% normal],
+ [arma %% cutit], 
+ [magie %% nu_foloseste].
+ 
+regula nr %% 32
+metoda_de_lupta %% arcas fact certitudine %% 77
+enum conditii
+ [istoric %% nespecificat],
+ [constitutie %% normal],
+ [magie %% nu_foloseste],
+ [arma %% arc_si_sageti].
+ 
+regula nr %% 33
+metoda_de_lupta %% spadasin fact certitudine %% 77
+enum conditii
+ [istoric %% nespecificat],
+ [constitutie %% puternic],
+ [magie %% nu_foloseste],
+ [arma %% sabie].
+ 
+regula nr %% 34
+metoda_de_lupta %% freestyle fact certitudine %% 77
+enum conditii
+ [istoric %% nespecificat],
+ [constitutie %% normal],
+ [magie %% nu_foloseste],
+ [arma %% pumni].
+ 
+regula nr %% 35
+metoda_de_lupta %% alergator fact certitudine %% 77
+enum conditii
+ [istoric %% nespecificat],
+ [constitutie %% slab],
+ [magie %% nu_foloseste],
+ [arma %% nu_foloseste].
+ 
+regula nr %% 36
+metoda_de_lupta %% magician fact certitudine %% 77
+enum conditii
+ [istoric %% nespecificat],
+ [constitutie %% normal],
+ [magie %% vraji],
+ [arma %% nu_foloseste].
+ 
+regula nr %% 37
+metoda_de_lupta %% necromancer fact certitudine %% 77
+enum conditii
+ [istoric %% nespecificat],
+ [constitutie %% normal],
+ [magie %% necromancing],
+ [arma %% nu_foloseste].
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+regula nr %% 38
+rasa %% pitic fact certitudine %% 77
+enum conditii
+  [inaltime %% mica],
+  [culoarea_pielii %% alba].
+  
+regula nr %% 39
+rasa %% pitic fact certitudine %% 77
+enum conditii
+  [inaltime %% mica],
+  [culoarea_pielii %% galbena].
+  
+regula nr %% 68
+rasa %% om fact certitudine %% 77
+enum conditii
+  [inaltime %% medie],
+  [culoarea_pielii %% alba].
+  
+regula nr %% 41
+rasa %% om fact certitudine %% 77
+enum conditii
+  [inaltime %% medie],
+  [culoarea_pielii %% galbena].
+  
+regula nr %% 42
+rasa %% gigant fact certitudine %% 77
+enum conditii
+  [inaltime %% mare],
+  [culoarea_pielii %% alba].
+  
+regula nr %% 43
+rasa %% monstru fact certitudine %% 77
+enum conditii
+  [inaltime %% oricare],
+  [culoarea_pielii %% alta]. 
+  
+ 
+
+
+
+
+
+
+ 
+  
+regula nr %% 44
+personaj %% weavess fact certitudine %% 85
+enum conditii 
+ [alias %% crones],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [par %% alb],
+ [rasa %% monstru],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 70
+personaj %% weavess fact certitudine %% 95
+enum conditii
+ [alias %% crones],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [par %% alb],
+ [rasa %% monstru],
+ [metoda_de_lupta %% magician].  
+ 
+regula nr %% 46
+personaj %% brewess fact certitudine %% 85
+enum conditii 
+ [alias %% crones],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [par %% alb],
+ [rasa %% monstru],
+ [metoda_de_lupta %% magician].
+ 
+regula nr %% 47
+personaj %% brewess fact certitudine %% 95
+enum conditii
+ [alias %% crones],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [par %% alb],
+ [rasa %% monstru],
+ [metoda_de_lupta %% magician].
+ 
+regula nr %% 48
+personaj %% whispess fact certitudine %% 85
+enum conditii 
+ [alias %% crones],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [par %% alb],
+ [rasa %% monstru],
+ [metoda_de_lupta %% magician].
+ 
+regula nr %% 49
+personaj %% whispess fact certitudine %% 95
+enum conditii
+ [alias %% crones],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [par %% alb],
+ [rasa %% monstru],
+ [metoda_de_lupta %% magician].
+
+ 
+regula nr %% 65
+personaj %% the_allgod fact certitudine %% 95
+enum conditii
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [par %% nu_are],
+ [rasa %% gigant],
+ [metoda_de_lupta %% alergator].
+
+regula nr %% 51
+personaj %% jonny fact certitudine %% 95
+enum conditii
+ [alias %% the_spirit_of_forest],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [par %% brunet],
+ [rasa %% pitic],
+ [metoda_de_lupta %% arcas].
+ 
+regula nr %% 52
+personaj %% cerys fact certitudine %% 85
+enum conditii 
+ [alias %% sparrowhawk],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% skellige],
+ [par %% roscat],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin]. 
+ 
+regula nr %% 53
+personaj %% cerys fact certitudine %% 95
+enum conditii
+ [alias %% sparrowhawk],
+ [not masculin], 
+ [ocupatie %% printesa],
+ [afiliere %% skellige],
+ [par %% roscat],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin]. 
+
+regula nr %% 54
+personaj %% anna fact certitudine %% 85
+enum conditii 
+ [alias %% anarietta],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% nilfgaardian],
+ [par %% roscat],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator]. 
+ 
+regula nr %% 55
+personaj %% anna fact certitudine %% 95
+enum conditii
+ [alias %% anarietta],
+ [not masculin], 
+ [ocupatie %% printesa],
+ [afiliere %% nilfgaardian],
+ [par %% roscat],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator]. 
+ 
+regula nr %% 56
+personaj %% eskel fact certitudine %% 85
+enum conditii
+ [alias %% nu_are],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% kaer_morhen],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% arcas].
+ 
+regula nr %% 57
+personaj %% eskel fact certitudine %% 95
+enum conditii
+ [alias %% nu_are],
+ [masculin], 
+ [ocupatie %% witcher],
+ [afiliere %% kaer_morhen],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% arcas].
+
+regula nr %% 58
+personaj %% priscilla fact certitudine %% 85
+enum conditii
+ [alias %% calonetta],
+ [not masculin],
+ [ocupatie %% nespecificat], 
+ [afiliere %% nu_are],
+ [par %% blond],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator].
+ 
+regula nr %% 59
+personaj %% priscilla fact certitudine %% 95
+enum conditii
+ [alias %% calonetta],
+ [not masculin], 
+ [ocupatie %% trubadur],
+ [afiliere %% nu_are],
+ [par %% blond],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator].
+
+regula nr %% 60
+personaj %% vesemir fact certitudine %% 85
+enum conditii
+ [alias %% hammond],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% wolf_school],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin].
+ 
+regula nr %% 61
+personaj %% vesemir fact certitudine %% 95
+enum conditii
+ [alias %% hammond],
+ [masculin], 
+ [ocupatie %% witcher],
+ [afiliere %% wolf_school],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin].
+
+regula nr %% 62
+personaj %% dandelion fact certitudine %% 85
+enum conditii
+ [alias %% julian],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% oxenfurt_university],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator]. 
+ 
+regula nr %% 63
+personaj %% dandelion fact certitudine %% 95
+enum conditii
+ [alias %% julian],
+ [masculin], 
+ [ocupatie %% trubadur],
+ [afiliere %% oxenfurt_university],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator]. 
+
+regula nr %% 64
+personaj %% sigismund fact certitudine %% 85
+enum conditii
+ [alias %% sigi],
+ [masculin],
+ [ocupatie %% nespecificat], 
+ [afiliere %% redania],
+ [par %% nu_are],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator].  
+ 
+regula nr %% 77
+personaj %% sigismund fact certitudine %% 95
+enum conditii
+ [alias %% sigi],
+ [masculin], 
+ [ocupatie %% cancelar],
+ [afiliere %% redania],
+ [par %% nu_are],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator].  
+ 
+regula nr %% 66
+personaj %% philippa fact certitudine %% 85
+enum conditii
+ [alias %% phil],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+
+regula nr %% 67
+personaj %% philippa fact certitudine %% 95
+enum conditii
+ [alias %% phil],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 68
+personaj %% emhyr fact certitudine %% 85
+enum conditii
+ [alias %% morvudd],
+ [masculin],
+ [ocupatie %% nespecificat], 
+ [afiliere %% nilfgaardian],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator]. 
+ 
+regula nr %% 69
+personaj %% emhyr fact certitudine %% 95
+enum conditii
+ [alias %% morvudd],
+ [masculin], 
+ [ocupatie %% imparat],
+ [afiliere %% nilfgaardian],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% alergator]. 
+ 
+regula nr %% 77
+personaj %% radovid fact certitudine %% 85
+enum conditii
+ [alias %% savior_of_the_north],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% redania],
+ [par %% nu_are],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin].
+ 
+regula nr %% 71
+personaj %% radovid fact certitudine %% 95
+enum conditii
+ [alias %% savior_of_the_north],
+ [masculin], 
+ [ocupatie %% imparat],
+ [afiliere %% redania],
+ [par %% nu_are],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin].  
+ 
+regula nr %% 79
+personaj %% letho fact certitudine %% 85
+enum conditii
+ [alias %% the_kingslayer],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% viper_scool],
+ [par %% nu_are],
+ [rasa %% om],
+ [metoda_de_lupta %% asasin].
+
+regula nr %% 73
+personaj %% letho fact certitudine %% 95
+enum conditii
+ [alias %% the_kingslayer],
+ [masculin], 
+ [ocupatie %% witcher],
+ [afiliere %% viper_scool],
+ [par %% nu_are],
+ [rasa %% om],
+ [metoda_de_lupta %% asasin]. 
+ 
+regula nr %% 74
+personaj %% keira fact certitudine %% 85
+enum conditii
+ [alias %% nu_are],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+
+regula nr %% 75
+personaj %% keira fact certitudine %% 95
+enum conditii
+ [alias %% nu_are],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 76
+personaj %% ciri fact certitudine %% 85
+enum conditii
+ [alias %% zireael],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% cintra],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 77
+personaj %% ciri fact certitudine %% 95
+enum conditii
+ [alias %% zireael],
+ [not masculin], 
+ [ocupatie %% witcher],
+ [afiliere %% cintra],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 78
+personaj %% triss fact certitudine %% 85
+enum conditii
+ [alias %% merigold],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% roscat],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 79
+personaj %% triss fact certitudine %% 95
+enum conditii
+ [alias %% merigold],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% roscat],
+ [rasa %% om],
+ [metoda_de_lupta %% magician]. 
+ 
+regula nr %% 80
+personaj %% yennefer fact certitudine %% 85
+enum conditii
+ [alias %% yen],
+ [not masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% necromancing]. 
+ 
+regula nr %% 81
+personaj %% yennefer fact certitudine %% 95
+enum conditii
+ [alias %% yen],
+ [not masculin], 
+ [ocupatie %% vrajitoare],
+ [afiliere %% lodge_of_sorceresses],
+ [par %% negru],
+ [rasa %% om],
+ [metoda_de_lupta %% necromancing]. 
+ 
+regula nr %% 82
+personaj %% geralt fact certitudine %% 85
+enum conditii
+ [alias %% white_wolf],
+ [masculin], 
+ [ocupatie %% nespecificat],
+ [afiliere %% wolf_school],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin].
+
+regula nr %% 83
+personaj %% geralt fact certitudine %% 95
+enum conditii
+ [alias %% white_wolf],
+ [masculin], 
+ [ocupatie %% witcher],
+ [afiliere %% wolf_school],
+ [par %% alb],
+ [rasa %% om],
+ [metoda_de_lupta %% spadasin]. 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+ 
+intrebare [masculin ;
+text : 'Personajul este de sex masculin?' ;
 variante : [da ; nu] ].
 
 intrebare [par ;
-text: 'Ce culoare are parul?' ;
+text : 'Ce culoare are parul?' ;
 variante : [rosu ; alb ; negru ; blond ; brunet] ].
 
-intrebare [ocupatie ;
-text: 'Ce ocupatie are?' ;
-variante : [vrajitoare ; witcher ; imparat ; conte ; trubadur ; regina] ].
+intrebare [omoara ;
+text : 'Ce vaneaza personajul?' ;
+variante : [monstrii ; oameni ; nimic] ].
+
+intrebare [ studiaza ;
+text : 'Personajul studiaza?' ;
+variante :[da ; nu] ].
+
+intrebare [ zona_preferata ;
+text : 'Unde prefera sa stea?' ;
+variante : [munte ; ocean ; plaja ; campii; nespecificat] ].
+
+intrebare [venit ;
+text : 'Care este venitul sau?' ;
+variante : [mic ; mediu ; mare ; nespecificat] ].
+
+intrebare [ orfan ;
+text : 'Personajul este orfan?' ;
+variante : [da ; nu ] ].
+
+intrebare [ nelegiuit ;
+text : 'Personajul este nelegiut?' ;
+variante : [da ; nu ] ].
+
+intrebare [ sange_nobil ;
+text : 'Este de sange nobil?' ;
+variante : [da ; nu] ].
+
+intrebare [ arma ;
+text : 'Ce arma foloseste?' ;
+variante : [nu_foloseste ; pumni ; arc_si_sageti ; savie ; cutit ; topor] ].
+
+intrebare [ magie ;
+text : 'Ce magii poate face?' ;
+variante : [nu_foloseste ; vraji ; necromancing ; time_travel] ].
+
+intrebare [mananca ;
+text : 'Ce fel de mancare prefera?' ;
+variante : [omnivor ; carnivor ; ierbivor] ].
+
+intrebare [se_anterneaza ;
+text : 'Practica antrenament?' ;
+variante : [da ; nu] ].
+
+intrebare [culoarea_pielii ; 
+text : 'Care este culoarea pielii?' ;
+variante : [alba ; galbena ; alta] ].
+
+intrebare [inaltime ;
+text : 'Care este inaltimea persoanjului?' ;
+variante : [oricare ; mica ; medie ; mare] ].
 
 intrebare [alias ;
-text: 'Care este alias-ul personajului?' ;
-variante : [white_wolf ; yen ; merigold ; zireael ; savior_of_the_north ; morvudd ; phil ; sigi ; julian ; hammond ; calonetta ; anarietta ; sparrowhawk] ]. 
-
-intrebare [ afiliere ;
-text: 'De cine apartine personajul?' ;
-variante: [wolf_school ; lodge_of_sorceresses ; cintra ; viper_school ; nilfgaardian ; redania ; oxenfurt_university] ].
+text : 'Care este alias-ul personajului?' ;
+variante : [white_wolf ; crones ; yen ; merigold ; zireael ; savior_of_the_north ; morvudd ; phil ; sigi ; julian ; hammond ; calonetta ; anarietta ; sparrowhawk] ]. 
