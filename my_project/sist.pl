@@ -107,6 +107,9 @@ proceseaza_termen_citit(Stream, Altceva,C):-
 tab(N) :- N>0,N1 is N-1, write(' '), tab(N1).
 tab(0).
 
+tab(N, Fisier) :- N>0,N1 is N-1, write(Fisier, ' '), tab(N1, Fisier).
+tab(0, Fisier).
+
 not(P):-P,!,fail.
 not(_).
 
@@ -114,6 +117,11 @@ scrie_lista([]):-nl.
 scrie_lista([H|T]) :-
 	write(H), tab(1),
 	scrie_lista(T).
+	
+scrie_lista([], Fisier):-nl.
+scrie_lista([H|T], Fisier) :-
+	write(Fisier, H), tab(1, Fisier),
+	scrie_lista(T, Fisier).
              
 afiseaza_fapte :-
 	write('Fapte existente în baza de cunostinte:'),
@@ -169,20 +177,38 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 % Apeleaza mai intai scop(Atr) - aici se salveaza scopul S expert 
 % dupa determina(Atr) - realizaeaza scopul
 scopuri_princ :-
-	scop(Atr),determina(Atr),afiseaza_scop(Atr), fail.
-scopuri_princ.
+	open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
+	scop(Atr),determina(Atr, Fisier),
+	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
+	list_rev(L, Reversed),
+	afiseaza_scop_lista(Reversed),
+	close(Fisier).
+scopuri_princ :- write('Nu exista solutii'), nl.
 
+list_rev([],[]). 
+list_rev([H|T],Li):- list_rev(T,RevT), append(RevT,[H],Li).
 
 determina(Atr) :-
 	realizare_scop(av(Atr,_),_,[scop(Atr)]),!.
 % aici trebuie sa facem un caz de nu are solutii
 determina(_).
 
+determina(Atr, Fisier) :- 
+	realizare_scop(av(Atr,_), _, [scop(Atr)], Fisier),!.
+% aici trebuie sa facem un caz de nu are solutii
+determina(_, Fisier).
+
 afiseaza_scop(Atr) :-
 	fapt(av(Atr,Val),FC,_),
 	FC >= 20,scrie_scop(av(Atr,Val),FC),
 	nl,fail.
 afiseaza_scop(_):- nl,nl.
+
+afiseaza_scop_lista([str(FC, Atr, Val) | T]) :-
+	FC >= 20,write(Atr), write('  '), write(Val), write('  '),
+	write('  '), write(FC),
+	nl,afiseaza_scop_lista(T).
+afiseaza_scop_lista([]):- nl,nl.
 
 scrie_scop(av(Atr,Val),FC) :- 
 	transformare(av(Atr,Val), X),
@@ -193,38 +219,38 @@ scrie_scop(av(Atr,Val),FC) :-
 
 % primul parametru este de structura not av(atr, valoare)
 % apeleaza realizare_scop pentru a afla FC si ii pune un minus in fata :-?
-realizare_scop(not Scop,Not_FC,Istorie) :-
-	realizare_scop(Scop,FC,Istorie),
+realizare_scop(not Scop,Not_FC,Istorie, Fisier) :-
+	realizare_scop(Scop,FC,Istorie, Fisier),
 	Not_FC is - FC, !.
 	
 % mai intai se uita daca scopul a fost deja obtinut
 % daca nu a fost, atunci incearca sa il obtina si cauta ceva interogabil
-realizare_scop(Scop,FC,_) :-
+realizare_scop(Scop,FC,_, Fisier) :-
 	fapt(Scop,FC,_), !.
-realizare_scop(Scop,FC,Istorie) :- 
-	pot_interoga(Scop,Istorie),
-	!,realizare_scop(Scop,FC,Istorie).  % dupa ce am itnerogat, incerc iar sa satisfac scopul
+realizare_scop(Scop,FC,Istorie, Fisier) :- 
+	pot_interoga(Scop,Istorie, Fisier),
+	!,realizare_scop(Scop,FC,Istorie, Fisier).  % dupa ce am itnerogat, incerc iar sa satisfac scopul
 
 % aici satisafem scopul. fg este pentru cazul in care avem deja reguli pentru a deduce valoarea atributului din regula
-realizare_scop(Scop,FC_curent,Istorie) :-
-	fg(Scop,FC_curent,Istorie).
+realizare_scop(Scop,FC_curent,Istorie, Fisier) :-
+	fg(Scop,FC_curent,Istorie, Fisier).
 	
 % ne luam regula, premisele si concluzia. N = id-ul regulii
 % demonstreaza primeste toate datele din regula si calculeaza Istoria
-fg(Scop,FC_curent,Istorie) :-
+fg(Scop,FC_curent,Istorie, Fisier) :-
 	regula(N, premise(Lista), concluzie(Scop,FC)),
-	demonstreaza(N,Lista,FC_premise,Istorie),
+	demonstreaza(N,Lista,FC_premise,Istorie, Fisier),
 	ajusteaza(FC,FC_premise,FC_nou),
 	actualizeaza(Scop,FC_nou,FC_curent,N),  % asta e pentru cazult in care avem mai multe reguli pentru acelasi atribut
 	FC_curent == 100,!.
-fg(Scop,FC,_) :- fapt(Scop,FC,_).
+fg(Scop,FC,_, _) :- fapt(Scop,FC,_).
 
 % verifica daca nu s-a pus intrebare si daca nu s-a pus, atunci pot sa pun
 % dupa ce interogheazsa, face un assert ca sa stie ca a pus deja intrebarea
-pot_interoga(av(Atr,_),Istorie) :-
+pot_interoga(av(Atr,_),Istorie, Fisier) :-
 	not interogat(av(Atr,_)),
 	interogabil(Atr,Optiuni,Mesaj),
-	interogheaza(Atr,Mesaj,Optiuni,Istorie),nl,
+	interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier),nl,
 	asserta( interogat(av(Atr,_)) ).
 
 
@@ -271,17 +297,35 @@ afis_regula(N) :-
 	scrie_lista(['enum conditii [']),
 	scrie_lista_premise(Lista_premise),
 	write(']'),nl.
+	
+afis_regula(N, Fisier) :- 
+	% primul parametru este ........
+	regula(	N, premise(Lista_premise),concluzie(Scop, FC)),
+	NN is integer(N),
+	scrie_lista(['regula  %% ',NN, ' \n'], Fisier),
+	transformare(Scop,Scop_tr), Scop_tr = [Nume, _, _, Val],
+	FC1 is integer(FC),
+	scrie_lista([Nume,' %% ', Val, ' factor certitudine %% ', FC1, '\n'], Fisier),
+	scrie_lista(['enum conditii [\n'], Fisier),
+	scrie_lista_premise(Lista_premise, Fisier),
+	write(Fisier, ']\n\n\n'), nl.
 
 scrie_lista_premise([]).
 scrie_lista_premise([H|T]) :-
 	transformare(H,H_tr),
 	tab(5),scrie_lista(H_tr),
 	scrie_lista_premise(T).
+	
+scrie_lista_premise([], Fisier).
+scrie_lista_premise([H|T], Fisier) :-
+	transformare(H,H_tr),
+	tab(5, Fisier),scrie_lista(H_tr, Fisier), write(Fisier, '\n'),
+	scrie_lista_premise(T, Fisier).
 
 transformare(av(A,da),[A]) :- !.
 transformare(not av(A,da), [not,A]) :- !.
 transformare(av(A,nu),[not,A]) :- !.
-transformare(av(A,V),[A,este,V]).
+transformare(av(A,V),[A,'%','%',V]).
 
 % aici face o afisare arborescenta
 premisele(N) :-
@@ -295,16 +339,24 @@ cum_premise([Scop|X]) :-
 	
 % ne afiseaza mesajul, (aici trebuie sa trimitem pe Stream, ca sa ajunga in interfata grafica)
 % primul interogheaza este pentru da|nu
-interogheaza(Atr,Mesaj,[da,nu],Istorie) :-
+interogheaza(Atr,Mesaj,[da,nu],Istorie, Fisier) :-
+	scrie_log(Atr, Istorie, Fisier),
 	!,write(Mesaj),nl,
 	de_la_utiliz(X,Istorie,[da,nu]),
 	det_val_fc(X,Val,FC),
 	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).  % utiliz = istoric (asa a zis Iza)
 % asta e pentru valori multiple
-interogheaza(Atr,Mesaj,Optiuni,Istorie) :-
+interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier) :-
+	scrie_log(Atr, Istorie, Fisier),
 	write(Mesaj),nl,   % afiseaza mesajul
 	citeste_opt(VLista,Optiuni,Istorie),
 	assert_fapt(Atr,VLista).  % asta adauga faptul
+	
+scrie_log(Atr, Istorie, Fisier):-
+	write(Fisier, Atr), write(Fisier, '\n'), 
+	\+ proceseaza_raspuns([de_ce], Istorie, _, Fisier),
+	flush_output(Fisier)
+	.
 
 % aici se afiseaza optiunile. ia o patanteza, face append la optiuni, si dupa inchid paranteza, dupa care ia input de la user
 citeste_opt(X,Optiuni,Istorie) :-
@@ -323,8 +375,17 @@ de_la_utiliz(X,Istorie,Lista_opt) :-
 % prima clauza este [de_ce]. adica daca sunt intrebat o chestie, pot sa il intreb de ce ai nevoie de informatia aia
 % deci daca scriu [de_ce], imi afiseaza istoria pentru acest atribut
 % ca sa il oprim de tot putem adauga o noua clauza gen asta cu de_ce in care sa ii zicem opreste si sa dam doar fail
-proceseaza_raspuns([de_ce],Istorie,_) :- nl,afis_istorie(Istorie),!,fail.
-
+proceseaza_raspuns([de_ce],Istorie,_, Fisier) :-
+	nl,afis_istorie(Istorie, Fisier),
+	!,fail.
+	
+afis_istorie([], Fisier) :- nl.
+afis_istorie([scop(X)|T], Fisier) :-
+	scrie_lista([scop,X], Fisier),!,
+	afis_istorie(T, Fisier).
+afis_istorie([N|T], Fisier) :-
+	afis_regula(N, Fisier),!,afis_istorie(T, Fisier).
+	
 % daca ajungem aici, inseamna ca avem un raspuns de la user si verificam daca raspunsul se afla in lista optiunilor
 proceseaza_raspuns([X],_,Lista_opt):-
 	member(X,Lista_opt).
@@ -356,18 +417,18 @@ afis_istorie([N|T]) :-
 	afis_regula(N),!,afis_istorie(T).
 
 % o sa ia pe rand premisele si o sa le calculeze valoarea. Ori intreaba, ori deduce din alte reguli
-demonstreaza(N,ListaPremise,Val_finala,Istorie) :-
-	dem(ListaPremise,100,Val_finala,[N|Istorie]),!.
+demonstreaza(N,ListaPremise,Val_finala,Istorie, Fisier) :-
+	dem(ListaPremise,100,Val_finala,[N|Istorie], Fisier),!.
 
 % asta  e predicat recursiv pentru ca trebuie sa parcurga o lista de listeaza_fapte
 % avem pasul de oprire
 % in Val_finala se calculeaza factorul de certitudine final
-dem([],Val_finala,Val_finala,_).
-dem([H|T],Val_actuala,Val_finala,Istorie) :-
-	realizare_scop(H,FC,Istorie),   % de aici se intoare cu un FC si un Istoric
+dem([],Val_finala,Val_finala,_, _).
+dem([H|T],Val_actuala,Val_finala,Istorie, Fisier) :-
+	realizare_scop(H,FC,Istorie, Fisier),   % de aici se intoare cu un FC si un Istoric
 	Val_interm is min(Val_actuala,FC),  % face minimul dintre FC cu care a pornit si valoarea actolo
 	Val_interm >= 20,
-	dem(T,Val_interm,Val_finala,Istorie).  % se apeleaza recursiv dem cu restul premiselor
+	dem(T,Val_interm,Val_finala,Istorie, Fisier).  % se apeleaza recursiv dem cu restul premiselor
  
 actualizeaza(Scop,FC_nou,FC,RegulaN) :-
 	fapt(Scop,FC_vechi,_),
@@ -403,21 +464,27 @@ incarca :-
 incarca :-
 	write('Nume incorect de fisier! '),nl,fail.
 	
-incarca_prolog( F) :-
+incarca_prolog( Path) :-
 	retractall(interogat(_)),retractall(fapt(_, _, _)),
 	retractall(scop(_)),retractall(interogabil(_, _, _)),
 	retractall(regula(_, _, _)),
-	see(F),incarca_reguli, seen, !. % see citeste din fisier. seen inchide fisierul
+	atom_concat(Path, '/my_rules.txt', Rules),
+	atom_concat(Path, '/log_witcher3', Directory), 
+	((\+ directory_exists(Directory), make_directory(Directory)) ; true),
+	see(Rules),incarca_reguli(Path), seen, !. % see citeste din fisier. seen inchide fisierul
 	
 
 % interograt si fapt a explicat deja cica
 % scop memoreaza atributul scop
 % interogabil memoreaza intrebarile. primul parametru este atributul. al doilea e lista de optiuni. al treilea este intrebarea in sine
-incarca(Stream, F) :-
+incarca(Stream, Path) :-
 	retractall(interogat(_)),retractall(fapt(_, _, _)),
 	retractall(scop(_)),retractall(interogabil(_, _, _)),
 	retractall(regula(_, _, _)),
-	see(F),incarca_reguli, seen, !, write(Stream, 'ok\n'). % see citeste din fisier. seen inchide fisierul
+	atom_concat(Path, '/my_rules.txt', Rules),
+	atom_concat(Path, '/log_witcher3', Directory), 
+	((\+ directory_exists(Directory), make_directory(Directory)) ; true),
+	see(Rules),incarca_reguli, seen, !, write(Stream, 'ok\n'). % see citeste din fisier. seen inchide fisierul
 	
 incarca(Stream, _):-
 	write(Stream, 'eroare_incarcare\n')
@@ -432,7 +499,9 @@ proceseaza(L) :-
 	% fiecare propozitie se transforma intr-un fapt
 	% trad: in R pune faptul pe care trebuie sa il assertam 
 	% foloseste assertz pentru a le pune fix in ordinea in care sunt citite
-	trad(R,L,[]), write(R), nl, assertz(R), !. 
+	trad(R,L,[]),
+%	write(R), nl,
+	assertz(R), !. 
 	
 % reguli DCG  - reguli speciale de parsare
 % predicat care face propozitii de tip: subiect predicat complement

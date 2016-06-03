@@ -1,0 +1,372 @@
+de aici incepe   masculin
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   omoara
+regula  %%  25  
+ ocupatie  %%  nespecificat  factor certitudine %%  97 
+ enum conditii [
+      omoara % % nimic 
+     not studiaza 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   studiaza
+regula  %%  25  
+ ocupatie  %%  nespecificat  factor certitudine %%  97 
+ enum conditii [
+      omoara % % nimic 
+     not studiaza 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   venit
+regula  %%  9  
+ locatie  %%  croockbag_bog  factor certitudine %%  98 
+ enum conditii [
+      venit % % nespecificat 
+     zona_preferata % % campie 
+]
+
+
+regula  %%  84  
+ afiliere  %%  ladies_of_the_woods  factor certitudine %%  97 
+ enum conditii [
+      locatie % % croockbag_bog 
+     not studiaza 
+     istoric % % nespecificat 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   zona_preferata
+regula  %%  9  
+ locatie  %%  croockbag_bog  factor certitudine %%  98 
+ enum conditii [
+      venit % % nespecificat 
+     zona_preferata % % campie 
+]
+
+
+regula  %%  84  
+ afiliere  %%  ladies_of_the_woods  factor certitudine %%  97 
+ enum conditii [
+      locatie % % croockbag_bog 
+     not studiaza 
+     istoric % % nespecificat 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   nelegiuit
+regula  %%  5  
+ istoric  %%  nespecificat  factor certitudine %%  98 
+ enum conditii [
+      not nelegiuit 
+     not sange_nobil 
+     orfan 
+]
+
+
+regula  %%  84  
+ afiliere  %%  ladies_of_the_woods  factor certitudine %%  97 
+ enum conditii [
+      locatie % % croockbag_bog 
+     not studiaza 
+     istoric % % nespecificat 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   sange_nobil
+regula  %%  5  
+ istoric  %%  nespecificat  factor certitudine %%  98 
+ enum conditii [
+      not nelegiuit 
+     not sange_nobil 
+     orfan 
+]
+
+
+regula  %%  84  
+ afiliere  %%  ladies_of_the_woods  factor certitudine %%  97 
+ enum conditii [
+      locatie % % croockbag_bog 
+     not studiaza 
+     istoric % % nespecificat 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   orfan
+regula  %%  5  
+ istoric  %%  nespecificat  factor certitudine %%  98 
+ enum conditii [
+      not nelegiuit 
+     not sange_nobil 
+     orfan 
+]
+
+
+regula  %%  84  
+ afiliere  %%  ladies_of_the_woods  factor certitudine %%  97 
+ enum conditii [
+      locatie % % croockbag_bog 
+     not studiaza 
+     istoric % % nespecificat 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   par
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   inaltime
+regula  %%  43  
+ rasa  %%  monstru  factor certitudine %%  97 
+ enum conditii [
+      inaltime % % oricare 
+     culoarea_pielii % % alta 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   culoarea_pielii
+regula  %%  43  
+ rasa  %%  monstru  factor certitudine %%  97 
+ enum conditii [
+      inaltime % % oricare 
+     culoarea_pielii % % alta 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   mananca
+regula  %%  28  
+ constitutie  %%  normal  factor certitudine %%  98 
+ enum conditii [
+      mananca % % omnivor 
+     se_antreneaza 
+]
+
+
+regula  %%  36  
+ metoda_de_lupta  %%  magician  factor certitudine %%  97 
+ enum conditii [
+      istoric % % nespecificat 
+     constitutie % % normal 
+     magie % % vraji 
+     arma % % nu_foloseste 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   se_antreneaza
+regula  %%  28  
+ constitutie  %%  normal  factor certitudine %%  98 
+ enum conditii [
+      mananca % % omnivor 
+     se_antreneaza 
+]
+
+
+regula  %%  36  
+ metoda_de_lupta  %%  magician  factor certitudine %%  97 
+ enum conditii [
+      istoric % % nespecificat 
+     constitutie % % normal 
+     magie % % vraji 
+     arma % % nu_foloseste 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   magie
+regula  %%  36  
+ metoda_de_lupta  %%  magician  factor certitudine %%  97 
+ enum conditii [
+      istoric % % nespecificat 
+     constitutie % % normal 
+     magie % % vraji 
+     arma % % nu_foloseste 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj de aici incepe   arma
+regula  %%  36  
+ metoda_de_lupta  %%  magician  factor certitudine %%  97 
+ enum conditii [
+      istoric % % nespecificat 
+     constitutie % % normal 
+     magie % % vraji 
+     arma % % nu_foloseste 
+]
+
+
+regula  %%  44  
+ personaj  %%  weavess  factor certitudine %%  85 
+ enum conditii [
+      not masculin 
+     ocupatie % % nespecificat 
+     afiliere % % ladies_of_the_woods 
+     par % % alb 
+     rasa % % monstru 
+     metoda_de_lupta % % magician 
+]
+
+
+scop personaj 
