@@ -201,7 +201,7 @@ realizare_scop(not Scop,Not_FC,Istorie) :-
 % daca nu a fost, atunci incearca sa il obtina si cauta ceva interogabil
 realizare_scop(Scop,FC,_) :-
 	fapt(Scop,FC,_), !.
-realizare_scop(Scop,FC,Istorie) :-
+realizare_scop(Scop,FC,Istorie) :- 
 	pot_interoga(Scop,Istorie),
 	!,realizare_scop(Scop,FC,Istorie).  % dupa ce am itnerogat, incerc iar sa satisfac scopul
 
@@ -245,7 +245,7 @@ cum(not Scop) :-
 cum(Scop) :-
 	fapt(Scop,FC,Reguli),
 	lista_float_int(Reguli,Reguli1),
-	FC > 20,transformare(Scop,PG),
+	FC > 20, transformare(Scop,PG), 
 	append(PG,[a,fost,derivat,cu, ajutorul, 'regulilor: '|Reguli1],LL),
 	scrie_lista(LL),nl,afis_reguli(Reguli),
 	fail.
@@ -270,7 +270,7 @@ afis_regula(N) :-
 	scrie_lista(['atribut_concluzie %% ', Scop_tr, ' factor certitudine %% ', FC1]),
 	scrie_lista(['enum conditii [']),
 	scrie_lista_premise(Lista_premise),
-	append([']']),nl.
+	write(']'),nl.
 
 scrie_lista_premise([]).
 scrie_lista_premise([H|T]) :-
