@@ -9,6 +9,8 @@
 :-dynamic interogabil/3.
 :-dynamic regula/3.
 :-discontiguous citeste_cuvant/3.
+:-dynamic stream/1.
+:-dynamic java/1.
 
 %  #############################################    COMMUNICATION    ################################################3
 
@@ -71,8 +73,8 @@ proceseaza_termen_citit(Stream, oras(X),C):-
 				proceseaza_text_primit(Stream,C1).
 				
 				
-proceseaza_termen_citit(Stream, comanda(pornire), C):-
-				call(pornire),
+proceseaza_termen_citit(Stream, comanda(pornire), C):-		
+				pornire,
 				flush_output(Stream),
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
@@ -86,7 +88,14 @@ proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
 				.
 
 proceseaza_termen_citit(Stream, comanda(consulta), C):-
-				call(consulta),
+				executa([consulta]),
+				flush_output(Stream),
+				C1 is C + 1,
+				proceseaza_text_primit(Stream, C1)
+				.
+
+proceseaza_termen_citit(Stream, rasp(X), C):-
+				% executa([consulta]),
 				flush_output(Stream),
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
@@ -118,7 +127,7 @@ scrie_lista([H|T]) :-
 	write(H), tab(1),
 	scrie_lista(T).
 	
-scrie_lista([], Fisier):-nl.
+scrie_lista([], Fisier).
 scrie_lista([H|T], Fisier) :-
 	write(Fisier, H), tab(1, Fisier),
 	scrie_lista(T, Fisier).
@@ -155,11 +164,12 @@ pornire :-
 	nl,nl,
 	write(' (Incarca Consulta Reinitiaza  Afisare_fapte  Cum   Iesire) '),
 	nl,nl,write('|: '),citeste_linie([H | T]),
+	write('done retract'), nl,
 	executa([H | T]), H == iesire.
 
 	
 executa([incarca]) :- 
-	incarca,!,nl, % predicatul incarca citeste fisierul. Cut-ul s-a pus ca sa nu mai treaca la celelalte optiuni
+	incarca,!,nl, % predicatul incarca citeste fisierul. Cut-ul e pus ca sa nu mai treaca la celelalte optiuni
 	write('Fisierul dorit a fost incarcat'),nl.
 executa([consulta]) :- 
 	scopuri_princ,!.
@@ -177,16 +187,37 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 % Apeleaza mai intai scop(Atr) - aici se salveaza scopul S expert 
 % dupa determina(Atr) - realizaeaza scopul
 scopuri_princ :-
-	open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	assert(stream(Fisier)),
 	scop(Atr),determina(Atr, Fisier),
 	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
 	list_rev(L, Reversed),
 	afiseaza_scop_lista(Reversed),
-	close(Fisier).
-scopuri_princ :- write('Nu exista solutii'), nl.
+	scrie_demonstratie_fisier(Reversed),
+	close(Fisier),
+	retractall(stream(_))
+	.
+scopuri_princ :-
+	stream(F), close(F),
+	retractall(stream(_)),
+	write('Nu exista solutii'), nl.
 
 list_rev([],[]). 
 list_rev([H|T],Li):- list_rev(T,RevT), append(RevT,[H],Li).
+
+scrie_demonstratie_fisier(Reversed):-
+	Reversed = [str(FC, Atr, Val) | T],
+	A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	atom_concat(A, Val, B),
+	atom_concat(B, '.txt', Path),
+	open(Path, write, FisierDem),
+	tell(FisierDem),
+	cum([Atr, '%', '%', Val]),
+	told,
+	scrie_demonstratie_fisier(T)
+	.
+scrie_demonstratie_fisier([]).
 
 determina(Atr) :-
 	realizare_scop(av(Atr,_),_,[scop(Atr)]),!.
@@ -245,12 +276,13 @@ fg(Scop,FC_curent,Istorie, Fisier) :-
 	FC_curent == 100,!.
 fg(Scop,FC,_, _) :- fapt(Scop,FC,_).
 
-% verifica daca nu s-a pus intrebare si daca nu s-a pus, atunci pot sa pun
+% verifica daca nu a fost pusa intrebare si daca nu e asa, atunci pot sa pun
 % dupa ce interogheazsa, face un assert ca sa stie ca a pus deja intrebarea
 pot_interoga(av(Atr,_),Istorie, Fisier) :-
 	not interogat(av(Atr,_)),
 	interogabil(Atr,Optiuni,Mesaj),
-	interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier),nl,
+	interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier),	
+	% nl,
 	asserta( interogat(av(Atr,_)) ).
 
 
@@ -292,8 +324,8 @@ afis_regula(N) :-
 	NN is integer(N),
 	scrie_lista(['regula  %% ',NN]),
 	transformare(Scop,Scop_tr),
-	FC1 is integer(FC),
-	scrie_lista(['atribut_concluzie %% ', Scop_tr, ' factor certitudine %% ', FC1]),
+	FC1 is integer(FC), Scop_tr = [Nume, _, _, Val],
+	scrie_lista([Nume, ' %% ', Val, ' factor certitudine %% ', FC1]),
 	scrie_lista(['enum conditii [']),
 	scrie_lista_premise(Lista_premise),
 	write(']'),nl.
@@ -308,7 +340,9 @@ afis_regula(N, Fisier) :-
 	scrie_lista([Nume,' %% ', Val, ' factor certitudine %% ', FC1, '\n'], Fisier),
 	scrie_lista(['enum conditii [\n'], Fisier),
 	scrie_lista_premise(Lista_premise, Fisier),
-	write(Fisier, ']\n\n\n'), nl.
+	write(Fisier, ']\n\n\n')
+	%, nl
+	.
 
 scrie_lista_premise([]).
 scrie_lista_premise([H|T]) :-
