@@ -29,7 +29,7 @@ public class Fereastra extends javax.swing.JFrame {
         tfInput = new javax.swing.JTextField();
         btIncarca = new javax.swing.JButton();
         btPorneste = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btConsulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +71,12 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
+        btConsulta.setText("Consulta");
+        btConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConsultaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,7 +99,7 @@ public class Fereastra extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btPorneste, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,7 +116,7 @@ public class Fereastra extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPorneste)
-                    .addComponent(jButton2))
+                    .addComponent(btConsulta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
@@ -128,12 +133,9 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_tfParametruActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        //okButton.setEnabled(false);
-        //de aici ne luam textul scris in textfield dupa ce se apasa butonul okey.
         String valoareParametru=tfParametru.getText();
         tfParametru.setText("");
         try {
-            // se transmite mesaj cu ce am citit noiq
             conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,8 +144,6 @@ public class Fereastra extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            // TODO add your handling code here:
-            // p-aici ar trebui sa ii trimitem noi domenzile
             PipedOutputStream pos= conexiune.expeditor.getPipedOutputStream();
             PrintStream ps = new PrintStream(pos);
             ps.println("salut.");
@@ -157,10 +157,8 @@ public class Fereastra extends javax.swing.JFrame {
         String input = tfInput.getText();
         tfInput.setText("");
         try {
-            // se transmite mesaj cu ce am citit noiq
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project'))";
-            // String comanda = TODO get dynamic input
+            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,23 +166,24 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_btIncarcaActionPerformed
 
     private void btPornesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPornesteActionPerformed
-        String input = tfInput.getText();
-        tfInput.setText("");
         try {
-            // se transmite mesaj cu ce am citit noiq
             String comanda = "comanda(pornire)";
-            // String comanda = TODO get dynamic input
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btPornesteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaActionPerformed
+        try {
+            String comanda = "comanda(consulta)";
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btConsultaActionPerformed
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -207,7 +206,6 @@ public class Fereastra extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Fereastra("Verificare").setVisible(true);
@@ -228,11 +226,11 @@ public class Fereastra extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btConsulta;
     private javax.swing.JButton btIncarca;
     private javax.swing.JButton btPorneste;
     private javax.swing.ButtonGroup grupBtn;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton okButton;
     private javax.swing.JTextArea textAreaDebug;
