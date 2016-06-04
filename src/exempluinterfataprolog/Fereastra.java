@@ -30,6 +30,7 @@ public class Fereastra extends javax.swing.JFrame {
         btIncarca = new javax.swing.JButton();
         btPorneste = new javax.swing.JButton();
         btConsulta = new javax.swing.JButton();
+        btAuto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,19 +79,30 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
+        btAuto.setText("Auto");
+        btAuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(tfParametru, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(okButton))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                        .addGap(43, 43, 43)
+                        .addComponent(okButton)
+                        .addGap(27, 27, 27)
+                        .addComponent(btAuto))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(103, 103, 103)
                 .addComponent(jButton1)
                 .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -100,7 +112,7 @@ public class Fereastra extends javax.swing.JFrame {
                         .addComponent(btPorneste, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,16 +122,19 @@ public class Fereastra extends javax.swing.JFrame {
                     .addComponent(tfParametru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(okButton)
                     .addComponent(jButton1)
-                    .addComponent(tfInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAuto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btIncarca)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPorneste)
                     .addComponent(btConsulta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addContainerGap(380, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tfInput.getAccessibleContext().setAccessibleName("");
@@ -133,7 +148,7 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_tfParametruActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        String valoareParametru=tfParametru.getText();
+        String valoareParametru= "[" + tfParametru.getText() + "]";
         tfParametru.setText("");
         try {
             conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
@@ -183,6 +198,78 @@ public class Fereastra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btConsultaActionPerformed
 
+    
+    
+    private void btAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAutoActionPerformed
+        String valoareParametru;
+ 
+        try {
+            valoareParametru = "[nu]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[nimic]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[nu]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[nespecificat]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[campie]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            
+            valoareParametru = "[nu]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            
+            valoareParametru = "[nu]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[da]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[alb]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[oricare]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[alta]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[omnivor]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[da]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[vraji]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+            
+            valoareParametru = "[nu_foloseste]";
+            conexiune.expeditor.trimiteMesajSicstus(valoareParametru);
+            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btAutoActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -226,6 +313,7 @@ public class Fereastra extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAuto;
     private javax.swing.JButton btConsulta;
     private javax.swing.JButton btIncarca;
     private javax.swing.JButton btPorneste;

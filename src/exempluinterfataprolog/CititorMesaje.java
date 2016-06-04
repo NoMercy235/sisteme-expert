@@ -79,6 +79,7 @@ public class CititorMesaje extends Thread {
                         public void run(){ 
                             // iau fereastra, iau elementul si pun pe el ce am primit
                             conexiune.getFereastra().getDebugTextArea().append(sirDeScris); 
+                            System.out.println(sirDeScris);
                         }
 
                     });
