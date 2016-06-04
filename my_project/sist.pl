@@ -88,19 +88,11 @@ proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
 				.
 
 proceseaza_termen_citit(Stream, comanda(consulta), C):-
-				executa([consulta]),
+				executa([consulta], Stream),
 				flush_output(Stream),
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
 				.
-
-proceseaza_termen_citit(Stream, rasp(X), C):-
-				% executa([consulta]),
-				flush_output(Stream),
-				C1 is C + 1,
-				proceseaza_text_primit(Stream, C1)
-				.
-	
 			
 proceseaza_termen_citit(Stream, Altceva,C):-
 				write(Stream,'nu inteleg ce vrei sa spui: '),write(Stream,Altceva),nl(Stream),
@@ -130,6 +122,7 @@ scrie_lista([H|T]) :-
 scrie_lista([], Fisier).
 scrie_lista([H|T], Fisier) :-
 	write(Fisier, H), tab(1, Fisier),
+	write(Fisier, '\n'), flush_output(Fisier),
 	scrie_lista(T, Fisier).
              
 afiseaza_fapte :-
@@ -173,6 +166,8 @@ executa([incarca]) :-
 	write('Fisierul dorit a fost incarcat'),nl.
 executa([consulta]) :- 
 	scopuri_princ,!.
+executa([consulta], Stream) :-
+	scopuri_princ(Stream),!.
 % asta face clear la tot ce am obtinut din sistemul expert (raspuns de la user sau fapte)
 executa([reinitiaza]) :- 
 	retractall(interogat(_)),
@@ -186,6 +181,7 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 
 % Apeleaza mai intai scop(Atr) - aici se salveaza scopul S expert 
 % dupa determina(Atr) - realizaeaza scopul
+/*
 scopuri_princ :-
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
 	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
@@ -199,6 +195,25 @@ scopuri_princ :-
 	retractall(stream(_))
 	.
 scopuri_princ :-
+	stream(F), close(F),
+	retractall(stream(_)),
+	write('Nu exista solutii'), nl.
+*/
+
+scopuri_princ(Stream) :-
+	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	assert(stream(Fisier)),
+	scop(Atr),
+	determina(Atr, Fisier, Stream),
+	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
+	list_rev(L, Reversed),
+	afiseaza_scop_lista(Reversed, Stream),
+	scrie_demonstratie_fisier(Reversed),
+	close(Fisier),
+	retractall(stream(_))
+	.
+scopuri_princ(Stream) :-
 	stream(F), close(F),
 	retractall(stream(_)),
 	write('Nu exista solutii'), nl.
@@ -229,6 +244,12 @@ determina(Atr, Fisier) :-
 % aici trebuie sa facem un caz de nu are solutii
 determina(_, Fisier).
 
+determina(Atr, Fisier, Stream) :- 
+	realizare_scop(av(Atr,_), _, [scop(Atr)], Fisier, Stream),
+	nl(Stream), flush_output(Stream), !.
+% aici trebuie sa facem un caz de nu are solutii
+determina(_, Fisier, Stream).
+
 afiseaza_scop(Atr) :-
 	fapt(av(Atr,Val),FC,_),
 	FC >= 20,scrie_scop(av(Atr,Val),FC),
@@ -240,6 +261,17 @@ afiseaza_scop_lista([str(FC, Atr, Val) | T]) :-
 	write('  '), write(FC),
 	nl,afiseaza_scop_lista(T).
 afiseaza_scop_lista([]):- nl,nl.
+
+afiseaza_scop_lista([str(FC, Atr, Val) | T], Stream) :-
+	FC >= 20,
+	write(Stream, Atr), write(Stream, ' '),
+	write(Stream, Val), write(Stream, ' '),
+	write(Stream, FC), write(Stream, '\n'), flush_output(Stream),
+	write(Atr), write('  '), write(Val), write('  '),
+	write('  '), write(FC),
+
+	afiseaza_scop_lista(T, Stream).
+afiseaza_scop_lista([], Stream):- write(Stream, '\n'), flush_output(Stream).
 
 scrie_scop(av(Atr,Val),FC) :- 
 	transformare(av(Atr,Val), X),
@@ -253,18 +285,29 @@ scrie_scop(av(Atr,Val),FC) :-
 realizare_scop(not Scop,Not_FC,Istorie, Fisier) :-
 	realizare_scop(Scop,FC,Istorie, Fisier),
 	Not_FC is - FC, !.
+realizare_scop(not Scop,Not_FC,Istorie, Fisier, Stream) :-
+	realizare_scop(Scop,FC,Istorie, Fisier, Stream),
+	Not_FC is - FC, !.
 	
 % mai intai se uita daca scopul a fost deja obtinut
 % daca nu a fost, atunci incearca sa il obtina si cauta ceva interogabil
 realizare_scop(Scop,FC,_, Fisier) :-
 	fapt(Scop,FC,_), !.
+realizare_scop(Scop,FC,_, Fisier, Stream) :-
+	fapt(Scop,FC,_), !.
+
 realizare_scop(Scop,FC,Istorie, Fisier) :- 
 	pot_interoga(Scop,Istorie, Fisier),
 	!,realizare_scop(Scop,FC,Istorie, Fisier).  % dupa ce am itnerogat, incerc iar sa satisfac scopul
+realizare_scop(Scop,FC,Istorie, Fisier, Stream) :-
+	pot_interoga(Scop,Istorie, Fisier, Stream), 
+	!,realizare_scop(Scop,FC,Istorie, Fisier, Stream).  % dupa ce am itnerogat, incerc iar sa satisfac scopul
 
 % aici satisafem scopul. fg este pentru cazul in care avem deja reguli pentru a deduce valoarea atributului din regula
 realizare_scop(Scop,FC_curent,Istorie, Fisier) :-
 	fg(Scop,FC_curent,Istorie, Fisier).
+realizare_scop(Scop,FC_curent,Istorie, Fisier, Stream) :-
+	fg(Scop,FC_curent,Istorie, Fisier, Stream).
 	
 % ne luam regula, premisele si concluzia. N = id-ul regulii
 % demonstreaza primeste toate datele din regula si calculeaza Istoria
@@ -276,13 +319,25 @@ fg(Scop,FC_curent,Istorie, Fisier) :-
 	FC_curent == 100,!.
 fg(Scop,FC,_, _) :- fapt(Scop,FC,_).
 
+fg(Scop,FC_curent,Istorie, Fisier, Stream) :-
+	regula(N, premise(Lista), concluzie(Scop,FC)),
+	demonstreaza(N,Lista,FC_premise,Istorie, Fisier, Stream),
+	ajusteaza(FC,FC_premise,FC_nou),
+	actualizeaza(Scop,FC_nou,FC_curent,N),  % asta e pentru cazult in care avem mai multe reguli pentru acelasi atribut
+	FC_curent == 100,!.
+fg(Scop,FC,_, Fisier, Stream) :- fapt(Scop,FC,_).
+
 % verifica daca nu a fost pusa intrebare si daca nu e asa, atunci pot sa pun
 % dupa ce interogheazsa, face un assert ca sa stie ca a pus deja intrebarea
 pot_interoga(av(Atr,_),Istorie, Fisier) :-
 	not interogat(av(Atr,_)),
 	interogabil(Atr,Optiuni,Mesaj),
 	interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier),	
-	% nl,
+	asserta( interogat(av(Atr,_)) ).
+pot_interoga(av(Atr,_),Istorie, Fisier, Stream) :-
+	not interogat(av(Atr,_)),
+	interogabil(Atr,Optiuni,Mesaj),
+	interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier, Stream),
 	asserta( interogat(av(Atr,_)) ).
 
 
@@ -386,6 +441,18 @@ interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier) :-
 	citeste_opt(VLista,Optiuni,Istorie),
 	assert_fapt(Atr,VLista).  % asta adauga faptul
 	
+interogheaza(Atr,Mesaj,[da,nu],Istorie, Fisier, Stream) :-
+	scrie_log(Atr, Istorie, Fisier),
+	!,write(Stream, Mesaj),nl, write(Stream, '\n'), flush_output(Stream),
+	de_la_utiliz(X,Istorie,[da,nu], Stream),
+	det_val_fc(X,Val,FC),
+	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).  % utiliz = istoric (asa a zis Iza)
+interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier, Stream) :-
+	scrie_log(Atr, Istorie, Fisier),
+	write(Stream, Mesaj),nl,   % afiseaza mesajul
+	citeste_opt(VLista,Optiuni,Istorie, Stream),
+	assert_fapt(Atr,VLista).  % asta adauga faptul
+	
 scrie_log(Atr, Istorie, Fisier):-
 	write(Fisier, Atr), write(Fisier, '\n'), 
 	\+ proceseaza_raspuns([de_ce], Istorie, _, Fisier),
@@ -398,13 +465,21 @@ citeste_opt(X,Optiuni,Istorie) :-
 	append(Opt1,[')'],Opt),
 	scrie_lista(Opt),
 	de_la_utiliz(X,Istorie,Optiuni).
+citeste_opt(X,Optiuni,Istorie, Stream) :-
+	append(['('],Optiuni,Opt1),
+	append(Opt1,[')'],Opt),
+	scrie_lista(Opt, Stream),
+	de_la_utiliz(X,Istorie,Optiuni, Stream).
 
 % asta primeste raspunsul de la utilizator 
 % afiseaza un prompt si apeleaza citeste_linie
 % verificam daca user-ul a dat una din optiunile bune
 de_la_utiliz(X,Istorie,Lista_opt) :-
-	repeat,write(': '),citeste_linie(X),
+	repeat,write(': '), citeste_linie(X),
 	proceseaza_raspuns(X,Istorie,Lista_opt).
+de_la_utiliz(X,Istorie,Lista_opt, Stream) :-
+	repeat, read(Stream, X), write('am citit'),nl,write(X),nl, write(Lista_opt), nl,
+	proceseaza_raspuns(X,Istorie,Lista_opt), write('success'), nl.
 
 % prima clauza este [de_ce]. adica daca sunt intrebat o chestie, pot sa il intreb de ce ai nevoie de informatia aia
 % deci daca scriu [de_ce], imi afiseaza istoria pentru acest atribut
@@ -454,6 +529,9 @@ afis_istorie([N|T]) :-
 demonstreaza(N,ListaPremise,Val_finala,Istorie, Fisier) :-
 	dem(ListaPremise,100,Val_finala,[N|Istorie], Fisier),!.
 
+demonstreaza(N,ListaPremise,Val_finala,Istorie, Fisier, Stream) :-
+	dem(ListaPremise,100,Val_finala,[N|Istorie], Fisier, Stream),!.
+
 % asta  e predicat recursiv pentru ca trebuie sa parcurga o lista de listeaza_fapte
 % avem pasul de oprire
 % in Val_finala se calculeaza factorul de certitudine final
@@ -463,6 +541,13 @@ dem([H|T],Val_actuala,Val_finala,Istorie, Fisier) :-
 	Val_interm is min(Val_actuala,FC),  % face minimul dintre FC cu care a pornit si valoarea actolo
 	Val_interm >= 20,
 	dem(T,Val_interm,Val_finala,Istorie, Fisier).  % se apeleaza recursiv dem cu restul premiselor
+
+dem([],Val_finala,Val_finala,_, _, _).
+dem([H|T],Val_actuala,Val_finala,Istorie, Fisier, Stream) :-
+	realizare_scop(H,FC,Istorie, Fisier, Stream),   % de aici se intoare cu un FC si un Istoric
+	Val_interm is min(Val_actuala,FC),  % face minimul dintre FC cu care a pornit si valoarea actolo
+	Val_interm >= 20,
+	dem(T,Val_interm,Val_finala,Istorie, Fisier, Stream).  % se apeleaza recursiv dem cu restul premiselor
  
 actualizeaza(Scop,FC_nou,FC,RegulaN) :-
 	fapt(Scop,FC_vechi,_),
