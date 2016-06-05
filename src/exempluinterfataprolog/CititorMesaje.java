@@ -74,7 +74,7 @@ public class CititorMesaje extends Thread {
                 if(chr=='\n'){
                     final String sirDeScris=str;
                     str="";
-                    // functia asta updateaza e;lementele din interfata grafica
+                    // functia asta updateaza elementele din interfata grafica
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run(){ 
                             // iau fereastra, iau elementul si pun pe el ce am primit
@@ -85,7 +85,7 @@ public class CititorMesaje extends Thread {
                                 int secondQuote = sirDeScris.indexOf("'", firstQuote + 1);
                                 String question = sirDeScris.substring(firstQuote + 1, secondQuote);
                                 Fereastra.fereastra.setQuestion(question);
-                                
+                               // Fereastra.fereastra.labels.push(question);
                                 int firstParanthesis = sirDeScris.indexOf("(");
                                 int lastParanthesis = sirDeScris.indexOf(")");
                                 String answers;

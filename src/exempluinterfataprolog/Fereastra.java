@@ -13,11 +13,13 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 import javax.swing.UIManager;
 
@@ -28,6 +30,7 @@ public class Fereastra extends javax.swing.JFrame {
     ConexiuneProlog conexiune;
     LinkedList<String> answers = new LinkedList<>();
     LinkedList<JToggleButton> toggles = new LinkedList<>();
+    LinkedList<JLabel> labels = new LinkedList<>();
     
     int fc = 100;
     boolean customFc = false;
@@ -40,7 +43,9 @@ public class Fereastra extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Witcher 3");
         UIManager.put("ToggleButton.select", Color.YELLOW);
-        
+        Incarca.setEnabled(true);
+        Consulta.setEnabled(true);
+        Reset.setEnabled(true);
         BufferedImage myPicture = null;
         try {
             myPicture = ImageIO.read(this.getClass().getResource("/images/bg2.jpg"));
@@ -52,11 +57,10 @@ public class Fereastra extends javax.swing.JFrame {
         picLabel.setOpaque(true);
         picLabel.setLayout(null);
         this.add(picLabel);
-
-        panMain.setOpaque(false);
-        panAnswersPanel.setOpaque(false);
-        answersScroll.setOpaque(false);
- 
+       // panMeniu.setOpaque(false);
+        panIntrebSiRasp.setVisible(false);
+        intrebareSiRaspunsDat.setVisible(false);
+        panCertitudine.setVisible(false);
         answersScroll.setVisible(false);
         jQuestion.setVisible(false);
         btWhy.setVisible(false);
@@ -72,24 +76,30 @@ public class Fereastra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         tfParametru = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textAreaDebug = new javax.swing.JTextArea();
-        tfInput = new javax.swing.JTextField();
-        btIncarca = new javax.swing.JButton();
-        btPorneste = new javax.swing.JButton();
-        btConsulta = new javax.swing.JButton();
         btAuto = new javax.swing.JButton();
         panMain = new javax.swing.JPanel();
+        lbFcAux = new javax.swing.JLabel();
+        jQuestion = new javax.swing.JLabel();
+        panCertitudine = new javax.swing.JPanel();
+        panAns = new javax.swing.JPanel();
+        btWhy = new javax.swing.JButton();
         answersScroll = new javax.swing.JScrollPane();
         panAnswersPanel = new javax.swing.JPanel();
-        jQuestion = new javax.swing.JLabel();
-        btWhy = new javax.swing.JButton();
-        lbFcAux = new javax.swing.JLabel();
-        btnPlus = new javax.swing.JButton();
+        intrebareSiRaspunsDat = new javax.swing.JScrollPane();
+        panIntrebSiRasp = new javax.swing.JPanel();
         lbFc = new javax.swing.JLabel();
         btnMinus = new javax.swing.JButton();
+        btnPlus = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        Meniu = new javax.swing.JMenu();
+        Incarca = new javax.swing.JMenuItem();
+        Consulta = new javax.swing.JMenuItem();
+        Reset = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1049, 479));
@@ -111,33 +121,6 @@ public class Fereastra extends javax.swing.JFrame {
         textAreaDebug.setRows(5);
         jScrollPane1.setViewportView(textAreaDebug);
 
-        btIncarca.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btIncarca.setForeground(new java.awt.Color(153, 0, 0));
-        btIncarca.setLabel("Incarca");
-        btIncarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btIncarcaActionPerformed(evt);
-            }
-        });
-
-        btPorneste.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btPorneste.setForeground(new java.awt.Color(153, 0, 0));
-        btPorneste.setText("Porneste");
-        btPorneste.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btPornesteActionPerformed(evt);
-            }
-        });
-
-        btConsulta.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btConsulta.setForeground(new java.awt.Color(153, 0, 0));
-        btConsulta.setText("Consulta");
-        btConsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btConsultaActionPerformed(evt);
-            }
-        });
-
         btAuto.setText("Auto");
         btAuto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,24 +128,17 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panAnswersPanelLayout = new javax.swing.GroupLayout(panAnswersPanel);
-        panAnswersPanel.setLayout(panAnswersPanelLayout);
-        panAnswersPanelLayout.setHorizontalGroup(
-            panAnswersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        panAnswersPanelLayout.setVerticalGroup(
-            panAnswersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
-        );
-
-        answersScroll.setViewportView(panAnswersPanel);
+        lbFcAux.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        lbFcAux.setForeground(new java.awt.Color(153, 0, 0));
+        lbFcAux.setText("Factor de certitudine:");
 
         jQuestion.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
         jQuestion.setForeground(new java.awt.Color(153, 0, 0));
         jQuestion.setText("Intrebare");
 
-        btWhy.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        panCertitudine.setLayout(new javax.swing.BoxLayout(panCertitudine, javax.swing.BoxLayout.LINE_AXIS));
+
+        btWhy.setFont(new java.awt.Font("Monotype Corsiva", 1, 24)); // NOI18N
         btWhy.setForeground(new java.awt.Color(153, 0, 0));
         btWhy.setText("De ce vrei sa stii?");
         btWhy.addActionListener(new java.awt.event.ActionListener() {
@@ -171,18 +147,57 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
-        lbFcAux.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        lbFcAux.setForeground(new java.awt.Color(153, 0, 0));
-        lbFcAux.setText("Factor de certitudine:");
+        javax.swing.GroupLayout panAnswersPanelLayout = new javax.swing.GroupLayout(panAnswersPanel);
+        panAnswersPanel.setLayout(panAnswersPanelLayout);
+        panAnswersPanelLayout.setHorizontalGroup(
+            panAnswersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 257, Short.MAX_VALUE)
+        );
+        panAnswersPanelLayout.setVerticalGroup(
+            panAnswersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 325, Short.MAX_VALUE)
+        );
 
-        btnPlus.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btnPlus.setForeground(new java.awt.Color(153, 0, 0));
-        btnPlus.setText("+");
-        btnPlus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlusActionPerformed(evt);
-            }
-        });
+        answersScroll.setViewportView(panAnswersPanel);
+
+        javax.swing.GroupLayout panIntrebSiRaspLayout = new javax.swing.GroupLayout(panIntrebSiRasp);
+        panIntrebSiRasp.setLayout(panIntrebSiRaspLayout);
+        panIntrebSiRaspLayout.setHorizontalGroup(
+            panIntrebSiRaspLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
+        );
+        panIntrebSiRaspLayout.setVerticalGroup(
+            panIntrebSiRaspLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 114, Short.MAX_VALUE)
+        );
+
+        intrebareSiRaspunsDat.setViewportView(panIntrebSiRasp);
+
+        javax.swing.GroupLayout panAnsLayout = new javax.swing.GroupLayout(panAns);
+        panAns.setLayout(panAnsLayout);
+        panAnsLayout.setHorizontalGroup(
+            panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAnsLayout.createSequentialGroup()
+                .addGroup(panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panAnsLayout.createSequentialGroup()
+                        .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btWhy, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE))
+                    .addComponent(intrebareSiRaspunsDat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panAnsLayout.setVerticalGroup(
+            panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panAnsLayout.createSequentialGroup()
+                .addGroup(panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panAnsLayout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(btWhy)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(intrebareSiRaspunsDat, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         lbFc.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
         lbFc.setForeground(new java.awt.Color(153, 0, 0));
@@ -198,69 +213,102 @@ public class Fereastra extends javax.swing.JFrame {
             }
         });
 
+        btnPlus.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        btnPlus.setForeground(new java.awt.Color(153, 0, 0));
+        btnPlus.setText("+");
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panMainLayout = new javax.swing.GroupLayout(panMain);
         panMain.setLayout(panMainLayout);
         panMainLayout.setHorizontalGroup(
             panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panMainLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panMainLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbFcAux)
-                            .addComponent(jQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panCertitudine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panMainLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btWhy))
-                    .addGroup(panMainLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnMinus, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbFc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbFcAux)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(panMainLayout.createSequentialGroup()
+                .addComponent(btnMinus)
+                .addComponent(lbFc)
+                .addComponent(btnPlus)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panMainLayout.createSequentialGroup()
+                .addComponent(panAns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panMainLayout.setVerticalGroup(
             panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panMainLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(lbFcAux)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbFc)
-                        .addComponent(btnMinus))
-                    .addComponent(btnPlus, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbFcAux)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btWhy))
+                    .addComponent(btnMinus)
+                    .addGroup(panMainLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(lbFc))
+                    .addComponent(btnPlus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(panCertitudine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        Meniu.setText("Meniu");
+        Meniu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MeniuActionPerformed(evt);
+            }
+        });
+
+        Incarca.setText("Incarca");
+        Incarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IncarcaActionPerformed(evt);
+            }
+        });
+        Meniu.add(Incarca);
+
+        Consulta.setText("Consulta");
+        Consulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultaActionPerformed(evt);
+            }
+        });
+        Meniu.add(Consulta);
+
+        Reset.setText("Reset");
+        Reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetActionPerformed(evt);
+            }
+        });
+        Meniu.add(Reset);
+
+        menuBar.add(Meniu);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(panMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btIncarca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btPorneste, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addComponent(tfInput, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)))
+                .addGap(35, 35, 35)
+                .addComponent(panMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfParametru, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,18 +321,6 @@ public class Fereastra extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btIncarca, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btPorneste, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(panMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(193, 193, 193)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -294,10 +330,11 @@ public class Fereastra extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-
-        tfInput.getAccessibleContext().setAccessibleName("");
-        btIncarca.getAccessibleContext().setAccessibleName("btIncarca");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -316,44 +353,6 @@ public class Fereastra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
-    private void btIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIncarcaActionPerformed
-        String input = tfInput.getText();
-        tfInput.setText("");
-        try {
-//            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
-            conexiune.expeditor.trimiteMesajSicstus(comanda);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btIncarcaActionPerformed
-
-    private void btPornesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPornesteActionPerformed
-        try {
-            String comanda = "comanda(pornire)";
-            conexiune.expeditor.trimiteMesajSicstus(comanda);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btPornesteActionPerformed
-
-    private void btConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultaActionPerformed
-        try {
-            String comanda = "comanda(consulta)";
-            conexiune.expeditor.trimiteMesajSicstus(comanda);
-            answersScroll.setVisible(true);
-            jQuestion.setVisible(true);
-            btWhy.setVisible(true);
-            btnPlus.setVisible(true);
-            btnMinus.setVisible(true);
-            lbFc.setVisible(true);
-            lbFcAux.setVisible(true);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btConsultaActionPerformed
-
-    
     
     private void btAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAutoActionPerformed
         String valoareParametru;
@@ -432,6 +431,64 @@ public class Fereastra extends javax.swing.JFrame {
         lbFc.setText(String.valueOf(fc));
     }//GEN-LAST:event_btnMinusActionPerformed
 
+    private void MeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeniuActionPerformed
+     //  String input = tfInput.getText();
+      //  tfInput.setText("");
+        try {    
+//            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
+            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project'))";
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_MeniuActionPerformed
+
+    private void ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultaActionPerformed
+       
+        try {
+            String comanda = "comanda(consulta)";
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+            panAnswersPanel.setOpaque(false);
+            answersScroll.setOpaque(false);
+            panMain.setOpaque(false);
+            intrebareSiRaspunsDat.setVisible(true);
+            panIntrebSiRasp.setVisible(true);
+            panIntrebSiRasp.setOpaque(false);
+            intrebareSiRaspunsDat.setOpaque(false);
+            panCertitudine.setOpaque(false);
+            panCertitudine.setVisible(true);
+            answersScroll.setVisible(true);
+            jQuestion.setVisible(true);
+            btWhy.setVisible(true);
+            btnPlus.setVisible(true);
+            btnMinus.setVisible(true);
+            lbFc.setVisible(true);
+            lbFcAux.setVisible(true);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Consulta.setEnabled(false);
+    }//GEN-LAST:event_ConsultaActionPerformed
+
+    private void IncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncarcaActionPerformed
+         //String input = tfInput.getText();
+        //tfInput.setText("");
+        try {    
+//            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
+            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project'))";
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Incarca.setEnabled(false);
+    }//GEN-LAST:event_IncarcaActionPerformed
+
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+       Incarca.setEnabled(true);
+       Consulta.setEnabled(true);
+       String comanda = "comanda(iesire('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project'))";
+    }//GEN-LAST:event_ResetActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -485,6 +542,9 @@ public class Fereastra extends javax.swing.JFrame {
         GridLayout layout = new GridLayout(answers.size(), 0, 10, 10);
         panAnswersPanel.setLayout(layout);
         
+        BoxLayout layout2 = new BoxLayout(panIntrebSiRasp, BoxLayout.LINE_AXIS);
+        panIntrebSiRasp.setLayout(layout);
+        
         ButtonGroup jbtGroup = new ButtonGroup();
         for(int i = 0; i < answers.size(); i++){
             if(!answers.get(i).equals("")){
@@ -493,7 +553,7 @@ public class Fereastra extends javax.swing.JFrame {
                 toggle.setText(answers.get(i));
                 toggle.setName("tog" + answers.get(i));
                 toggle.setSize(maxWidth, 5);
-                
+               
                 toggles.push(toggle);
                 jbtGroup.add(toggle);
                 panAnswersPanel.add(toggle);
@@ -507,11 +567,29 @@ public class Fereastra extends javax.swing.JFrame {
                 try {
                     boolean hasSent = false;
                     String message = "";
+      
                     for(int i = 0; i < toggles.size(); i++){
                         if(toggles.get(i).isSelected()){
                             message = "[" + toggles.get(i).getText();
                             message += customFc ? ",fc," + fc + ".0" : "";
                             message += "]";
+                         
+                            JLabel lastQuestion = new JLabel();
+                            JLabel answerGived = new JLabel();
+                            JSeparator sepIntrSiRasp = new JSeparator();
+                            
+                            lastQuestion.setText(jQuestion.getText());
+                            lastQuestion.setVisible(true);
+                            answerGived.setVisible(true);
+                            labels.push(answerGived);
+                            
+                            answerGived.setText(message.substring(1, message.length()-1));
+                            answerGived.setName("l" + toggles.get(i).getText());
+                            
+                            panIntrebSiRasp.add(lastQuestion);
+                            panIntrebSiRasp.add(answerGived);
+                            panIntrebSiRasp.add(sepIntrSiRasp);
+                            
                             hasSent = true;
                         }
                     }
@@ -542,23 +620,29 @@ public class Fereastra extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Consulta;
+    private javax.swing.JMenuItem Incarca;
+    private javax.swing.JMenu Meniu;
+    private javax.swing.JMenuItem Reset;
     private javax.swing.JScrollPane answersScroll;
     private javax.swing.JButton btAuto;
-    private javax.swing.JButton btConsulta;
-    private javax.swing.JButton btIncarca;
-    private javax.swing.JButton btPorneste;
     private javax.swing.JButton btWhy;
     private javax.swing.JButton btnMinus;
     private javax.swing.JButton btnPlus;
+    private javax.swing.JScrollPane intrebareSiRaspunsDat;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jQuestion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFc;
     private javax.swing.JLabel lbFcAux;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JButton okButton;
+    private javax.swing.JPanel panAns;
     private javax.swing.JPanel panAnswersPanel;
+    private javax.swing.JPanel panCertitudine;
+    private javax.swing.JPanel panIntrebSiRasp;
     private javax.swing.JPanel panMain;
     private javax.swing.JTextArea textAreaDebug;
-    private javax.swing.JTextField tfInput;
     private javax.swing.JTextField tfParametru;
     // End of variables declaration//GEN-END:variables
 }

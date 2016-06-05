@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ConexiuneProlog {
-    String caleExecutabilSicstus = "C:\\Program Files\\SICStus Prolog VC12 4.3.2\\bin\\spwin.exe";
+    String caleExecutabilSicstus = "C:\\Users\\Izabela\\Desktop\\ia\\SICStus Prolog 4.0.2\\bin\\spwin.exe";
     final String nume_fisier="my_project/sist.pl";
     //final String nume_fisier="ceva_simplu.pl";    
     final String scop="inceput.";    
