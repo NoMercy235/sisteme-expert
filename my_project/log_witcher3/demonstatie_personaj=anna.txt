@@ -1,8 +1,8 @@
 
-personaj % % cerys a fost derivat cu ajutorul regulilor:  71 
+personaj % % anna a fost derivat cu ajutorul regulilor:  72 
 
-regula  %%  71 
-personaj  %%  cerys  factor certitudine %%  94 
+regula  %%  72 
+personaj  %%  anna  factor certitudine %%  94 
 enum conditii [ 
      rasa % % om 
      not masculin 

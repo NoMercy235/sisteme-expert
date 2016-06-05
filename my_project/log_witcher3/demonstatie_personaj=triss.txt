@@ -1,8 +1,8 @@
 
-personaj % % cerys a fost derivat cu ajutorul regulilor:  71 
+personaj % % triss a fost derivat cu ajutorul regulilor:  70 
 
-regula  %%  71 
-personaj  %%  cerys  factor certitudine %%  94 
+regula  %%  70 
+personaj  %%  triss  factor certitudine %%  89 
 enum conditii [ 
      rasa % % om 
      not masculin 
