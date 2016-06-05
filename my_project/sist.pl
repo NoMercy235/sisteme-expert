@@ -119,10 +119,10 @@ scrie_lista([H|T]) :-
 	write(H), tab(1),
 	scrie_lista(T).
 	
-scrie_lista([], Fisier).
+scrie_lista([], Fisier):-  write(Fisier, '\n'), flush_output(Fisier).
 scrie_lista([H|T], Fisier) :-
 	write(Fisier, H), tab(1, Fisier),
-	write(Fisier, '\n'), flush_output(Fisier),
+	% write(Fisier, '\n'), flush_output(Fisier),
 	scrie_lista(T, Fisier).
              
 afiseaza_fapte :-
@@ -487,6 +487,11 @@ de_la_utiliz(X,Istorie,Lista_opt, Stream) :-
 proceseaza_raspuns([de_ce],Istorie,_, Fisier) :-
 	nl,afis_istorie(Istorie, Fisier),
 	!,fail.
+
+proceseaza_raspuns([de_ce],Istorie,_, Fisier, Stream) :-
+	write('suint in proc rasp'),
+	afis_istorie(Istorie, Fisier, Stream),
+	!,fail.
 	
 afis_istorie([], Fisier) :- nl.
 afis_istorie([scop(X)|T], Fisier) :-
@@ -603,7 +608,7 @@ incarca(Stream, Path) :-
 	atom_concat(Path, '/my_rules.txt', Rules),
 	atom_concat(Path, '/log_witcher3', Directory), 
 	((\+ directory_exists(Directory), make_directory(Directory)) ; true),
-	see(Rules),incarca_reguli, seen, !, write(Stream, 'ok\n'). % see citeste din fisier. seen inchide fisierul
+	see(Rules),incarca_reguli, seen, !. % see citeste din fisier. seen inchide fisierul
 	
 incarca(Stream, _):-
 	write(Stream, 'eroare_incarcare\n')
