@@ -79,9 +79,37 @@ public class CititorMesaje extends Thread {
                         public void run(){ 
                             // iau fereastra, iau elementul si pun pe el ce am primit
                             conexiune.getFereastra().getDebugTextArea().append(sirDeScris); 
-                            System.out.println(sirDeScris);
+                            
+                            if(sirDeScris.contains("?")){
+                                int firstQuote = sirDeScris.indexOf("'");
+                                int secondQuote = sirDeScris.indexOf("'", firstQuote + 1);
+                                String question = sirDeScris.substring(firstQuote + 1, secondQuote);
+                                Fereastra.fereastra.setQuestion(question);
+                                
+                                int firstParanthesis = sirDeScris.indexOf("(");
+                                int lastParanthesis = sirDeScris.indexOf(")");
+                                String answers;
+                                if(firstParanthesis != -1)
+                                    answers = sirDeScris.substring(firstParanthesis + 1, lastParanthesis);
+                                else
+                                    answers = "da nu";
+                                String aux[] = answers.split(" ");
+                                for(int i = 0; i < aux.length; i++){
+                                    Fereastra.fereastra.answers.push(aux[i]);
+                                } 
+                                Fereastra.fereastra.generateAnswers();
+                            }
+                            else{
+                                String result = sirDeScris.replace("\r\n", "");
+                                if(!(result.equals(""))){
+                                    if(Fereastra.results == null){
+                                        Fereastra.results = new Results();
+                                        Fereastra.results.setVisible(true);
+                                    }
+                                    Fereastra.results.addResult(result);
+                                }
+                            }
                         }
-
                     });
                 }
             }
