@@ -184,10 +184,6 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 /*
 scopuri_princ :- 
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-<<<<<<< Updated upstream
-	% open('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
-=======
->>>>>>> Stashed changes
 	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),determina(Atr, Fisier),
@@ -228,10 +224,6 @@ list_rev([H|T],Li):- list_rev(T,RevT), append(RevT,[H],Li).
 
 scrie_demonstratie_fisier(Reversed):-
 	Reversed = [str(FC, Atr, Val) | T],     
-<<<<<<< Updated upstream
-	% A = 'C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
-=======
->>>>>>> Stashed changes
 	A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
 	atom_concat(A, Val, B),
 	atom_concat(B, '.txt', Path),

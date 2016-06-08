@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 public class Fereastra extends javax.swing.JFrame {
@@ -41,7 +42,6 @@ public class Fereastra extends javax.swing.JFrame {
         this.setSize(dim);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Witcher 3");
-        UIManager.put("ToggleButton.select", Color.BLUE);
         Incarca.setEnabled(true);
         Consulta.setEnabled(true);
         Reset.setEnabled(true);
@@ -57,6 +57,8 @@ public class Fereastra extends javax.swing.JFrame {
         picLabel.setLayout(null);
         this.add(picLabel);
        // panMeniu.setOpaque(false);
+        UIManager.put("ToggleButton.select", Color.YELLOW);
+        
         panIntrebSiRasp.setVisible(false);
         intrebareSiRaspunsDat.setVisible(false);
         panCertitudine.setVisible(false);
@@ -85,15 +87,15 @@ public class Fereastra extends javax.swing.JFrame {
         lbFcAux = new javax.swing.JLabel();
         jQuestion = new javax.swing.JLabel();
         panCertitudine = new javax.swing.JPanel();
+        btnMinus = new javax.swing.JButton();
+        lbFc = new javax.swing.JLabel();
+        btnPlus = new javax.swing.JButton();
         panAns = new javax.swing.JPanel();
         btWhy = new javax.swing.JButton();
         answersScroll = new javax.swing.JScrollPane();
         panAnswersPanel = new javax.swing.JPanel();
         intrebareSiRaspunsDat = new javax.swing.JScrollPane();
         panIntrebSiRasp = new javax.swing.JPanel();
-        lbFc = new javax.swing.JLabel();
-        btnMinus = new javax.swing.JButton();
-        btnPlus = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         Meniu = new javax.swing.JMenu();
         Incarca = new javax.swing.JMenuItem();
@@ -102,12 +104,6 @@ public class Fereastra extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1049, 479));
-
-        tfParametru.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfParametruActionPerformed(evt);
-            }
-        });
 
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +133,32 @@ public class Fereastra extends javax.swing.JFrame {
 
         panCertitudine.setLayout(new javax.swing.BoxLayout(panCertitudine, javax.swing.BoxLayout.LINE_AXIS));
 
+        btnMinus.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        btnMinus.setForeground(new java.awt.Color(153, 0, 0));
+        btnMinus.setText("-");
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinusActionPerformed(evt);
+            }
+        });
+        panCertitudine.add(btnMinus);
+
+        lbFc.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        lbFc.setForeground(new java.awt.Color(153, 0, 0));
+        lbFc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbFc.setText("100");
+        panCertitudine.add(lbFc);
+
+        btnPlus.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        btnPlus.setForeground(new java.awt.Color(153, 0, 0));
+        btnPlus.setText("+");
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusActionPerformed(evt);
+            }
+        });
+        panCertitudine.add(btnPlus);
+
         btWhy.setFont(new java.awt.Font("Monotype Corsiva", 1, 24)); // NOI18N
         btWhy.setForeground(new java.awt.Color(153, 0, 0));
         btWhy.setText("De ce vrei sa stii?");
@@ -145,6 +167,8 @@ public class Fereastra extends javax.swing.JFrame {
                 btWhyActionPerformed(evt);
             }
         });
+
+        answersScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         javax.swing.GroupLayout panAnswersPanelLayout = new javax.swing.GroupLayout(panAnswersPanel);
         panAnswersPanel.setLayout(panAnswersPanelLayout);
@@ -158,6 +182,8 @@ public class Fereastra extends javax.swing.JFrame {
         );
 
         answersScroll.setViewportView(panAnswersPanel);
+
+        intrebareSiRaspunsDat.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         javax.swing.GroupLayout panIntrebSiRaspLayout = new javax.swing.GroupLayout(panIntrebSiRasp);
         panIntrebSiRasp.setLayout(panIntrebSiRaspLayout);
@@ -198,29 +224,6 @@ public class Fereastra extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lbFc.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        lbFc.setForeground(new java.awt.Color(153, 0, 0));
-        lbFc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbFc.setText("100");
-
-        btnMinus.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btnMinus.setForeground(new java.awt.Color(153, 0, 0));
-        btnMinus.setText("-");
-        btnMinus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMinusActionPerformed(evt);
-            }
-        });
-
-        btnPlus.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btnPlus.setForeground(new java.awt.Color(153, 0, 0));
-        btnPlus.setText("+");
-        btnPlus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPlusActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panMainLayout = new javax.swing.GroupLayout(panMain);
         panMain.setLayout(panMainLayout);
         panMainLayout.setHorizontalGroup(
@@ -236,11 +239,6 @@ public class Fereastra extends javax.swing.JFrame {
                         .addComponent(lbFcAux)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(panMainLayout.createSequentialGroup()
-                .addComponent(btnMinus)
-                .addComponent(lbFc)
-                .addComponent(btnPlus)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panMainLayout.createSequentialGroup()
                 .addComponent(panAns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -251,14 +249,7 @@ public class Fereastra extends javax.swing.JFrame {
                 .addComponent(jQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbFcAux)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMinus)
-                    .addGroup(panMainLayout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(lbFc))
-                    .addComponent(btnPlus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panCertitudine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,10 +329,6 @@ public class Fereastra extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfParametruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfParametruActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfParametruActionPerformed
-
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         String valoareParametru= "[" + tfParametru.getText() + "]";
         tfParametru.setText("");
@@ -352,7 +339,6 @@ public class Fereastra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
-    
     private void btAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAutoActionPerformed
         String valoareParametru;
  
@@ -431,8 +417,6 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinusActionPerformed
 
     private void MeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeniuActionPerformed
-     //  String input = tfInput.getText();
-      //  tfInput.setText("");
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
 //            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project'))";
@@ -448,6 +432,7 @@ public class Fereastra extends javax.swing.JFrame {
         try {
             String comanda = "comanda(consulta)";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
+            panAns.setOpaque(false);
             panAnswersPanel.setOpaque(false);
             answersScroll.setOpaque(false);
             panMain.setOpaque(false);
@@ -471,8 +456,6 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_ConsultaActionPerformed
 
     private void IncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncarcaActionPerformed
-         //String input = tfInput.getText();
-        //tfInput.setText("");
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
             String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
@@ -539,21 +522,35 @@ public class Fereastra extends javax.swing.JFrame {
             if(answers.get(i).length() * 3 > maxWidth) maxWidth = answers.get(i).length() * 3;
         }
         
-        GridLayout layout = new GridLayout(answers.size(), 0, 10, 10);
+        BoxLayout layout = new BoxLayout(panAnswersPanel, BoxLayout.Y_AXIS);
         panAnswersPanel.setLayout(layout);
+        panAnswersPanel.setMinimumSize(
+                new Dimension(
+                    panAnswersPanel.getSize().width,
+                    panAnswersPanel.getSize().height
+                )
+        );
+        panAnswersPanel.setMaximumSize(
+                new Dimension(
+                    panAnswersPanel.getSize().width,
+                    panAnswersPanel.getSize().height
+                )
+        );
+        panAnswersPanel.setBackground(new Color(0, 0, 0, 0));
         
-        BoxLayout layout2 = new BoxLayout(panIntrebSiRasp, BoxLayout.LINE_AXIS);
-        panIntrebSiRasp.setLayout(layout);
+        
+        BoxLayout layout2 = new BoxLayout(panIntrebSiRasp, BoxLayout.Y_AXIS);
+        panIntrebSiRasp.setLayout(layout2);
         
         ButtonGroup jbtGroup = new ButtonGroup();
         for(int i = 0; i < answers.size(); i++){
             if(!answers.get(i).equals("")){
-                JToggleButton toggle = new JToggleButton();
+                final JToggleButton toggle = new JToggleButton();
                 toggle.setVisible(true);
                 toggle.setText(answers.get(i));
                 toggle.setName("tog" + answers.get(i));
                 toggle.setSize(maxWidth, 5);
-               
+                SwingUtilities.updateComponentTreeUI(toggle);
                 toggles.push(toggle);
                 jbtGroup.add(toggle);
                 panAnswersPanel.add(toggle);
@@ -589,6 +586,7 @@ public class Fereastra extends javax.swing.JFrame {
                             panIntrebSiRasp.add(lastQuestion);
                             panIntrebSiRasp.add(answerGived);
                             panIntrebSiRasp.add(sepIntrSiRasp);
+                            intrebareSiRaspunsDat.scrollRectToVisible(sepIntrSiRasp.getVisibleRect());
                             
                             hasSent = true;
                         }
@@ -616,6 +614,8 @@ public class Fereastra extends javax.swing.JFrame {
         });
         btnSend.setVisible(true);
         panAnswersPanel.add(btnSend);
+        panAnswersPanel.revalidate();
+        panAnswersPanel.repaint();
     }
 
     

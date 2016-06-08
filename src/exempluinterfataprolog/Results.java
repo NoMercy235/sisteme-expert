@@ -13,9 +13,11 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.WindowConstants;
 
 public class Results extends javax.swing.JFrame {
 
@@ -27,6 +29,7 @@ public class Results extends javax.swing.JFrame {
         this.setSize(dim.width, dim.height);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Rezultate");
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         jResultsPanel.setLayout(new BoxLayout(jResultsPanel, BoxLayout.Y_AXIS));
     }
