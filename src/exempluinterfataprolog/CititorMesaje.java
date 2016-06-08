@@ -106,11 +106,7 @@ public class CititorMesaje extends Thread {
                                         Fereastra.results = new Results();
                                         Fereastra.results.setVisible(true);
                                     }
-                                    try {
-                                        Fereastra.results.addResult(result);
-                                    } catch (IOException ex) {
-                                        Logger.getLogger(CititorMesaje.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
+                                    Fereastra.results.addResult(result);
                                 }
                             }
                         }

@@ -7,7 +7,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -42,7 +41,7 @@ public class Fereastra extends javax.swing.JFrame {
         this.setSize(dim);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Witcher 3");
-        UIManager.put("ToggleButton.select", Color.YELLOW);
+        UIManager.put("ToggleButton.select", Color.BLUE);
         Incarca.setEnabled(true);
         Consulta.setEnabled(true);
         Reset.setEnabled(true);
@@ -437,7 +436,7 @@ public class Fereastra extends javax.swing.JFrame {
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
 //            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project'))";
-String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -476,7 +475,6 @@ String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme exp
         //tfInput.setText("");
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-//            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project'))";
             String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {

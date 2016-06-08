@@ -1,8 +1,9 @@
 package exempluinterfataprolog;
 
-import com.sun.prism.paint.Color;
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,13 +14,17 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 public class Results extends javax.swing.JFrame {
 
+    Dimension dim = null;
+    
     public Results() {
         initComponents();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(dim.width, dim.height);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Rezultate");
         
@@ -61,31 +66,61 @@ public class Results extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   public void addResult(String result) throws IOException{
-       JLabel lbRes = new JLabel(result);
-       lbRes.setVisible(true);
-//       
-//       String aux[] = result.split(" ");
-//       lbRes.setName(aux[1]);
-//       BufferedImage myPicture = null;
-//       try {
-////            myPicture = ImageIO.read(this.getClass().getResource("/images/" + aux[1] + "anna.png"));
-//            myPicture = ImageIO.read(this.getClass().getResource("/images/anna.png"));
-//       } catch (IOException ex) {
-//            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
-//       }
-//       JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-//       picLabel.setLayout(null);
-//       JSeparator sepPictures = new JSeparator();
-//       sepPictures.setForeground(java.awt.Color.blue);
-     
+    public void addResult(String result){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        
+        JPanel element = new JPanel();
+        element.setLayout(new BoxLayout(element, BoxLayout.X_AXIS));
+        
+        String[] parsed = result.split(" ");
+        String displayedTex = "Rezultatul este: " + parsed[1] +
+                " cu factor de certitudine: " + parsed[2];
+        
+        JLabel lbRes = new JLabel(displayedTex);
+        lbRes.setVisible(true);
+        element.add(lbRes);
+        
+        BufferedImage img = getResultImage(parsed[1]);
+        Image aux = img.getScaledInstance(200, 280, Image.SCALE_SMOOTH);
+        if(img != null){
+            System.out.println("/images/" + parsed[1] + ".png");
+            JLabel picLabel = new JLabel(new ImageIcon(aux));
+            picLabel.setSize(dim);
+            picLabel.setOpaque(true);
+            picLabel.setLayout(null);
+            picLabel.setSize(200, 200);
+            element.add(picLabel);
+         
+            element.revalidate();
+            element.repaint();
+        }
+       
+        panel.add(element);
 //       jResultsPanel.add(jScrollPane1);
-       jResultsPanel.add(lbRes);
 //       jResultsPanel.add(picLabel);
-//       jResultsPanel.add(sepPictures);
-       jResultsPanel.revalidate();
-       jResultsPanel.repaint();
-   }
+        JSeparator sepPictures = new JSeparator();
+        sepPictures.setForeground(java.awt.Color.blue);
+        panel.add(sepPictures);
+
+        element.setVisible(true);
+        panel.setVisible(true);
+        jResultsPanel.add(panel);
+        jResultsPanel.revalidate();
+        jResultsPanel.repaint();
+    }
+    
+    private BufferedImage  getResultImage(String charName){
+        BufferedImage  img = null;
+        
+        try {
+            img = ImageIO.read(this.getClass().getResource("/images/" + charName + ".png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return img;
+    }
     
     
     public static void main(String args[]) {
