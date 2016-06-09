@@ -93,6 +93,13 @@ proceseaza_termen_citit(Stream, comanda(consulta), C):-
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
 				.
+				
+proceseaza_termen_citit(Stream, comanda(reinitiaza), C):-
+				executa([reinitiaza], Stream),
+				flush_output(Stream),
+				C1 is C + 1,
+				proceseaza_text_primit(Stream, C1)
+				.
 			
 proceseaza_termen_citit(Stream, Altceva,C):-
 				write(Stream,'nu inteleg ce vrei sa spui: '),write(Stream,Altceva),nl(Stream),
@@ -172,6 +179,9 @@ executa([consulta], Stream) :-
 executa([reinitiaza]) :- 
 	retractall(interogat(_)),
 	retractall(fapt(_,_,_)),!.
+executa([reinitiaza], Stream) :- 
+	retractall(interogat(_)),
+	retractall(fapt(_,_,_)),write(Stream, 'Done!'),!.
 executa([afisare_fapte]) :-
 	afiseaza_fapte,!.
 executa([cum|L]) :- cum(L),!.
@@ -184,7 +194,8 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 /*
 scopuri_princ :- 
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),determina(Atr, Fisier),
 	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
@@ -202,8 +213,8 @@ scopuri_princ :-
 
 scopuri_princ(Stream) :-
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-	% open('C:/Users/Izabela/Desktop/prologProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
-	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),
 	determina(Atr, Fisier, Stream),
@@ -224,7 +235,8 @@ list_rev([H|T],Li):- list_rev(T,RevT), append(RevT,[H],Li).
 
 scrie_demonstratie_fisier(Reversed):-
 	Reversed = [str(FC, Atr, Val) | T],     
-	A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	% A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	A = 'C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
 	atom_concat(A, Val, B),
 	atom_concat(B, '.txt', Path),
 	open(Path, write, FisierDem),
