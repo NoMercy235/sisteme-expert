@@ -43,7 +43,9 @@ public class ExpeditorMesaje extends Thread{
         PipedOutputStream pos= getPipedOutputStream();
         PrintStream ps=new PrintStream(pos);
         // pune punct automat la finalul comenzii ca sa nu mai punem noi din interfata
+        mesaj = mesaj.contains(":") ? mesaj : mesaj.replaceAll(" ", "_");
         ps.println(mesaj + ".");
+        
         ps.flush();
     }
     

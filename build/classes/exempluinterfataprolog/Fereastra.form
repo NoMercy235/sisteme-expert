@@ -288,7 +288,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="answersScroll" max="32767" attributes="0"/>
+                              <Component id="answersScroll" pref="0" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btWhy" min="-2" pref="310" max="-2" attributes="0"/>
                           </Group>

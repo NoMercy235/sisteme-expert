@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.WindowConstants;
 
 public class Results extends javax.swing.JFrame {
 
@@ -87,7 +88,6 @@ public class Results extends javax.swing.JFrame {
         BufferedImage img = getResultImage(parsed[1]);
         Image aux = img.getScaledInstance(200, 280, Image.SCALE_SMOOTH);
         if(img != null){
-            System.out.println("/images/" + parsed[1] + ".png");
             JLabel picLabel = new JLabel(new ImageIcon(aux));
             picLabel.setSize(dim);
             picLabel.setOpaque(true);

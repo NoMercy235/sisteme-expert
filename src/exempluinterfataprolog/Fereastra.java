@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import javax.swing.UIManager;
 public class Fereastra extends javax.swing.JFrame {
     static Fereastra fereastra;
     static Results results;
+    static DeCe dece;
     
     ConexiuneProlog conexiune;
     LinkedList<String> answers = new LinkedList<>();
@@ -66,42 +68,8 @@ public class Fereastra extends javax.swing.JFrame {
        // panMeniu.setOpaque(false);
         UIManager.put("ToggleButton.select", Color.YELLOW);
         
-        textAreaDebug.setVisible(false);
-        btAuto.setVisible(false);
-        okButton.setVisible(false);
-        tfParametru.setVisible(false);
-        jScrollPane1.setVisible(false);
+        clearAll();
         
-        panMeniu.setVisible(true);
-        panMeniu.setOpaque(false);
-        
-        panMain.setOpaque(false);
-        
-        jQuestion.setVisible(false);
-        lbFcAux.setVisible(false);
-
-        panCertitudine.setOpaque(false);
-        panCertitudine.setVisible(false);
-            
-        btnPlus.setVisible(false);
-        btnMinus.setVisible(false);
-        lbFc.setVisible(false);
-            
-        panAns.setVisible(false);
-        panAns.setOpaque(false);
-            
-        btWhy.setVisible(false);
-            
-        answersScroll.setVisible(false);
-        answersScroll.setOpaque(false);
-        panAnswersPanel.setOpaque(false);
-        panAnswersPanel.setVisible(false);
-
-        intrebareSiRaspunsDat.setVisible(false);
-        intrebareSiRaspunsDat.setOpaque(false);
-        panIntrebSiRasp.setVisible(false);
-        panIntrebSiRasp.setOpaque(false);
-   
         fereastra = this;
     }
 
@@ -498,8 +466,8 @@ public class Fereastra extends javax.swing.JFrame {
     private void MeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeniuActionPerformed
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
- //           String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+//            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
+            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -511,32 +479,7 @@ public class Fereastra extends javax.swing.JFrame {
             String comanda = "comanda(consulta)";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
             
-            panMain.setOpaque(false);
-            jQuestion.setVisible(true);
-            lbFcAux.setVisible(true);
-
-            panCertitudine.setOpaque(false);
-            panCertitudine.setVisible(true);
-            
-            btnPlus.setVisible(true);
-            btnMinus.setVisible(true);
-            lbFc.setVisible(true);
-            
-            panAns.setVisible(true);
-            panAns.setOpaque(false);
-            
-            btWhy.setVisible(true);
-            
-            answersScroll.setVisible(true);
-            answersScroll.setOpaque(false);
-            panAnswersPanel.setOpaque(false);
-            panAnswersPanel.setVisible(true);
-
-            intrebareSiRaspunsDat.setVisible(true);
-            intrebareSiRaspunsDat.setOpaque(false);
-            panIntrebSiRasp.setVisible(true);
-            panIntrebSiRasp.setOpaque(false);
-            
+            init();
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -547,8 +490,8 @@ public class Fereastra extends javax.swing.JFrame {
     private void IncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncarcaActionPerformed
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-          //  String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
-	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
+            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+//	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
 	conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -563,6 +506,11 @@ public class Fereastra extends javax.swing.JFrame {
        bIncarca.setEnabled(true);
        bConsulta.setEnabled(true);
        String comanda = "comanda(reinitiaza)";
+       try {
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ResetActionPerformed
 
     private void btWhyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btWhyActionPerformed
@@ -577,8 +525,8 @@ public class Fereastra extends javax.swing.JFrame {
     private void bIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIncarcaActionPerformed
          try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-          //  String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
-	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
+            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+//	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
 	conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -592,32 +540,7 @@ public class Fereastra extends javax.swing.JFrame {
             String comanda = "comanda(consulta)";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
             
-            panMain.setOpaque(false);
-            jQuestion.setVisible(true);
-            lbFcAux.setVisible(true);
-
-            panCertitudine.setOpaque(false);
-            panCertitudine.setVisible(true);
-            
-            btnPlus.setVisible(true);
-            btnMinus.setVisible(true);
-            lbFc.setVisible(true);
-            
-            panAns.setVisible(true);
-            panAns.setOpaque(false);
-            
-            btWhy.setVisible(true);
-            
-            answersScroll.setVisible(true);
-            answersScroll.setOpaque(false);
-            panAnswersPanel.setOpaque(false);
-            panAnswersPanel.setVisible(true);
-
-            intrebareSiRaspunsDat.setVisible(true);
-            intrebareSiRaspunsDat.setOpaque(false);
-            panIntrebSiRasp.setVisible(true);
-            panIntrebSiRasp.setOpaque(false);
-            
+            init();
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -631,6 +554,13 @@ public class Fereastra extends javax.swing.JFrame {
        bIncarca.setEnabled(true);
        bConsulta.setEnabled(true);
        String comanda = "comanda(reinitiaza)";
+        try {
+            conexiune.expeditor.trimiteMesajSicstus(comanda);
+            clearAll();
+            init();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bResetActionPerformed
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
@@ -690,6 +620,91 @@ public class Fereastra extends javax.swing.JFrame {
         jQuestion.setText(question);
     }
     
+    public void clearAll(){
+        answers.clear();
+        panAnswersPanel.removeAll();
+        panAnswersPanel.revalidate();
+        panAnswersPanel.repaint();
+        panIntrebSiRasp.removeAll();
+        panIntrebSiRasp.revalidate();
+        panIntrebSiRasp.repaint();
+        
+        textAreaDebug.setVisible(false);
+        btAuto.setVisible(true);
+        okButton.setVisible(false);
+        tfParametru.setVisible(false);
+        jScrollPane1.setVisible(false);
+        
+        panMeniu.setVisible(true);
+        panMeniu.setOpaque(false);
+        
+        panMain.setOpaque(false);
+        
+        jQuestion.setVisible(false);
+        lbFcAux.setVisible(false);
+
+        panCertitudine.setOpaque(false);
+        panCertitudine.setVisible(false);
+            
+        btnPlus.setVisible(false);
+        btnMinus.setVisible(false);
+        lbFc.setVisible(false);
+            
+        panAns.setVisible(false);
+        panAns.setOpaque(false);
+            
+        btWhy.setVisible(false);
+            
+        answersScroll.setVisible(false);
+        answersScroll.setOpaque(false);
+        panAnswersPanel.setOpaque(false);
+        panAnswersPanel.setVisible(false);
+
+        intrebareSiRaspunsDat.setVisible(false);
+        intrebareSiRaspunsDat.setOpaque(false);
+        panIntrebSiRasp.setVisible(false);
+        panIntrebSiRasp.setOpaque(false);
+   
+    }
+    
+    public void init(){
+        bReset.setEnabled(false);
+        panMain.setOpaque(false);
+        jQuestion.setVisible(true);
+        lbFcAux.setVisible(true);
+
+        panCertitudine.setOpaque(false);
+        panCertitudine.setVisible(true);
+
+        btnPlus.setVisible(true);
+        btnMinus.setVisible(true);
+        lbFc.setVisible(true);
+
+        panAns.setVisible(true);
+        panAns.setOpaque(false);
+
+        btWhy.setVisible(true);
+
+        answersScroll.setVisible(true);
+        answersScroll.setOpaque(false);
+        panAnswersPanel.setOpaque(false);
+        panAnswersPanel.setBackground(Color.BLUE);
+        panAnswersPanel.setVisible(true);
+
+        intrebareSiRaspunsDat.setVisible(true);
+        intrebareSiRaspunsDat.setOpaque(false);
+        panIntrebSiRasp.setVisible(true);
+        panIntrebSiRasp.setOpaque(false);
+    }
+    
+    public void activateReset(){
+        bReset.setEnabled(true);
+    }
+    
+    public void deactivateReset(){
+        bReset.setEnabled(false);
+    }
+    
     public void generateAnswers(){
         int maxWidth = 0;
         
@@ -699,20 +714,8 @@ public class Fereastra extends javax.swing.JFrame {
         
         BoxLayout layout = new BoxLayout(panAnswersPanel, BoxLayout.Y_AXIS);
         panAnswersPanel.setLayout(layout);
-        panAnswersPanel.setMinimumSize(
-                new Dimension(
-                    panAnswersPanel.getSize().width,
-                    panAnswersPanel.getSize().height
-                )
-        );
-        panAnswersPanel.setMaximumSize(
-                new Dimension(
-                    panAnswersPanel.getSize().width,
-                    panAnswersPanel.getSize().height
-                )
-        );
+        panAnswersPanel.setSize(panAnswersPanel.getPreferredSize());
         panAnswersPanel.setBackground(new Color(0, 0, 0, 0));
-        
         
         BoxLayout layout2 = new BoxLayout(panIntrebSiRasp, BoxLayout.Y_AXIS);
         panIntrebSiRasp.setLayout(layout2);
@@ -761,6 +764,7 @@ public class Fereastra extends javax.swing.JFrame {
                             lastQuestion.setFont(new Font("Monotype Corsiva", Font.BOLD, 36));
                             lastQuestion.setVisible(true);
                             answerGived.setVisible(true);
+                            intrebareSiRaspunsDat.getViewport().setViewPosition(new Point(0, i +1000));
                             labels.push(answerGived);
                             
                             answerGived.setText(message.substring(1, message.length()-1));
@@ -782,14 +786,14 @@ public class Fereastra extends javax.swing.JFrame {
                         answers.clear();
                         toggles.clear();
                         panAnswersPanel.removeAll();
-                        panAnswersPanel.revalidate();
-                        panAnswersPanel.repaint();
                         conexiune.expeditor.trimiteMesajSicstus(message);
                         
                         customFc = false;
                         fc = 100;
                         lbFc.setText(String.valueOf(fc));
                     }
+                    panAnswersPanel.revalidate();
+                    panAnswersPanel.repaint();
                 } catch (Exception ex) {
                     Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -799,6 +803,7 @@ public class Fereastra extends javax.swing.JFrame {
         panAnswersPanel.add(btnSend);
         panAnswersPanel.revalidate();
         panAnswersPanel.repaint();
+        this.repaint();
     }
 
     

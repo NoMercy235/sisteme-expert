@@ -1,5 +1,6 @@
 package exempluinterfataprolog;
 
+import static exempluinterfataprolog.Fereastra.fereastra;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
@@ -8,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class CititorMesaje extends Thread {
@@ -72,14 +74,14 @@ public class CititorMesaje extends Thread {
                 pos.write(chr);//pun date in Pipe, primite de la Prolog
                 str+=(char)chr;
                 if(chr=='\n'){
-                    final String sirDeScris=str;
+                    final String sirDeScris = str.replace("\r\n", "");
                     str="";
                     // functia asta updateaza elementele din interfata grafica
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run(){ 
                             // iau fereastra, iau elementul si pun pe el ce am primit
                             conexiune.getFereastra().getDebugTextArea().append(sirDeScris); 
-                            
+                            System.out.println(sirDeScris);
                             if(sirDeScris.contains("?")){
                                 int firstQuote = sirDeScris.indexOf("'");
                                 int secondQuote = sirDeScris.indexOf("'", firstQuote + 1);
@@ -95,19 +97,40 @@ public class CititorMesaje extends Thread {
                                     answers = "da nu";
                                 String aux[] = answers.split(" ");
                                 for(int i = 0; i < aux.length; i++){
+                                    aux[i] = aux[i].replaceAll("_", " ");
                                     Fereastra.fereastra.answers.push(aux[i]);
                                 } 
                                 Fereastra.fereastra.generateAnswers();
                             }
-                            else{
-                                String result = sirDeScris.replace("\r\n", "");
-                                if(!(result.equals(""))){
+                            else
+                            if(sirDeScris.contains("reinit_done")){
+                                Fereastra.fereastra.clearAll();
+                                Fereastra.fereastra.deactivateReset();
+                            }
+                            else
+                            if(sirDeScris.matches("[a-z]+[\\s][a-z]+[\\s][0-9]+")){
+                                if(!(sirDeScris.equals(""))){
                                     if(Fereastra.results == null){
                                         Fereastra.results = new Results();
                                         Fereastra.results.setVisible(true);
                                     }
-                                    Fereastra.results.addResult(result);
+                                    Fereastra.results.addResult(sirDeScris);
                                 }
+                                Fereastra.fereastra.activateReset();
+                            }
+                            else
+                            if(sirDeScris.contains("Nu exista")){
+                                JOptionPane.showMessageDialog(Fereastra.fereastra, "Nu a fost gasit niciun rezultat!");
+                                Fereastra.fereastra.activateReset();
+                            }
+                            else{
+//                                if(!(sirDeScris.equals(""))){
+//                                    if(Fereastra.dece == null || !Fereastra.dece.isVisible()){
+//                                        Fereastra.dece = new DeCe();
+//                                        Fereastra.dece.setVisible(true);
+//                                    }
+//                                    Fereastra.dece.addWhy(sirDeScris);
+//                                }
                             }
                         }
                     });
