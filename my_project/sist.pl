@@ -181,7 +181,7 @@ executa([reinitiaza]) :-
 	retractall(fapt(_,_,_)),!.
 executa([reinitiaza], Stream) :- 
 	retractall(interogat(_)),
-	retractall(fapt(_,_,_)),write(Stream, 'Done!'),!.
+	retractall(fapt(_,_,_)), write(Stream, 'reinit_done'), write(Stream, '\n'), flush_output(Stream), !.
 executa([afisare_fapte]) :-
 	afiseaza_fapte,!.
 executa([cum|L]) :- cum(L),!.
@@ -191,11 +191,11 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 
 % Apeleaza mai intai scop(Atr) - aici se salveaza scopul S expert 
 % dupa determina(Atr) - realizaeaza scopul
-/*
+
 scopuri_princ :- 
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-	% open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
-	open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),determina(Atr, Fisier),
 	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
@@ -209,12 +209,12 @@ scopuri_princ :-
 	stream(F), close(F),
 	retractall(stream(_)),
 	write('Nu exista solutii'), nl.
-*/
+
 
 scopuri_princ(Stream) :-
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-	open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
-	% open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),
 	determina(Atr, Fisier, Stream),
@@ -228,15 +228,15 @@ scopuri_princ(Stream) :-
 scopuri_princ(Stream) :-
 	stream(F), close(F),
 	retractall(stream(_)),
-	write('Nu exista solutii'), nl.
+	write(Stream, 'Nu exista solutii'), write(Stream, '\n'), flush_output(Stream).
 
 list_rev([],[]). 
 list_rev([H|T],Li):- list_rev(T,RevT), append(RevT,[H],Li).
 
 scrie_demonstratie_fisier(Reversed):-
 	Reversed = [str(FC, Atr, Val) | T],     
-	% A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
-	A = 'C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	% A = 'C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
 	atom_concat(A, Val, B),
 	atom_concat(B, '.txt', Path),
 	open(Path, write, FisierDem),
@@ -408,7 +408,7 @@ afis_regula(N, Fisier) :-
 	scrie_lista([Nume,' %% ', Val, ' factor certitudine %% ', FC1, '\n'], Fisier),
 	scrie_lista(['enum conditii [\n'], Fisier),
 	scrie_lista_premise(Lista_premise, Fisier),
-	write(Fisier, ']\n\n\n')
+	write(Fisier, ']\n\n\n'), flush_output(Fisier)
 	%, nl
 	.
 
@@ -457,13 +457,13 @@ interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier) :-
 interogheaza(Atr,Mesaj,[da,nu],Istorie, Fisier, Stream) :-
 	scrie_log(Atr, Istorie, Fisier),
 	!,write(Stream, Mesaj),nl, write(Stream, '\n'), flush_output(Stream),
-	de_la_utiliz(X,Istorie,[da,nu], Stream),
+	de_la_utiliz(X,Istorie,[da,nu], Fisier, Stream),
 	det_val_fc(X,Val,FC),
 	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).  % utiliz = istoric (asa a zis Iza)
 interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier, Stream) :-
 	scrie_log(Atr, Istorie, Fisier),
 	write(Stream, Mesaj),nl,   % afiseaza mesajul
-	citeste_opt(VLista,Optiuni,Istorie, Stream),
+	citeste_opt(VLista,Optiuni,Istorie, Fisier, Stream),
 	assert_fapt(Atr,VLista).  % asta adauga faptul
 	
 scrie_log(Atr, Istorie, Fisier):-
@@ -478,11 +478,11 @@ citeste_opt(X,Optiuni,Istorie) :-
 	append(Opt1,[')'],Opt),
 	scrie_lista(Opt),
 	de_la_utiliz(X,Istorie,Optiuni).
-citeste_opt(X,Optiuni,Istorie, Stream) :-
+citeste_opt(X,Optiuni,Istorie, Fisier, Stream) :-
 	append(['('],Optiuni,Opt1),
 	append(Opt1,[')'],Opt),
 	scrie_lista(Opt, Stream),
-	de_la_utiliz(X,Istorie,Optiuni, Stream).
+	de_la_utiliz(X,Istorie,Optiuni, Fisier, Stream).
 
 % asta primeste raspunsul de la utilizator 
 % afiseaza un prompt si apeleaza citeste_linie
@@ -490,9 +490,12 @@ citeste_opt(X,Optiuni,Istorie, Stream) :-
 de_la_utiliz(X,Istorie,Lista_opt) :-
 	repeat,write(': '), citeste_linie(X),
 	proceseaza_raspuns(X,Istorie,Lista_opt).
-de_la_utiliz(X,Istorie,Lista_opt, Stream) :-
+de_la_utiliz(X,Istorie,Lista_opt, Fisier, Stream) :-
 	repeat, read(Stream, X), write('am citit'),nl,write(X),nl, write(Lista_opt), nl,
-	proceseaza_raspuns(X,Istorie,Lista_opt), write('success'), nl.
+	proceseaza_raspuns(X,Istorie,Lista_opt, Fisier, Stream), write('success'), 
+	write(Stream, 'am citit'), write(Stream, X), write(Stream, '\n'), flush_output(Stream)
+	% , afiseaza_fapte, nl
+	.
 
 % prima clauza este [de_ce]. adica daca sunt intrebat o chestie, pot sa il intreb de ce ai nevoie de informatia aia
 % deci daca scriu [de_ce], imi afiseaza istoria pentru acest atribut
@@ -501,8 +504,7 @@ proceseaza_raspuns([de_ce],Istorie,_, Fisier) :-
 	nl,afis_istorie(Istorie, Fisier),
 	!,fail.
 
-proceseaza_raspuns([de_ce],Istorie,_, Fisier, Stream) :-
-	write('suint in proc rasp'),
+proceseaza_raspuns([de_ce],Istorie, _, Fisier, Stream) :-
 	afis_istorie(Istorie, Fisier, Stream),
 	!,fail.
 	
@@ -513,12 +515,25 @@ afis_istorie([scop(X)|T], Fisier) :-
 afis_istorie([N|T], Fisier) :-
 	afis_regula(N, Fisier),!,afis_istorie(T, Fisier).
 	
+afis_istorie([], Fisier, Stream) :- nl.
+afis_istorie([scop(X)|T], Fisier, Stream) :-
+	!,
+	afis_istorie(T, Fisier, Stream).
+afis_istorie([N|T], Fisier, Stream) :-
+	afis_regula(N, Fisier), afis_regula(N, Stream), !,afis_istorie(T, Fisier, Stream).
+	
 % daca ajungem aici, inseamna ca avem un raspuns de la user si verificam daca raspunsul se afla in lista optiunilor
 proceseaza_raspuns([X],_,Lista_opt):-
 	member(X,Lista_opt).
+proceseaza_raspuns([X],_,Lista_opt, _, _):-
+	member(X,Lista_opt).
+
 % daca in raspuns user-ul da si FC, acesta este luat in considerare si suprascrie FC initial al atributului
 proceseaza_raspuns([X,fc,FC],_,Lista_opt):-
 	member(X,Lista_opt),float(FC).
+proceseaza_raspuns([X,fc,FC],_,Lista_opt, _, _):-
+	member(X,Lista_opt),float(FC).
+
 
 assert_fapt(Atr,[Val,fc,FC]) :-
 	!,asserta( fapt(av(Atr,Val),FC,[utiliz]) ).
