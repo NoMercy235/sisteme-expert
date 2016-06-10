@@ -194,8 +194,8 @@ executa([_|_]) :- 		% aici prinde orice alt caz de comanda incorecta.
 
 scopuri_princ :- 
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
-	% open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),determina(Atr, Fisier),
 	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
@@ -213,10 +213,11 @@ scopuri_princ :-
 
 scopuri_princ(Stream) :-
 	% open('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/log_witcher3/log.txt', write, Fisier),
-	% open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
-	open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	open('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
+	% open('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/log.txt', write, Fisier),
 	assert(stream(Fisier)),
 	scop(Atr),
+	nl, write(Stream), nl, 
 	determina(Atr, Fisier, Stream),
 	setof(str(FC, Atr, Val), Gen^fapt(av(Atr, Val), FC, Gen), L),
 	list_rev(L, Reversed),
@@ -235,12 +236,12 @@ list_rev([H|T],Li):- list_rev(T,RevT), append(RevT,[H],Li).
 
 scrie_demonstratie_fisier(Reversed):-
 	Reversed = [str(FC, Atr, Val) | T],     
-	A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
-	% A = 'C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	% A = 'C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
+	A = 'C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project/log_witcher3/demonstatie_personaj=',
 	atom_concat(A, Val, B),
 	atom_concat(B, '.txt', Path),
-	open(Path, write, FisierDem),
-	tell(FisierDem),
+	% open(Path, write, FisierDem),
+	tell(Path),
 	cum([Atr, '%', '%', Val]),
 	told,
 	scrie_demonstratie_fisier(T)
@@ -275,15 +276,17 @@ afiseaza_scop_lista([str(FC, Atr, Val) | T]) :-
 	nl,afiseaza_scop_lista(T).
 afiseaza_scop_lista([]):- nl,nl.
 
-afiseaza_scop_lista([str(FC, Atr, Val) | T], Stream) :-
+afiseaza_scop_lista([str(FC, Atr, Val) | T], Stream) :- 
+	write(Stream),
+	nl, write('sunt in scopuri prin cu stream'), nl,
 	FC >= 20,
 	write(Stream, Atr), write(Stream, ' '),
 	write(Stream, Val), write(Stream, ' '),
 	write(Stream, FC), write(Stream, '\n'), flush_output(Stream),
 	write(Atr), write('  '), write(Val), write('  '),
 	write('  '), write(FC),
-
 	afiseaza_scop_lista(T, Stream).
+
 afiseaza_scop_lista([], Stream):- write(Stream, '\n'), flush_output(Stream).
 
 scrie_scop(av(Atr,Val),FC) :- 
@@ -491,9 +494,9 @@ de_la_utiliz(X,Istorie,Lista_opt) :-
 	repeat,write(': '), citeste_linie(X),
 	proceseaza_raspuns(X,Istorie,Lista_opt).
 de_la_utiliz(X,Istorie,Lista_opt, Fisier, Stream) :-
-	repeat, read(Stream, X), write('am citit'),nl,write(X),nl, write(Lista_opt), nl,
-	proceseaza_raspuns(X,Istorie,Lista_opt, Fisier, Stream), write('success'), 
-	write(Stream, 'am citit'), write(Stream, X), write(Stream, '\n'), flush_output(Stream)
+	repeat, read(Stream, X),
+	proceseaza_raspuns(X,Istorie,Lista_opt, Fisier, Stream), write('success'),
+	nl, write('la final'), nl
 	% , afiseaza_fapte, nl
 	.
 
