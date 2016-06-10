@@ -80,7 +80,7 @@ public class CititorMesaje extends Thread {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run(){ 
                             // iau fereastra, iau elementul si pun pe el ce am primit
-                            conexiune.getFereastra().getDebugTextArea().append(sirDeScris); 
+                                conexiune.getFereastra().getDebugTextArea().append(sirDeScris); 
                             System.out.println(sirDeScris);
                             if(sirDeScris.contains("?")){
                                 int firstQuote = sirDeScris.indexOf("'");
@@ -106,6 +106,7 @@ public class CititorMesaje extends Thread {
                             if(sirDeScris.contains("reinit_done")){
                                 Fereastra.fereastra.clearAll();
                                 Fereastra.fereastra.deactivateReset();
+                                Fereastra.fereastra.resetConnection();
                             }
                             else
                             if(sirDeScris.matches("[a-z]+[\\s][a-z]+[\\s][0-9]+")){
@@ -123,14 +124,15 @@ public class CititorMesaje extends Thread {
                                 JOptionPane.showMessageDialog(Fereastra.fereastra, "Nu a fost gasit niciun rezultat!");
                                 Fereastra.fereastra.activateReset();
                             }
-                            else{
-//                                if(!(sirDeScris.equals(""))){
-//                                    if(Fereastra.dece == null || !Fereastra.dece.isVisible()){
-//                                        Fereastra.dece = new DeCe();
-//                                        Fereastra.dece.setVisible(true);
-//                                    }
-//                                    Fereastra.dece.addWhy(sirDeScris);
-//                                }
+                            else
+                            if(!sirDeScris.contains("am citit")){
+                                if(!(sirDeScris.equals(""))){
+                                    if(Fereastra.dece == null || !Fereastra.dece.isVisible()){
+                                        Fereastra.dece = new DeCe();
+                                        Fereastra.dece.setVisible(true);
+                                    }
+                                    Fereastra.dece.addWhy(sirDeScris);
+                                }
                             }
                         }
                     });

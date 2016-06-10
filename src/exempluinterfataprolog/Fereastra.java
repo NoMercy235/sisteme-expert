@@ -1,5 +1,6 @@
 package exempluinterfataprolog;
 
+import static exempluinterfataprolog.ExempluInterfataProlog.PORT;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -209,7 +210,7 @@ public class Fereastra extends javax.swing.JFrame {
             .addGroup(panAnsLayout.createSequentialGroup()
                 .addGroup(panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panAnsLayout.createSequentialGroup()
-                        .addComponent(answersScroll)
+                        .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btWhy, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(intrebareSiRaspunsDat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -466,8 +467,8 @@ public class Fereastra extends javax.swing.JFrame {
     private void MeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeniuActionPerformed
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-//            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
-            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+            String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
+ //           String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
             conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -490,8 +491,8 @@ public class Fereastra extends javax.swing.JFrame {
     private void IncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IncarcaActionPerformed
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
-//	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
+//            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
 	conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -525,8 +526,8 @@ public class Fereastra extends javax.swing.JFrame {
     private void bIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIncarcaActionPerformed
          try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
-//	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
+ //           String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
 	conexiune.expeditor.trimiteMesajSicstus(comanda);
         } catch (InterruptedException ex) {
             Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
@@ -611,6 +612,15 @@ public class Fereastra extends javax.swing.JFrame {
         return textAreaDebug;
     }
     
+    public void resetConnection(){
+        try {
+            conexiune = new ConexiuneProlog(ExempluInterfataProlog.PORT, fereastra);
+        } catch (IOException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void setConexiune(ConexiuneProlog _conexiune){
         conexiune=_conexiune;
