@@ -7,17 +7,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ExempluInterfataProlog {
-    static final int PORT=9003;
+    static int PORT=9003;
     
     public static void main(String[] args) {
         // TODO code application logic here
         
+        Fereastra.fereastra = new Fereastra("Witcher 3");
+        
         ConexiuneProlog cxp;
         
         try {            
-            final Fereastra fereastra=new Fereastra("Exemplu Interfata Prolog");
+            final Fereastra fereastra=Fereastra.fereastra;
             
-            cxp=new ConexiuneProlog(PORT,fereastra);
+            cxp=new ConexiuneProlog(PORT, fereastra);
             fereastra.setConexiune(cxp);
             fereastra.setVisible(true);
             fereastra.addWindowListener(new WindowAdapter() {

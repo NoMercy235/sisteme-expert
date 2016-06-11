@@ -2,14 +2,21 @@ package exempluinterfataprolog;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -17,18 +24,22 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTextPane;
 
 public class Results extends javax.swing.JFrame {
 
     Dimension dim = null;
+    JPanel element;
     
     public Results() {
         initComponents();
         dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(dim.width, dim.height);
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width/2 - this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Rezultate");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
@@ -71,17 +82,20 @@ public class Results extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void addResult(String result){
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        
-        JPanel element = new JPanel();
-        element.setLayout(new BoxLayout(element, BoxLayout.X_AXIS));
-        
         String[] parsed = result.split(" ");
+        if(Integer.valueOf(parsed[2]) < 50) return;
+            
         String displayedTex = "Rezultatul este: " + parsed[1] +
                 " cu factor de certitudine: " + parsed[2];
         
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        
+        element = new JPanel();
+        element.setLayout(new BoxLayout(element, BoxLayout.X_AXIS));
+        
         JLabel lbRes = new JLabel(displayedTex);
+        lbRes.setFont(new Font("Monotype Corsiva", Font.BOLD, 20));
         lbRes.setVisible(true);
         element.add(lbRes);
         
@@ -99,6 +113,7 @@ public class Results extends javax.swing.JFrame {
             element.repaint();
         }
        
+        readFile(parsed[1]);
         panel.add(element);
 //       jResultsPanel.add(jScrollPane1);
 //       jResultsPanel.add(picLabel);
@@ -124,6 +139,33 @@ public class Results extends javax.swing.JFrame {
         
         return img;
     }
+    
+    
+    public void readFile(String name){
+        JTextPane text = new JTextPane();
+        text.setMaximumSize(new Dimension(300, 300));
+//        text.setPreferredSize(new Dimension(300, 300));
+
+        
+        String demonstration = "";
+        String line;
+        File file = new File("C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstratie_personaj=" + name + ".txt");
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
+            while ((line = br.readLine()) != null) {
+                demonstration += line + "\n";
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        text.setText(demonstration);
+        
+        JScrollPane sp = new JScrollPane(text);
+        element.add(sp);
+    }
+    
+    
     
     
     public static void main(String args[]) {

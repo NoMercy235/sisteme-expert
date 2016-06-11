@@ -398,6 +398,7 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="bReset" max="32767" attributes="0"/>
                               <Component id="bConsulta" pref="238" max="32767" attributes="0"/>
+                              <Component id="btnCloseProlog" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -414,7 +415,9 @@
                   <Component id="bConsulta" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="bReset" min="-2" pref="33" max="-2" attributes="0"/>
-                  <EmptySpace pref="57" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnCloseProlog" min="-2" pref="33" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -451,6 +454,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bResetActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCloseProlog">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Monotype Corsiva" size="36" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Close Prolog"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClosePrologActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

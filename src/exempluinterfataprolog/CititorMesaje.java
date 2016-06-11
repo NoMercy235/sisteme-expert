@@ -83,6 +83,8 @@ public class CititorMesaje extends Thread {
                                 conexiune.getFereastra().getDebugTextArea().append(sirDeScris); 
                             System.out.println(sirDeScris);
                             if(sirDeScris.contains("?")){
+                                Fereastra.fereastra.clearAnswers();
+                                
                                 int firstQuote = sirDeScris.indexOf("'");
                                 int secondQuote = sirDeScris.indexOf("'", firstQuote + 1);
                                 String question = sirDeScris.substring(firstQuote + 1, secondQuote);
@@ -111,7 +113,7 @@ public class CititorMesaje extends Thread {
                             else
                             if(sirDeScris.matches("[a-z]+[\\s][a-z]+[\\s][0-9]+")){
                                 if(!(sirDeScris.equals(""))){
-                                    if(Fereastra.results == null){
+                                    if(Fereastra.results == null || !Fereastra.results.isVisible()){
                                         Fereastra.results = new Results();
                                         Fereastra.results.setVisible(true);
                                     }
