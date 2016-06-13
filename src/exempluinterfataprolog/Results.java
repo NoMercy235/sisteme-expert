@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.ScrollPane;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -22,6 +24,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -82,11 +85,11 @@ public class Results extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void addResult(String result){
-        String[] parsed = result.split(" ");
+        final String[] parsed = result.split(" ");
         if(Integer.valueOf(parsed[2]) < 50) return;
             
-        String displayedTex = "Rezultatul este: " + parsed[1] +
-                " cu factor de certitudine: " + parsed[2];
+        String displayedTex = "Rezultatul este: " + parsed[1].substring(0, 1).toUpperCase() +
+                parsed[1].substring(1) + " cu factor de certitudine: " + parsed[2];
         
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -113,7 +116,19 @@ public class Results extends javax.swing.JFrame {
             element.repaint();
         }
        
-        readFile(parsed[1]);
+        JButton btnDem = new JButton("Demonstratie pentru " + 
+                parsed[1].substring(0, 1).toUpperCase() + parsed[1].substring(1));
+        btnDem.setName("btn" + parsed[1]);
+        btnDem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ResultDemonstration rd = new ResultDemonstration(parsed[1]);
+                rd.setVisible(true);
+            }
+        });
+        btnDem.setVisible(true);
+        element.add(btnDem);
+//        readFile(parsed[1]);
         panel.add(element);
 //       jResultsPanel.add(jScrollPane1);
 //       jResultsPanel.add(picLabel);
@@ -138,64 +153,6 @@ public class Results extends javax.swing.JFrame {
         }
         
         return img;
-    }
-    
-    
-    public void readFile(String name){
-        JTextPane text = new JTextPane();
-        text.setMaximumSize(new Dimension(300, 300));
-//        text.setPreferredSize(new Dimension(300, 300));
-
-        
-        String demonstration = "";
-        String line;
-        File file = new File("C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstratie_personaj=" + name + ".txt");
-        
-        try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
-            while ((line = br.readLine()) != null) {
-                demonstration += line + "\n";
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Results.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        text.setText(demonstration);
-        
-        JScrollPane sp = new JScrollPane(text);
-        element.add(sp);
-    }
-    
-    
-    
-    
-    public static void main(String args[]) {
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Results.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Results.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Results.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Results.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Results().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

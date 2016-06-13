@@ -953,5 +953,5 @@ text : 'Care este culoarea pielii?' ;
 variante : [alba ; galbena ; alta] ].
 
 intrebare [inaltime ;
-text : 'Care este inaltimea persoanjului?' ;
+text : 'Care este inaltimea personajului?' ;
 variante : [mica ; medie ; mare ; oricare] ].

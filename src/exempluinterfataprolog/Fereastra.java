@@ -93,11 +93,11 @@ public class Fereastra extends javax.swing.JFrame {
         lbFc = new javax.swing.JLabel();
         btnPlus = new javax.swing.JButton();
         panAns = new javax.swing.JPanel();
-        btWhy = new javax.swing.JButton();
         answersScroll = new javax.swing.JScrollPane();
         panAnswersPanel = new javax.swing.JPanel();
         intrebareSiRaspunsDat = new javax.swing.JScrollPane();
         panIntrebSiRasp = new javax.swing.JPanel();
+        btWhy = new javax.swing.JButton();
         panMeniu = new javax.swing.JPanel();
         bIncarca = new javax.swing.JButton();
         bConsulta = new javax.swing.JButton();
@@ -110,7 +110,6 @@ public class Fereastra extends javax.swing.JFrame {
         Reset = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1049, 479));
 
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -166,22 +165,14 @@ public class Fereastra extends javax.swing.JFrame {
         });
         panCertitudine.add(btnPlus);
 
-        btWhy.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
-        btWhy.setForeground(new java.awt.Color(153, 0, 0));
-        btWhy.setText("De ce vrei sa stii?");
-        btWhy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btWhyActionPerformed(evt);
-            }
-        });
-
+        answersScroll.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         answersScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         javax.swing.GroupLayout panAnswersPanelLayout = new javax.swing.GroupLayout(panAnswersPanel);
         panAnswersPanel.setLayout(panAnswersPanelLayout);
         panAnswersPanelLayout.setHorizontalGroup(
             panAnswersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
         panAnswersPanelLayout.setVerticalGroup(
             panAnswersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,6 +182,8 @@ public class Fereastra extends javax.swing.JFrame {
         answersScroll.setViewportView(panAnswersPanel);
 
         intrebareSiRaspunsDat.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        panIntrebSiRasp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout panIntrebSiRaspLayout = new javax.swing.GroupLayout(panIntrebSiRasp);
         panIntrebSiRasp.setLayout(panIntrebSiRaspLayout);
@@ -209,27 +202,26 @@ public class Fereastra extends javax.swing.JFrame {
         panAns.setLayout(panAnsLayout);
         panAnsLayout.setHorizontalGroup(
             panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panAnsLayout.createSequentialGroup()
-                .addGroup(panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panAnsLayout.createSequentialGroup()
-                        .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btWhy, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(intrebareSiRaspunsDat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(intrebareSiRaspunsDat, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         panAnsLayout.setVerticalGroup(
             panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panAnsLayout.createSequentialGroup()
-                .addGroup(panAnsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panAnsLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(btWhy))
-                    .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(answersScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(intrebareSiRaspunsDat, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        btWhy.setFont(new java.awt.Font("Monotype Corsiva", 1, 36)); // NOI18N
+        btWhy.setForeground(new java.awt.Color(153, 0, 0));
+        btWhy.setText("De ce vrei sa stii?");
+        btWhy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btWhyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panMainLayout = new javax.swing.GroupLayout(panMain);
         panMain.setLayout(panMainLayout);
@@ -238,15 +230,17 @@ public class Fereastra extends javax.swing.JFrame {
             .addGroup(panMainLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panMainLayout.createSequentialGroup()
-                        .addComponent(panAns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addComponent(jQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panMainLayout.createSequentialGroup()
                         .addComponent(lbFcAux, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panCertitudine, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panMainLayout.createSequentialGroup()
+                        .addGroup(panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panAns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btWhy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         panMainLayout.setVerticalGroup(
             panMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +254,9 @@ public class Fereastra extends javax.swing.JFrame {
                         .addComponent(jQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbFcAux, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68)
+                .addGap(13, 13, 13)
+                .addComponent(btWhy)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panAns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(122, Short.MAX_VALUE))
         );
