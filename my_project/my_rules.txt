@@ -615,7 +615,7 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza].
  
 regula nr %% 73
-personaj %% anna fact certitudine %% 94
+personaj %% anna fact certitudine %% 50
 enum conditii
  [rasa %% om],
  [not masculin], 
@@ -1059,6 +1059,9 @@ enum conditii
  
  
  
+
+
+
 
  
 

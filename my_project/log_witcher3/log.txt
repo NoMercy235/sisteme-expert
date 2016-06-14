@@ -117,22 +117,22 @@ enum conditii [
 
 scop personaj 
 omoara
-regula  %%  28  
+regula  %%  31  
  
-ocupatie  %%  vrajitoare  factor certitudine %%  99 
+ocupatie  %%  nu_conteaza  factor certitudine %%  98 
  
 enum conditii [
  
      omoara % % nu_conteaza 
 
-     studiaza 
+     not studiaza 
 
 ]
 
 
-regula  %%  47  
+regula  %%  71  
  
-personaj  %%  triss  factor certitudine %%  93 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -140,11 +140,11 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
-     ocupatie % % vrajitoare 
+     ocupatie % % nu_conteaza 
 
-     afiliere % % lodge_of_sorceresses 
+     afiliere % % nu_conteaza 
 
      metoda_de_lupta % % nu_conteaza 
 
@@ -153,22 +153,22 @@ enum conditii [
 
 scop personaj 
 studiaza
-regula  %%  28  
+regula  %%  31  
  
-ocupatie  %%  vrajitoare  factor certitudine %%  99 
+ocupatie  %%  nu_conteaza  factor certitudine %%  98 
  
 enum conditii [
  
      omoara % % nu_conteaza 
 
-     studiaza 
+     not studiaza 
 
 ]
 
 
-regula  %%  47  
+regula  %%  71  
  
-personaj  %%  triss  factor certitudine %%  93 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -176,11 +176,11 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
-     ocupatie % % vrajitoare 
+     ocupatie % % nu_conteaza 
 
-     afiliere % % lodge_of_sorceresses 
+     afiliere % % nu_conteaza 
 
      metoda_de_lupta % % nu_conteaza 
 
@@ -217,9 +217,9 @@ enum conditii [
 ]
 
 
-regula  %%  64  
+regula  %%  71  
  
-personaj  %%  keira  factor certitudine %%  92 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -227,13 +227,13 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
      afiliere % % nu_conteaza 
 
-     metoda_de_lupta % % magician 
+     metoda_de_lupta % % nu_conteaza 
 
 ]
 
@@ -268,9 +268,9 @@ enum conditii [
 ]
 
 
-regula  %%  64  
+regula  %%  71  
  
-personaj  %%  keira  factor certitudine %%  92 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -278,13 +278,13 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
      afiliere % % nu_conteaza 
 
-     metoda_de_lupta % % magician 
+     metoda_de_lupta % % nu_conteaza 
 
 ]
 
@@ -321,9 +321,9 @@ enum conditii [
 ]
 
 
-regula  %%  64  
+regula  %%  71  
  
-personaj  %%  keira  factor certitudine %%  92 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -331,13 +331,13 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
      afiliere % % nu_conteaza 
 
-     metoda_de_lupta % % magician 
+     metoda_de_lupta % % nu_conteaza 
 
 ]
 
@@ -374,9 +374,9 @@ enum conditii [
 ]
 
 
-regula  %%  64  
+regula  %%  71  
  
-personaj  %%  keira  factor certitudine %%  92 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -384,13 +384,13 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
      afiliere % % nu_conteaza 
 
-     metoda_de_lupta % % magician 
+     metoda_de_lupta % % nu_conteaza 
 
 ]
 
@@ -427,9 +427,9 @@ enum conditii [
 ]
 
 
-regula  %%  64  
+regula  %%  71  
  
-personaj  %%  keira  factor certitudine %%  92 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -437,52 +437,52 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
      afiliere % % nu_conteaza 
 
-     metoda_de_lupta % % magician 
+     metoda_de_lupta % % nu_conteaza 
 
 ]
 
 
 scop personaj 
 mananca
-regula  %%  34  
+regula  %%  37  
  
-constitutie  %%  normal  factor certitudine %%  99 
+constitutie  %%  nu_conteaza  factor certitudine %%  98 
  
 enum conditii [
  
-     mananca % % omnivor 
+     mananca % % nu_conteaza 
 
-     se_antreneaza 
+     not se_antreneaza 
 
 ]
 
 
-regula  %%  44  
+regula  %%  46  
  
-metoda_de_lupta  %%  magician  factor certitudine %%  94 
+metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
  
 enum conditii [
  
      istoric % % nu_conteaza 
 
-     constitutie % % normal 
+     constitutie % % nu_conteaza 
 
-     magie % % vraji 
+     magie % % nu_conteaza 
 
-     arma % % nu_foloseste 
+     arma % % nu_conteaza 
 
 ]
 
 
-regula  %%  64  
+regula  %%  71  
  
-personaj  %%  keira  factor certitudine %%  92 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -490,13 +490,13 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
      afiliere % % nu_conteaza 
 
-     metoda_de_lupta % % magician 
+     metoda_de_lupta % % nu_conteaza 
 
 ]
 
@@ -533,9 +533,9 @@ enum conditii [
 ]
 
 
-regula  %%  108  
+regula  %%  71  
  
-personaj  %%  triss  factor certitudine %%  75 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -543,7 +543,7 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
@@ -573,9 +573,9 @@ enum conditii [
 ]
 
 
-regula  %%  108  
+regula  %%  71  
  
-personaj  %%  triss  factor certitudine %%  75 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -583,7 +583,7 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
@@ -613,9 +613,9 @@ enum conditii [
 ]
 
 
-regula  %%  108  
+regula  %%  71  
  
-personaj  %%  triss  factor certitudine %%  75 
+personaj  %%  triss  factor certitudine %%  89 
  
 enum conditii [
  
@@ -623,7 +623,7 @@ enum conditii [
 
      not masculin 
 
-     par % % nu_conteaza 
+     par % % roscat 
 
      ocupatie % % nu_conteaza 
 
