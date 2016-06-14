@@ -81,8 +81,8 @@ proceseaza_termen_citit(Stream, comanda(pornire), C):-
 				proceseaza_text_primit(Stream, C1)
 				.
 				
-proceseaza_termen_citit(Stream, comanda(incarca(F)), C):-
-				incarca(Stream, F),
+proceseaza_termen_citit(Stream, comanda(incarca(Path, Rules)), C):-
+				incarca(Stream, Path, Rules),
 				flush_output(Stream),
 				C1 is C + 1,
 				proceseaza_text_primit(Stream, C1)
@@ -633,16 +633,16 @@ incarca_prolog( Path) :-
 % interograt si fapt a explicat deja cica
 % scop memoreaza atributul scop
 % interogabil memoreaza intrebarile. primul parametru este atributul. al doilea e lista de optiuni. al treilea este intrebarea in sine
-incarca(Stream, Path) :-
+incarca(Stream, Path, Rules) :-
 	retractall(interogat(_)),retractall(fapt(_, _, _)),
 	retractall(scop(_)),retractall(interogabil(_, _, _)),
 	retractall(regula(_, _, _)),
-	atom_concat(Path, '/my_rules.txt', Rules),
+	% atom_concat(Path, '/my_rules.txt', Rules),
 	atom_concat(Path, '/log_witcher3', Directory), 
 	((\+ directory_exists(Directory), make_directory(Directory)) ; true),
 	see(Rules),incarca_reguli, seen, !. % see citeste din fisier. seen inchide fisierul
 	
-incarca(Stream, _):-
+incarca(Stream, _, _):-
 	write(Stream, 'eroare_incarcare\n')
 	.
 

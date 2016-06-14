@@ -27,6 +27,7 @@ import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Fereastra extends javax.swing.JFrame {
     static Fereastra fereastra;
@@ -389,6 +390,8 @@ public class Fereastra extends javax.swing.JFrame {
         String line = "";
         LinkedList<String> readAnswers = new LinkedList<>();
         final JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        fc.setFileFilter(filter);
         
         fc.setMultiSelectionEnabled(true);
         fc.setCurrentDirectory(new File(pathToMyProject + "log_witcher3"));
@@ -437,9 +440,26 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_btWhyActionPerformed
 
     private void bIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIncarcaActionPerformed
+        StringBuilder sb = new StringBuilder();
+        final JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        fc.setFileFilter(filter);
+        
+        fc.setMultiSelectionEnabled(true);
+        fc.setCurrentDirectory(new File(pathToMyProject));
+ 
+        int retVal = fc.showOpenDialog(Fereastra.fereastra);
+        if (retVal == JFileChooser.APPROVE_OPTION) {
+            File[] selectedfiles = fc.getSelectedFiles();
+            for (int i = 0; i < selectedfiles.length; i++) {
+                sb.append(selectedfiles[i].getAbsolutePath());
+            }
+        }
+        String path = sb.toString().replace("\\", "/");
+        
         try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('" + pathToMyProject + "'))";
+            String comanda = "comanda(incarca('" + pathToMyProject + "', '" + path + "'))";
 //	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
 	conexiune.expeditor.trimiteMesajSicstus(comanda);
         bConsulta.setEnabled(true);

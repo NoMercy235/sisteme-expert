@@ -34,3 +34,604 @@ enum conditii [
 
 
 scop personaj 
+culoarea_pielii
+regula  %%  3  
+ 
+rasa  %%  om  factor certitudine %%  99 
+ 
+enum conditii [
+ 
+     inaltime % % medie 
+
+     culoarea_pielii % % alba 
+
+]
+
+
+regula  %%  46  
+ 
+personaj  %%  triss  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % nu_conteaza 
+
+     ocupatie % % vrajitoare 
+
+     afiliere % % lodge_of_sorceresses 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+masculin
+regula  %%  46  
+ 
+personaj  %%  triss  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % nu_conteaza 
+
+     ocupatie % % vrajitoare 
+
+     afiliere % % lodge_of_sorceresses 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+par
+regula  %%  46  
+ 
+personaj  %%  triss  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % nu_conteaza 
+
+     ocupatie % % vrajitoare 
+
+     afiliere % % lodge_of_sorceresses 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+omoara
+regula  %%  30  
+ 
+ocupatie  %%  nu_conteaza  factor certitudine %%  99 
+ 
+enum conditii [
+ 
+     omoara % % nimic 
+
+     not studiaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+studiaza
+regula  %%  31  
+ 
+ocupatie  %%  nu_conteaza  factor certitudine %%  98 
+ 
+enum conditii [
+ 
+     omoara % % nu_conteaza 
+
+     not studiaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+venit
+regula  %%  17  
+ 
+locatie  %%  nu_conteaza  factor certitudine %%  97 
+ 
+enum conditii [
+ 
+     venit % % nu_conteaza 
+
+     zona_preferata % % nu_conteaza 
+
+]
+
+
+regula  %%  26  
+ 
+afiliere  %%  nu_conteaza  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     locatie % % nu_conteaza 
+
+     not studiaza 
+
+     istoric % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+zona_preferata
+regula  %%  17  
+ 
+locatie  %%  nu_conteaza  factor certitudine %%  97 
+ 
+enum conditii [
+ 
+     venit % % nu_conteaza 
+
+     zona_preferata % % nu_conteaza 
+
+]
+
+
+regula  %%  26  
+ 
+afiliere  %%  nu_conteaza  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     locatie % % nu_conteaza 
+
+     not studiaza 
+
+     istoric % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+nelegiuit
+regula  %%  9  
+ 
+istoric  %%  nu_conteaza  factor certitudine %%  99 
+ 
+enum conditii [
+ 
+     not nelegiuit 
+
+     not sange_nobil 
+
+     not orfan 
+
+]
+
+
+regula  %%  26  
+ 
+afiliere  %%  nu_conteaza  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     locatie % % nu_conteaza 
+
+     not studiaza 
+
+     istoric % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+sange_nobil
+regula  %%  9  
+ 
+istoric  %%  nu_conteaza  factor certitudine %%  99 
+ 
+enum conditii [
+ 
+     not nelegiuit 
+
+     not sange_nobil 
+
+     not orfan 
+
+]
+
+
+regula  %%  26  
+ 
+afiliere  %%  nu_conteaza  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     locatie % % nu_conteaza 
+
+     not studiaza 
+
+     istoric % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+orfan
+regula  %%  9  
+ 
+istoric  %%  nu_conteaza  factor certitudine %%  99 
+ 
+enum conditii [
+ 
+     not nelegiuit 
+
+     not sange_nobil 
+
+     not orfan 
+
+]
+
+
+regula  %%  26  
+ 
+afiliere  %%  nu_conteaza  factor certitudine %%  93 
+ 
+enum conditii [
+ 
+     locatie % % nu_conteaza 
+
+     not studiaza 
+
+     istoric % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+mananca
+regula  %%  37  
+ 
+constitutie  %%  nu_conteaza  factor certitudine %%  98 
+ 
+enum conditii [
+ 
+     mananca % % nu_conteaza 
+
+     not se_antreneaza 
+
+]
+
+
+regula  %%  45  
+ 
+metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+ 
+enum conditii [
+ 
+     istoric % % nu_conteaza 
+
+     constitutie % % nu_conteaza 
+
+     magie % % nu_conteaza 
+
+     arma % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+se_antreneaza
+regula  %%  37  
+ 
+constitutie  %%  nu_conteaza  factor certitudine %%  98 
+ 
+enum conditii [
+ 
+     mananca % % nu_conteaza 
+
+     not se_antreneaza 
+
+]
+
+
+regula  %%  45  
+ 
+metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+ 
+enum conditii [
+ 
+     istoric % % nu_conteaza 
+
+     constitutie % % nu_conteaza 
+
+     magie % % nu_conteaza 
+
+     arma % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+magie
+regula  %%  45  
+ 
+metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+ 
+enum conditii [
+ 
+     istoric % % nu_conteaza 
+
+     constitutie % % nu_conteaza 
+
+     magie % % nu_conteaza 
+
+     arma % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
+arma
+regula  %%  45  
+ 
+metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+ 
+enum conditii [
+ 
+     istoric % % nu_conteaza 
+
+     constitutie % % nu_conteaza 
+
+     magie % % nu_conteaza 
+
+     arma % % nu_conteaza 
+
+]
+
+
+regula  %%  70  
+ 
+personaj  %%  triss  factor certitudine %%  89 
+ 
+enum conditii [
+ 
+     rasa % % om 
+
+     not masculin 
+
+     par % % roscat 
+
+     ocupatie % % nu_conteaza 
+
+     afiliere % % nu_conteaza 
+
+     metoda_de_lupta % % nu_conteaza 
+
+]
+
+
+scop personaj 
