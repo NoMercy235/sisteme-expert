@@ -44,7 +44,12 @@ public class ExpeditorMesaje extends Thread{
         PrintStream ps=new PrintStream(pos);
         // pune punct automat la finalul comenzii ca sa nu mai punem noi din interfata
         mesaj = mesaj.contains(":") ? mesaj : mesaj.replaceAll(" ", "_");
-        ps.println(mesaj + ".");
+        if(mesaj.contains("[")){
+            Fereastra.fereastra.givenAnswers.push(Fereastra.fereastra.getQuestion());
+            Fereastra.fereastra.givenAnswers.push(mesaj);
+        }
+        mesaj += ".";
+        ps.println(mesaj);
         System.out.println("am trimis" + "  " + mesaj);
         ps.flush();
     }

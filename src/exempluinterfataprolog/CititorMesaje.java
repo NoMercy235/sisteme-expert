@@ -1,6 +1,11 @@
 package exempluinterfataprolog;
 
 import static exempluinterfataprolog.Fereastra.fereastra;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
@@ -50,6 +55,57 @@ public class CititorMesaje extends Thread {
     public CititorMesaje(ConexiuneProlog _conexiune, ServerSocket _servs) throws IOException{
         servs=_servs;
         conexiune=_conexiune;
+    }
+    
+    public void askToSave(){
+        if(Fereastra.dialogResult != -1) return;
+            else
+            Fereastra.dialogResult = -2;
+        
+        Fereastra.dialogResult = JOptionPane.showConfirmDialog (null, 
+                                     "Doriti sa salvati acest query?",
+                                     "Warning",
+                                     Fereastra.dialogButton);
+                                
+        if(Fereastra.dialogResult == 0){
+            //YES
+            String queryName = "";
+            do{
+                queryName = JOptionPane.showInputDialog(Fereastra.results, 
+                                        "Cu ce nume doriti sa salvati?");
+                if(queryName != null && queryName.equals("")){
+                    JOptionPane.showMessageDialog(Fereastra.results, 
+                            "Numele introdus nu este corect!");
+                }
+            }while(queryName != null && queryName.equals(""));
+            
+            if(queryName == null){
+                JOptionPane.showMessageDialog(Fereastra.results, 
+                            "Salvarea a fost anulata!");
+                return;
+            }
+            try{
+                File file = new File(Fereastra.pathToMyProject + "log_witcher3/query_" + queryName + ".txt");
+
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                
+                FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                for(int i = 0; i < Fereastra.fereastra.givenAnswers.size(); i++){
+                    bw.write(Fereastra.fereastra.givenAnswers.get(i));
+                    bw.newLine();
+                }
+                bw.close();
+
+            }catch(IOException ex){
+                System.out.println(ex);
+            }
+        }
+        else{
+            //NO
+        }
     }
     
     @Override
@@ -112,6 +168,7 @@ public class CititorMesaje extends Thread {
                             }
                             else
                             if(sirDeScris.matches("[a-z]+[\\s][a-z]+[\\s][0-9]+")){
+                                Fereastra.fereastra.disableAutoQuery();
                                 if(!(sirDeScris.equals(""))){
                                     if(Fereastra.results == null || !Fereastra.results.isVisible()){
                                         Fereastra.results = new Results();
@@ -119,11 +176,16 @@ public class CititorMesaje extends Thread {
                                     }
                                     Fereastra.results.addResult(sirDeScris);
                                 }
+                                if(!Fereastra.bHasAutoQuery)
+                                    askToSave();
                                 Fereastra.fereastra.activateReset();
                             }
                             else
                             if(sirDeScris.contains("Nu exista")){
+                                Fereastra.fereastra.disableAutoQuery();
                                 JOptionPane.showMessageDialog(Fereastra.fereastra, "Nu a fost gasit niciun rezultat!");
+                                if(!Fereastra.bHasAutoQuery)
+                                    askToSave();
                                 Fereastra.fereastra.activateReset();
                             }
                             else
@@ -146,5 +208,6 @@ public class CititorMesaje extends Thread {
             Logger.getLogger(CititorMesaje.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-            
+      
+    
 }

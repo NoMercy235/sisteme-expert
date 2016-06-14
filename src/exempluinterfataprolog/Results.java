@@ -1,24 +1,13 @@
 package exempluinterfataprolog;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.ScrollPane;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -27,11 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextPane;
 
 public class Results extends javax.swing.JFrame {
 
@@ -86,9 +72,14 @@ public class Results extends javax.swing.JFrame {
 
     public void addResult(String result){
         final String[] parsed = result.split(" ");
-        if(Integer.valueOf(parsed[2]) < 50) return;
+        boolean bTooLow = false;
+        if(Integer.valueOf(parsed[2]) < 50){ 
+            bTooLow = true;
+        }
             
-        String displayedTex = "Rezultatul este: " + parsed[1].substring(0, 1).toUpperCase() +
+        String displayedTex = 
+                bTooLow ? "Rezultatul obtinut este prea mic pentru a fi afisat" :
+                "Rezultatul este: " + parsed[1].substring(0, 1).toUpperCase() +
                 parsed[1].substring(1) + " cu factor de certitudine: " + parsed[2];
         
         JPanel panel = new JPanel();
@@ -102,36 +93,36 @@ public class Results extends javax.swing.JFrame {
         lbRes.setVisible(true);
         element.add(lbRes);
         
-        BufferedImage img = getResultImage(parsed[1]);
-        Image aux = img.getScaledInstance(200, 280, Image.SCALE_SMOOTH);
-        if(img != null){
-            JLabel picLabel = new JLabel(new ImageIcon(aux));
-            picLabel.setSize(dim);
-            picLabel.setOpaque(true);
-            picLabel.setLayout(null);
-            picLabel.setSize(200, 200);
-            element.add(picLabel);
-         
-            element.revalidate();
-            element.repaint();
-        }
-       
-        JButton btnDem = new JButton("Demonstratie pentru " + 
-                parsed[1].substring(0, 1).toUpperCase() + parsed[1].substring(1));
-        btnDem.setName("btn" + parsed[1]);
-        btnDem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ResultDemonstration rd = new ResultDemonstration(parsed[1]);
-                rd.setVisible(true);
+        if(!bTooLow){
+            BufferedImage img = getResultImage(parsed[1]);
+            Image aux = img.getScaledInstance(200, 280, Image.SCALE_SMOOTH);
+            if(img != null){
+                JLabel picLabel = new JLabel(new ImageIcon(aux));
+                picLabel.setSize(dim);
+                picLabel.setOpaque(true);
+                picLabel.setLayout(null);
+                picLabel.setSize(200, 200);
+                element.add(picLabel);
+
+                element.revalidate();
+                element.repaint();
             }
-        });
-        btnDem.setVisible(true);
-        element.add(btnDem);
-//        readFile(parsed[1]);
+
+            JButton btnDem = new JButton("Demonstratie pentru " + 
+                    parsed[1].substring(0, 1).toUpperCase() + parsed[1].substring(1));
+            btnDem.setName("btn" + parsed[1]);
+            btnDem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ResultDemonstration rd = new ResultDemonstration(parsed[1]);
+                    rd.setVisible(true);
+                }
+            });
+            btnDem.setVisible(true);
+            element.add(btnDem);
+        }
+        
         panel.add(element);
-//       jResultsPanel.add(jScrollPane1);
-//       jResultsPanel.add(picLabel);
         JSeparator sepPictures = new JSeparator();
         sepPictures.setForeground(java.awt.Color.blue);
         panel.add(sepPictures);

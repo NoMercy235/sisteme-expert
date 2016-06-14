@@ -29,16 +29,16 @@ public class ResultDemonstration extends javax.swing.JFrame {
         
         jDemonstrationPanel.setLayout(new BoxLayout(jDemonstrationPanel, BoxLayout.Y_AXIS));
         
-        writeDemonstration(character);
+        readDemonstration(character);
     }
     
-    void writeDemonstration(String character){
+    void readDemonstration(String character){
          JTextPane text = new JTextPane();
         text.setMaximumSize(new Dimension(300, 300));
         
         String demonstration = "";
         String line;
-        File file = new File("C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project/log_witcher3/demonstratie_personaj=" + character + ".txt");
+        File file = new File(Fereastra.pathToMyProject + "log_witcher3/demonstratie_personaj=" + character + ".txt");
         
         try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
             while ((line = br.readLine()) != null) {
