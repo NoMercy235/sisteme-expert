@@ -437,9 +437,9 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_btWhyActionPerformed
 
     private void bIncarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIncarcaActionPerformed
-         try {    
+        try {    
 //            String comanda = "comanda(incarca('F:/NgenH/Projects/Prolog/ExempluInterfataProlog/my_project/my_projectmy_rules.txt'))";
-            String comanda = "comanda(incarca('C:/Users/AlexandruFlorian/Desktop/Sisteme expert/sisteme-expert/my_project'))";
+            String comanda = "comanda(incarca('" + pathToMyProject + "'))";
 //	String comanda = "comanda(incarca('C:/Users/Izabela/Desktop/sistemeExeperProiect/sisteme-expert/my_project'))";
 	conexiune.expeditor.trimiteMesajSicstus(comanda);
         bConsulta.setEnabled(true);
