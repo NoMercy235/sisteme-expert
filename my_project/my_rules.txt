@@ -925,7 +925,7 @@ text : 'Personajul este orfan?' ;
 variante : [da ; nu ] ].
 
 intrebare [ nelegiuit ;
-text : 'Personajul este nelegiut?' ;
+text : 'Personajul este nelegiuit?' ;
 variante : [da ; nu ] ].
 
 intrebare [ sange_nobil ;
@@ -934,7 +934,7 @@ variante : [da ; nu] ].
 
 intrebare [ arma ;
 text : 'Ce arma foloseste?' ;
-variante : [pumni ; arc_si_sageti ; savie ; cutit ; topor ; nu_foloseste ; nu_conteaza] ].
+variante : [pumni ; arc_si_sageti ; sabie ; cutit ; topor ; nu_foloseste ; nu_conteaza] ].
 
 intrebare [ magie ;
 text : 'Ce magii poate face?' ;

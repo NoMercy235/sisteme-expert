@@ -21,7 +21,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
@@ -425,7 +424,7 @@ public class Fereastra extends javax.swing.JFrame {
 
     private void btWhyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btWhyActionPerformed
         if(bHasAsked == true){
-            JOptionPane.showMessageDialog(Fereastra.fereastra, "Ati intrebat deja o data! PA!");
+            JOptionPane.showMessageDialog(Fereastra.fereastra, "Ati intrebat deja o data!");
             return;
         }
         try {
