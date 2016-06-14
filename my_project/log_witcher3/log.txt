@@ -117,22 +117,22 @@ enum conditii [
 
 scop personaj 
 omoara
-regula  %%  30  
+regula  %%  28  
  
-ocupatie  %%  nu_conteaza  factor certitudine %%  99 
+ocupatie  %%  vrajitoare  factor certitudine %%  99 
  
 enum conditii [
  
      omoara % % nimic 
 
-     not studiaza 
+     studiaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -140,35 +140,35 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
 
 scop personaj 
 studiaza
-regula  %%  31  
+regula  %%  28  
  
-ocupatie  %%  nu_conteaza  factor certitudine %%  98 
+ocupatie  %%  vrajitoare  factor certitudine %%  99 
  
 enum conditii [
  
-     omoara % % nu_conteaza 
+     omoara % % nimic 
 
-     not studiaza 
+     studiaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -176,13 +176,13 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
@@ -202,24 +202,24 @@ enum conditii [
 ]
 
 
-regula  %%  26  
+regula  %%  18  
  
-afiliere  %%  nu_conteaza  factor certitudine %%  93 
+afiliere  %%  lodge_of_sorceresses  factor certitudine %%  93 
  
 enum conditii [
  
      locatie % % nu_conteaza 
 
-     not studiaza 
+     studiaza 
 
      istoric % % nu_conteaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -227,13 +227,13 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
@@ -253,24 +253,24 @@ enum conditii [
 ]
 
 
-regula  %%  26  
+regula  %%  18  
  
-afiliere  %%  nu_conteaza  factor certitudine %%  93 
+afiliere  %%  lodge_of_sorceresses  factor certitudine %%  93 
  
 enum conditii [
  
      locatie % % nu_conteaza 
 
-     not studiaza 
+     studiaza 
 
      istoric % % nu_conteaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -278,13 +278,13 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
@@ -306,24 +306,24 @@ enum conditii [
 ]
 
 
-regula  %%  26  
+regula  %%  18  
  
-afiliere  %%  nu_conteaza  factor certitudine %%  93 
+afiliere  %%  lodge_of_sorceresses  factor certitudine %%  93 
  
 enum conditii [
  
      locatie % % nu_conteaza 
 
-     not studiaza 
+     studiaza 
 
      istoric % % nu_conteaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -331,13 +331,13 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
@@ -359,24 +359,24 @@ enum conditii [
 ]
 
 
-regula  %%  26  
+regula  %%  18  
  
-afiliere  %%  nu_conteaza  factor certitudine %%  93 
+afiliere  %%  lodge_of_sorceresses  factor certitudine %%  93 
  
 enum conditii [
  
      locatie % % nu_conteaza 
 
-     not studiaza 
+     studiaza 
 
      istoric % % nu_conteaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -384,13 +384,13 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
@@ -412,24 +412,24 @@ enum conditii [
 ]
 
 
-regula  %%  26  
+regula  %%  18  
  
-afiliere  %%  nu_conteaza  factor certitudine %%  93 
+afiliere  %%  lodge_of_sorceresses  factor certitudine %%  93 
  
 enum conditii [
  
      locatie % % nu_conteaza 
 
-     not studiaza 
+     studiaza 
 
      istoric % % nu_conteaza 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -437,52 +437,52 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
 
 scop personaj 
 mananca
-regula  %%  37  
+regula  %%  34  
  
-constitutie  %%  nu_conteaza  factor certitudine %%  98 
+constitutie  %%  normal  factor certitudine %%  99 
  
 enum conditii [
  
-     mananca % % nu_conteaza 
+     mananca % % omnivor 
 
-     not se_antreneaza 
+     se_antreneaza 
 
 ]
 
 
-regula  %%  45  
+regula  %%  43  
  
-metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+metoda_de_lupta  %%  magician  factor certitudine %%  94 
  
 enum conditii [
  
      istoric % % nu_conteaza 
 
-     constitutie % % nu_conteaza 
+     constitutie % % normal 
 
-     magie % % nu_conteaza 
+     magie % % vraji 
 
-     arma % % nu_conteaza 
+     arma % % nu_foloseste 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -490,52 +490,52 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
 
 scop personaj 
 se_antreneaza
-regula  %%  37  
+regula  %%  34  
  
-constitutie  %%  nu_conteaza  factor certitudine %%  98 
+constitutie  %%  normal  factor certitudine %%  99 
  
 enum conditii [
  
-     mananca % % nu_conteaza 
+     mananca % % omnivor 
 
-     not se_antreneaza 
+     se_antreneaza 
 
 ]
 
 
-regula  %%  45  
+regula  %%  43  
  
-metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+metoda_de_lupta  %%  magician  factor certitudine %%  94 
  
 enum conditii [
  
      istoric % % nu_conteaza 
 
-     constitutie % % nu_conteaza 
+     constitutie % % normal 
 
-     magie % % nu_conteaza 
+     magie % % vraji 
 
-     arma % % nu_conteaza 
+     arma % % nu_foloseste 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -543,39 +543,39 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
 
 scop personaj 
 magie
-regula  %%  45  
+regula  %%  43  
  
-metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+metoda_de_lupta  %%  magician  factor certitudine %%  94 
  
 enum conditii [
  
      istoric % % nu_conteaza 
 
-     constitutie % % nu_conteaza 
+     constitutie % % normal 
 
-     magie % % nu_conteaza 
+     magie % % vraji 
 
-     arma % % nu_conteaza 
+     arma % % nu_foloseste 
 
 ]
 
 
-regula  %%  70  
+regula  %%  90  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  philippa  factor certitudine %%  95 
  
 enum conditii [
  
@@ -583,39 +583,39 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % magician 
 
 ]
 
 
 scop personaj 
 arma
-regula  %%  45  
+regula  %%  44  
  
-metoda_de_lupta  %%  nu_conteaza  factor certitudine %%  91 
+metoda_de_lupta  %%  necromancer  factor certitudine %%  94 
  
 enum conditii [
  
      istoric % % nu_conteaza 
 
-     constitutie % % nu_conteaza 
+     constitutie % % normal 
 
-     magie % % nu_conteaza 
+     magie % % necromancing 
 
-     arma % % nu_conteaza 
+     arma % % nu_foloseste 
 
 ]
 
 
-regula  %%  70  
+regula  %%  97  
  
-personaj  %%  triss  factor certitudine %%  89 
+personaj  %%  yennefer  factor certitudine %%  95 
  
 enum conditii [
  
@@ -623,13 +623,13 @@ enum conditii [
 
      not masculin 
 
-     par % % roscat 
+     par % % negru 
 
-     ocupatie % % nu_conteaza 
+     ocupatie % % vrajitoare 
 
-     afiliere % % nu_conteaza 
+     afiliere % % lodge_of_sorceresses 
 
-     metoda_de_lupta % % nu_conteaza 
+     metoda_de_lupta % % necromancer 
 
 ]
 

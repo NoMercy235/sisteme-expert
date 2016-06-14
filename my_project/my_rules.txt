@@ -193,7 +193,7 @@ enum conditii
 regula nr %% 27
 ocupatie %% witcher fact certitudine %% 99
 enum conditii
- [omoara %% monstri],
+ [omoara %% monstrii],
  [studiaza].
  
 regula nr %% 28

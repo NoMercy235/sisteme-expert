@@ -483,16 +483,10 @@ public class Fereastra extends javax.swing.JFrame {
     }//GEN-LAST:event_bConsultaActionPerformed
 
     private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed
-       bIncarca.setEnabled(true);
-       String comanda = "comanda(reinitiaza)";
-        try {
-            conexiune.expeditor.trimiteMesajSicstus(comanda);
-            clearAll();
-            init();
-            resetConnection();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Fereastra.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        bIncarca.setEnabled(true);
+        clearAll();
+        init();
+        resetConnection();
     }//GEN-LAST:event_bResetActionPerformed
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
