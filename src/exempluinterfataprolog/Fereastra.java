@@ -403,7 +403,9 @@ public class Fereastra extends javax.swing.JFrame {
                 sb.append(selectedfiles[i].getAbsolutePath());
             }
         }
-        
+        if(fc.getSelectedFiles().length == 0){
+            return;
+        }
         bHasAutoQuery = true;
         
         String path = sb.toString().replace("\\", "/");

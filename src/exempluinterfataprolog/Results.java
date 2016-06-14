@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +32,8 @@ public class Results extends javax.swing.JFrame {
         this.setLocation(dim.width/2 - this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setTitle("Rezultate");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        
+        BoxLayout layout = new BoxLayout(jResultsPanel, BoxLayout.Y_AXIS);
         
         jResultsPanel.setLayout(new BoxLayout(jResultsPanel, BoxLayout.Y_AXIS));
     }
@@ -92,10 +95,12 @@ public class Results extends javax.swing.JFrame {
         lbRes.setFont(new Font("Monotype Corsiva", Font.BOLD, 20));
         lbRes.setVisible(true);
         element.add(lbRes);
+        element.add(Box.createRigidArea(new Dimension(5,0)));
+
         
         if(!bTooLow){
             BufferedImage img = getResultImage(parsed[1]);
-            Image aux = img.getScaledInstance(200, 280, Image.SCALE_SMOOTH);
+            Image aux = img.getScaledInstance(280, 280, Image.SCALE_SMOOTH);
             if(img != null){
                 JLabel picLabel = new JLabel(new ImageIcon(aux));
                 picLabel.setSize(dim);
