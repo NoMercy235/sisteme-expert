@@ -1,0 +1,12 @@
+[nu]
+Personajul studiaza?
+[nimic]
+Ce vaneaza personajul?
+[negru]
+Ce culoare are parul?
+[nu]
+Personajul este de sex masculin?
+[alba]
+Care este culoarea pielii?
+[medie]
+Care este inaltimea personajului?

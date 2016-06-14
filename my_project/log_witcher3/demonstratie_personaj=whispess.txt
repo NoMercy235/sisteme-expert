@@ -1,0 +1,120 @@
+
+personaj % % whispess a fost derivat cu ajutorul regulilor:  81 
+
+regula  %%  81 
+personaj  %%  whispess  factor certitudine %%  95 
+enum conditii [ 
+     rasa % % monstru 
+     not masculin 
+     par % % alb 
+     ocupatie % % vrajitoare 
+     afiliere % % ladies_of_the_woods 
+     metoda_de_lupta % % magician 
+]
+rasa % % monstru a fost derivat cu ajutorul regulilor:  6 
+
+regula  %%  6 
+rasa  %%  monstru  factor certitudine %%  99 
+enum conditii [ 
+     inaltime % % oricare 
+     culoarea_pielii % % alta 
+]
+inaltime % % oricare a fost derivat cu ajutorul regulilor:  utiliz 
+
+culoarea_pielii % % alta a fost derivat cu ajutorul regulilor:  utiliz 
+
+not masculin a fost derivat cu ajutorul regulilor:  utiliz 
+
+par % % alb a fost derivat cu ajutorul regulilor:  utiliz 
+
+ocupatie % % vrajitoare a fost derivat cu ajutorul regulilor:  28 
+
+regula  %%  28 
+ocupatie  %%  vrajitoare  factor certitudine %%  99 
+enum conditii [ 
+     omoara % % nu_conteaza 
+     studiaza 
+]
+omoara % % nu_conteaza a fost derivat cu ajutorul regulilor:  utiliz 
+
+studiaza a fost derivat cu ajutorul regulilor:  utiliz 
+
+afiliere % % ladies_of_the_woods a fost derivat cu ajutorul regulilor:  19 
+
+regula  %%  19 
+afiliere  %%  ladies_of_the_woods  factor certitudine %%  94 
+enum conditii [ 
+     locatie % % croockbag_bog 
+     studiaza 
+     istoric % % nu_conteaza 
+]
+locatie % % croockbag_bog a fost derivat cu ajutorul regulilor:  13 
+
+regula  %%  13 
+locatie  %%  croockbag_bog  factor certitudine %%  98 
+enum conditii [ 
+     venit % % nu_conteaza 
+     zona_preferata % % campie 
+]
+venit % % nu_conteaza a fost derivat cu ajutorul regulilor:  utiliz 
+
+zona_preferata % % campie a fost derivat cu ajutorul regulilor:  utiliz 
+
+studiaza a fost derivat cu ajutorul regulilor:  utiliz 
+
+istoric % % nu_conteaza a fost derivat cu ajutorul regulilor:  9 
+
+regula  %%  9 
+istoric  %%  nu_conteaza  factor certitudine %%  99 
+enum conditii [ 
+     not nelegiuit 
+     not sange_nobil 
+     not orfan 
+]
+not nelegiuit a fost derivat cu ajutorul regulilor:  utiliz 
+
+not sange_nobil a fost derivat cu ajutorul regulilor:  utiliz 
+
+not orfan a fost derivat cu ajutorul regulilor:  utiliz 
+
+metoda_de_lupta % % magician a fost derivat cu ajutorul regulilor:  44 
+
+regula  %%  44 
+metoda_de_lupta  %%  magician  factor certitudine %%  94 
+enum conditii [ 
+     istoric % % nu_conteaza 
+     constitutie % % normal 
+     magie % % vraji 
+     arma % % nu_foloseste 
+]
+istoric % % nu_conteaza a fost derivat cu ajutorul regulilor:  9 
+
+regula  %%  9 
+istoric  %%  nu_conteaza  factor certitudine %%  99 
+enum conditii [ 
+     not nelegiuit 
+     not sange_nobil 
+     not orfan 
+]
+not nelegiuit a fost derivat cu ajutorul regulilor:  utiliz 
+
+not sange_nobil a fost derivat cu ajutorul regulilor:  utiliz 
+
+not orfan a fost derivat cu ajutorul regulilor:  utiliz 
+
+constitutie % % normal a fost derivat cu ajutorul regulilor:  34 
+
+regula  %%  34 
+constitutie  %%  normal  factor certitudine %%  99 
+enum conditii [ 
+     mananca % % omnivor 
+     se_antreneaza 
+]
+mananca % % omnivor a fost derivat cu ajutorul regulilor:  utiliz 
+
+se_antreneaza a fost derivat cu ajutorul regulilor:  utiliz 
+
+magie % % vraji a fost derivat cu ajutorul regulilor:  utiliz 
+
+arma % % nu_foloseste a fost derivat cu ajutorul regulilor:  utiliz 
+

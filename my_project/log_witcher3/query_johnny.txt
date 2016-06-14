@@ -1,0 +1,30 @@
+[arc_si_sageti]
+Ce arma foloseste?
+[nu_foloseste]
+Ce magii poate face?
+[da]
+Se antreneaza?
+[omnivor]
+Ce fel de mancare prefera?
+[nu]
+Personajul este orfan?
+[nu]
+Este de sange nobil?
+[nu]
+Personajul este nelegiuit?
+[nu_conteaza]
+Unde prefera sa stea?
+[nu_conteaza]
+Care este venitul sau?
+[nu]
+Personajul studiaza?
+[nu_conteaza]
+Ce vaneaza personajul?
+[brunet]
+Ce culoare are parul?
+[da]
+Personajul este de sex masculin?
+[alba]
+Care este culoarea pielii?
+[mica]
+Care este inaltimea personajului?
