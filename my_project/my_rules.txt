@@ -130,7 +130,7 @@ regula nr %% 19
 afiliere %% ladies_of_the_woods fact certitudine %% 94
 enum conditii
  [locatie %% croockbag_bog], 
- [not studiaza],
+ [studiaza],
  [istoric %% nu_conteaza].
  
 regula nr %% 20
@@ -151,7 +151,7 @@ regula nr %% 22
 afiliere %% viper_scool fact certitudine %% 94
 enum conditii
  [locatie %% nu_conteaza], 
- [not studiaza],
+ [studiaza],
  [istoric %% criminal].
  
 regula nr %% 23
@@ -199,7 +199,7 @@ enum conditii
 regula nr %% 28
 ocupatie %% vrajitoare fact certitudine %% 99
 enum conditii
- [omoara %% nimic],
+ [omoara %% nu_conteaza],
  [studiaza].
  
 regula nr %% 29
@@ -209,10 +209,10 @@ enum conditii
  [not studiaza].
  
 regula nr %% 30
-ocupatie %% nu_conteaza fact certitudine %% 99
+ocupatie %% nobil fact certitudine %% 99
 enum conditii
  [omoara %% nimic],
- [not studiaza].
+ [studiaza].
  
 regula nr %% 31
 ocupatie %% nu_conteaza fact certitudine %% 98
@@ -290,14 +290,22 @@ enum conditii
  [arma %% sabie].
  
 regula nr %% 41
-metoda_de_lupta %% freestyle fact certitudine %% 94
+metoda_de_lupta %% time_travel fact certitudine %% 94
 enum conditii
- [istoric %% nu_conteaza],
+ [istoric %% nobil],
+ [constitutie %% normal],
+ [magie %% vraji],
+ [arma %% nu_foloseste].
+
+regula nr %% 42
+metoda_de_lupta %% strategist fact certitudine %% 94
+enum conditii
+ [istoric %% nobil],
  [constitutie %% normal],
  [magie %% nu_foloseste],
- [arma %% pumni].
+ [arma %% nu_foloseste].
  
-regula nr %% 42
+regula nr %% 43
 metoda_de_lupta %% alergator fact certitudine %% 94
 enum conditii
  [istoric %% nu_conteaza],
@@ -305,7 +313,7 @@ enum conditii
  [magie %% nu_foloseste],
  [arma %% nu_foloseste].
  
-regula nr %% 43
+regula nr %% 44
 metoda_de_lupta %% magician fact certitudine %% 94
 enum conditii
  [istoric %% nu_conteaza],
@@ -313,7 +321,7 @@ enum conditii
  [magie %% vraji],
  [arma %% nu_foloseste].
  
-regula nr %% 44
+regula nr %% 45
 metoda_de_lupta %% necromancer fact certitudine %% 94
 enum conditii
  [istoric %% nu_conteaza],
@@ -321,7 +329,7 @@ enum conditii
  [magie %% necromancing],
  [arma %% nu_foloseste].
  
-regula nr %% 45
+regula nr %% 46
 metoda_de_lupta %% nu_conteaza fact certitudine %% 91
 enum conditii
  [istoric %% nu_conteaza],
@@ -333,7 +341,7 @@ enum conditii
 
 
 
-regula nr %% 46
+regula nr %% 47
 personaj %% triss fact certitudine %% 93
 enum conditii
  [rasa %% om],
@@ -343,7 +351,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% nu_conteaza]. 
  
-regula nr %% 47
+regula nr %% 48
 personaj %% yennefer fact certitudine %% 93
 enum conditii
  [rasa %% om],
@@ -353,7 +361,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% nu_conteaza].  
  
-regula nr %% 48
+regula nr %% 49
 personaj %% keira fact certitudine %% 93
 enum conditii
  [rasa %% om],
@@ -363,7 +371,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% nu_conteaza].
 
-regula nr %% 49
+regula nr %% 50
 personaj %% philippa fact certitudine %% 93
 enum conditii
  [rasa %% om],
@@ -374,7 +382,7 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza]. 
  
 
-regula nr %% 50
+regula nr %% 51
 personaj %% geralt fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -384,7 +392,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza]. 
  
-regula nr %% 51
+regula nr %% 52
 personaj %% vesemir fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -394,7 +402,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza]. 
  
-regula nr %% 52
+regula nr %% 53
 personaj %% eskel fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -404,7 +412,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza]. 
  
-regula nr %% 53
+regula nr %% 54
 personaj %% letho fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -415,7 +423,7 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza]. 
  
  
-regula nr %% 54
+regula nr %% 55
 personaj %% geralt fact certitudine %% 93
 enum conditii
  [rasa %% om],
@@ -425,7 +433,7 @@ enum conditii
  [afiliere %% wolf_school],
  [metoda_de_lupta %% nu_conteaza]. 
  
-regula nr %% 55
+regula nr %% 56
 personaj %% vesemir fact certitudine %% 93
 enum conditii
  [rasa %% om],
@@ -436,7 +444,7 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza].
 
  
-regula nr %% 56
+regula nr %% 57
 personaj %% cerys fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -446,7 +454,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza]. 
  
-regula nr %% 57
+regula nr %% 58
 personaj %% anna fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -457,18 +465,8 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza]. 
  
 
-regula nr %% 58
-personaj %% radovid fact certitudine %% 92
-enum conditii
- [rasa %% om],
- [masculin], 
- [par %% nu_conteaza],
- [ocupatie %% nobil],
- [afiliere %% nu_conteaza],
- [metoda_de_lupta %% nu_conteaza].
- 
 regula nr %% 59
-personaj %% emhyr fact certitudine %% 92
+personaj %% radovid fact certitudine %% 92
 enum conditii
  [rasa %% om],
  [masculin], 
@@ -478,6 +476,16 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza].
  
 regula nr %% 60
+personaj %% emhyr fact certitudine %% 92
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nobil],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza].
+ 
+regula nr %% 61
 personaj %% sigismund fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -489,7 +497,7 @@ enum conditii
  
  
  
-regula nr %% 61
+regula nr %% 62
 personaj %% sigismund fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -499,7 +507,7 @@ enum conditii
  [afiliere %% redania],
  [metoda_de_lupta %% nu_conteaza].
  
-regula nr %% 62
+regula nr %% 63
 personaj %% radovid fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -510,7 +518,7 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza].
  
 
-regula nr %% 63
+regula nr %% 64
 personaj %% keira fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -520,7 +528,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% magician].
  
-regula nr %% 64
+regula nr %% 65
 personaj %% ciri fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -528,9 +536,9 @@ enum conditii
  [par %% nu_conteaza],
  [ocupatie %% nu_conteaza],
  [afiliere %% nu_conteaza],
- [metoda_de_lupta %% magician].
+ [metoda_de_lupta %% time_travel].
  
-regula nr %% 65
+regula nr %% 66
 personaj %% triss fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -540,7 +548,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% magician].
 
-regula nr %% 66
+regula nr %% 67
 personaj %% philippa fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -554,7 +562,7 @@ enum conditii
  
  
  
-regula nr %% 67
+regula nr %% 68
 personaj %% keira fact certitudine %% 94
 enum conditii
  [rasa %% om],
@@ -564,7 +572,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% magician].
  
-regula nr %% 68
+regula nr %% 69
 personaj %% triss fact certitudine %% 94
 enum conditii
  [rasa %% om],
@@ -574,7 +582,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% magician].
 
-regula nr %% 69
+regula nr %% 70
 personaj %% philippa fact certitudine %% 94
 enum conditii
  [rasa %% om],
@@ -586,7 +594,7 @@ enum conditii
  
  
  
-regula nr %% 70
+regula nr %% 71
 personaj %% triss fact certitudine %% 89
 enum conditii
  [rasa %% om],
@@ -596,7 +604,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza].
  
-regula nr %% 71
+regula nr %% 72
 personaj %% cerys fact certitudine %% 94
 enum conditii
  [rasa %% om],
@@ -606,7 +614,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza].
  
-regula nr %% 72
+regula nr %% 73
 personaj %% anna fact certitudine %% 94
 enum conditii
  [rasa %% om],
@@ -617,7 +625,7 @@ enum conditii
  [metoda_de_lupta %% nu_conteaza].
  
  
-regula nr %% 73
+regula nr %% 74
 personaj %% radovid fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -625,9 +633,9 @@ enum conditii
  [par %% nu_conteaza],
  [ocupatie %% nu_conteaza],
  [afiliere %% nu_conteaza],
- [metoda_de_lupta %% spadasin].
+ [metoda_de_lupta %% strategist].
  
-regula nr %% 74
+regula nr %% 75
 personaj %% geralt fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -637,7 +645,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% spadasin].
  
-regula nr %% 75
+regula nr %% 76
 personaj %% vesemir fact certitudine %% 92
 enum conditii
  [rasa %% om],
@@ -649,7 +657,7 @@ enum conditii
  
 
  
-regula nr %% 76
+regula nr %% 77
 personaj %% geralt fact certitudine %% 94
 enum conditii
  [rasa %% om],
@@ -659,8 +667,8 @@ enum conditii
  [afiliere %% wolf_school],
  [metoda_de_lupta %% spadasin].
  
-regula nr %% 77
-personaj %% vesemir fact certitudine %% 94
+regula nr %% 78
+personaj %% vesemir fact certitudine %% 89
 enum conditii
  [rasa %% om],
  [masculin], 
@@ -672,7 +680,7 @@ enum conditii
 
 
  
-regula nr %% 78
+regula nr %% 79
 personaj %% weavess fact certitudine %% 95
 enum conditii
  [rasa %% monstru],
@@ -682,7 +690,7 @@ enum conditii
  [afiliere %% ladies_of_the_woods],
  [metoda_de_lupta %% magician].  
  
-regula nr %% 79
+regula nr %% 80
 personaj %% brewess fact certitudine %% 95
 enum conditii
  [rasa %% monstru],
@@ -692,7 +700,7 @@ enum conditii
  [afiliere %% ladies_of_the_woods],
  [metoda_de_lupta %% magician].
  
-regula nr %% 80
+regula nr %% 81
 personaj %% whispess fact certitudine %% 95
 enum conditii
  [rasa %% monstru],
@@ -703,8 +711,8 @@ enum conditii
  [metoda_de_lupta %% magician].
 
  
-regula nr %% 81
-personaj %% the_allgod fact certitudine %% 95
+regula nr %% 82
+personaj %% allgod fact certitudine %% 95
 enum conditii
  [rasa %% gigant],
  [masculin], 
@@ -713,7 +721,7 @@ enum conditii
  [afiliere %% nu_conteaza],
  [metoda_de_lupta %% nu_conteaza].
 
-regula nr %% 82
+regula nr %% 83
 personaj %% johnny fact certitudine %% 95
 enum conditii
  [rasa %% pitic],
@@ -724,7 +732,7 @@ enum conditii
  [metoda_de_lupta %% arcas].
   
  
-regula nr %% 83
+regula nr %% 84
 personaj %% cerys fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -735,7 +743,7 @@ enum conditii
  [metoda_de_lupta %% spadasin]. 
  
  
-regula nr %% 84
+regula nr %% 85
 personaj %% anna fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -746,7 +754,7 @@ enum conditii
  [metoda_de_lupta %% alergator]. 
  
  
-regula nr %% 85
+regula nr %% 86
 personaj %% eskel fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -756,7 +764,7 @@ enum conditii
  [afiliere %% kaer_morhen],
  [metoda_de_lupta %% arcas].
  
-regula nr %% 86
+regula nr %% 87
 personaj %% priscilla fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -766,7 +774,7 @@ enum conditii
  [afiliere %% nu_are],
  [metoda_de_lupta %% alergator].
  
-regula nr %% 87
+regula nr %% 88
 personaj %% vesemir fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -776,7 +784,7 @@ enum conditii
  [afiliere %% wolf_school],
  [metoda_de_lupta %% spadasin].
  
-regula nr %% 88
+regula nr %% 89
 personaj %% dandelion fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -786,7 +794,7 @@ enum conditii
  [afiliere %% oxenfurt_university],
  [metoda_de_lupta %% alergator].  
  
-regula nr %% 89
+regula nr %% 90
 personaj %% sigismund fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -796,7 +804,7 @@ enum conditii
  [afiliere %% redania],
  [metoda_de_lupta %% alergator].  
 
-regula nr %% 90
+regula nr %% 91
 personaj %% philippa fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -806,7 +814,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% magician]. 
  
-regula nr %% 91
+regula nr %% 92
 personaj %% emhyr fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -814,9 +822,9 @@ enum conditii
  [par %% negru],
  [ocupatie %% nobil],
  [afiliere %% nilfgaardian],
- [metoda_de_lupta %% alergator]. 
+ [metoda_de_lupta %% strategist]. 
  
-regula nr %% 92
+regula nr %% 93
 personaj %% radovid fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -824,9 +832,9 @@ enum conditii
  [par %% nu_are],
  [ocupatie %% nobil],
  [afiliere %% redania], 
- [metoda_de_lupta %% spadasin].  
+ [metoda_de_lupta %% strategist].  
 
-regula nr %% 93
+regula nr %% 94
 personaj %% letho fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -836,7 +844,7 @@ enum conditii
  [afiliere %% viper_scool], 
  [metoda_de_lupta %% asasin]. 
 
-regula nr %% 94
+regula nr %% 95
 personaj %% keira fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -846,7 +854,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% magician]. 
  
-regula nr %% 95
+regula nr %% 96
 personaj %% ciri fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -854,9 +862,9 @@ enum conditii
  [par %% alb],
  [ocupatie %% witcher],
  [afiliere %% cintra],
- [metoda_de_lupta %% magician]. 
+ [metoda_de_lupta %% time_travel]. 
  
-regula nr %% 96
+regula nr %% 97
 personaj %% triss fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -866,7 +874,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% magician].  
  
-regula nr %% 97
+regula nr %% 98
 personaj %% yennefer fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -876,7 +884,7 @@ enum conditii
  [afiliere %% lodge_of_sorceresses],
  [metoda_de_lupta %% necromancer]. 
 
-regula nr %% 98
+regula nr %% 99
 personaj %% geralt fact certitudine %% 95
 enum conditii
  [rasa %% om],
@@ -885,6 +893,166 @@ enum conditii
  [ocupatie %% witcher],
  [afiliere %% wolf_school],
  [metoda_de_lupta %% spadasin]. 
+
+regula nr %% 100
+personaj %% geralt fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza].
+
+regula nr %% 101
+personaj %% eskel fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 102
+personaj %% vesemir fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 103
+personaj %% dandelion fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza].
+
+regula nr %% 104
+personaj %% sigismund fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza].
+
+regula nr %% 105
+personaj %% emhyr fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 106
+personaj %% radovid fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 107
+personaj %% letho fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 108
+personaj %% triss fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 109
+personaj %% yennefer fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 110
+personaj %% ciri fact certitudine %% 70
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 111
+personaj %% keira fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 112
+personaj %% philippa fact certitudine %% 75
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 113
+personaj %% cerys fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
+
+regula nr %% 114
+personaj %% anna fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza].
+
+regula nr %% 115
+personaj %% priscilla fact certitudine %% 77
+enum conditii
+ [rasa %% om],
+ [not masculin], 
+ [par %% nu_conteaza],
+ [ocupatie %% nu_conteaza],
+ [afiliere %% nu_conteaza],
+ [metoda_de_lupta %% nu_conteaza]. 
  
  
  
