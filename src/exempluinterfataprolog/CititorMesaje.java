@@ -91,7 +91,7 @@ public class CititorMesaje extends Thread {
                     file.createNewFile();
                 }
                 
-                FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+                FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
                 BufferedWriter bw = new BufferedWriter(fw);
                 for(int i = 0; i < Fereastra.fereastra.givenAnswers.size(); i++){
                     bw.write(Fereastra.fereastra.givenAnswers.get(i));

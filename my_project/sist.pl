@@ -251,18 +251,15 @@ scrie_demonstratie_fisier([]).
 
 determina(Atr) :-
 	realizare_scop(av(Atr,_),_,[scop(Atr)]),!.
-% aici trebuie sa facem un caz de nu are solutii
 determina(_).
 
 determina(Atr, Fisier) :- 
 	realizare_scop(av(Atr,_), _, [scop(Atr)], Fisier),!.
-% aici trebuie sa facem un caz de nu are solutii
 determina(_, Fisier).
 
 determina(Atr, Fisier, Stream) :- 
 	realizare_scop(av(Atr,_), _, [scop(Atr)], Fisier, Stream),
 	nl(Stream), flush_output(Stream), !.
-% aici trebuie sa facem un caz de nu are solutii
 determina(_, Fisier, Stream).
 
 afiseaza_scop(Atr) :-
@@ -277,6 +274,7 @@ afiseaza_scop_lista([str(FC, Atr, Val) | T]) :-
 	nl,afiseaza_scop_lista(T).
 afiseaza_scop_lista([]):- nl,nl.
 
+% predicat care scrie solutiile pe Stream (cele de forma personaj ceryss 80)
 afiseaza_scop_lista([str(FC, Atr, Val) | T], Stream) :- 
 	write(Stream),
 	nl, write('sunt in scopuri prin cu stream'), nl,
@@ -463,7 +461,7 @@ interogheaza(Atr,Mesaj,[da,nu],Istorie, Fisier, Stream) :-
 	!,write(Stream, Mesaj),nl, write(Stream, '\n'), flush_output(Stream),
 	de_la_utiliz(X,Istorie,[da,nu], Fisier, Stream),
 	det_val_fc(X,Val,FC),
-	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).  % utiliz = istoric (asa a zis Iza)
+	asserta( fapt(av(Atr,Val),FC,[utiliz]) ).  
 interogheaza(Atr,Mesaj,Optiuni,Istorie, Fisier, Stream) :-
 	scrie_log(Atr, Istorie, Fisier),
 	write(Stream, Mesaj),nl,   % afiseaza mesajul
